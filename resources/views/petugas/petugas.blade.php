@@ -8,6 +8,7 @@
         <meta content="Coderthemes" name="author">
         <!-- App favicon -->
         <link rel="shortcut icon" href="../assets/images/favicon-icon.ico">
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
         <!-- third party css -->
         <link href="../assets/css/vendor/dataTables.bootstrap5.css" rel="stylesheet" type="text/css">
@@ -63,7 +64,7 @@
                                         </span>
                                         <span>
                                             <span class="account-user-name"><?= session('data')->name ?></span>
-                                            <span class="account-position"><?= session('username') ?></span>
+                                            <span class="account-position"><?= session('data')->role ?></span>
                                         </span>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown" aria-labelledby="topbar-userdrop">
@@ -123,7 +124,7 @@
                                             <div class="dropdown-menu" aria-labelledby="topnav-pages">
                                                 <a href="/aset/tanah" class="dropdown-item">Tanah</a>
                                                 <a href="/aset/gedungdanbangunan" class="dropdown-item">Gedung Dan Bangunan</a>
-                                                <a href="/aset/kendaraan dan abulance" class="dropdown-item">Kendaraan dan Ambulance</a>
+                                                <a href="/aset/kendaraandanambulance" class="dropdown-item">Kendaraan dan Ambulance</a>
                                                 <a href="/aset/alattelekomunikasi" class="dropdown-item">Alat Telekomunikasi</a>
                                                 <a href="/aset/alatkantor" class="dropdown-item">Alat Kantor</a>
                                                 <a href="/aset/komputer" class="dropdown-item">Komputer</a>
@@ -247,13 +248,12 @@
                                                             <tr>
                                                             <td><?= $no ?></td>
                                                             <td><?= $user->name ?></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td><?= session('data')->role ?></td>
+                                                            <td><?= $user->id_unit_kerja ?></td>
+                                                            <td><?= $user->id_bidang ?></td>
+                                                            <td><?= $user->id_unit_usaha ?></td>
                                                             <td class="table-action">
-                                                            <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
-                                                            <a data-bs-toggle="modal" data-bs-target="#editpetugas" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
-                                                            <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                                            <a data-bs-toggle="modal" data-bs-target="#editpetugas" class="action-icon" id="editbutton" data-id='<?= $user->id  ?>' data-nama='<?= $user->name ?>' data-unitkerja='<?= $user->name ?>' data-unitusaha='<?= $user->name ?>' data-bidang='<?= $user->name ?>'> <i class="mdi mdi-square-edit-outline"></i></a>
+                                                            <a onclick="return swallnya(<?=$user->id ?>)" href="#" class="action-icon"> <i class="mdi mdi-delete"></i></a>
                                                             </td>
 
                                                         <?php
@@ -316,35 +316,43 @@
                         <span><h3 alt="" height="18"> Tambah Petugas </h3></span>
                 </div>
 
-                <form class="ps-3 pe-3" action="#">
-
+                <form class="ps-3 pe-3" action="/addpetugas" method="POST">
+                    @csrf
                     <div class="mb-3">
                         <label for="text" class="form-label">Nama Kelompok</label>
                         <input class="form-control" name="name" type="text" id="name" required="" placeholder="">
                         <br>
                         <label for="text" class="form-label">Unit Kerja</label>
-                        <select class="form-select" aria-label="Default select example" required >
-                            <option value="">--Pilih unit kerja--</option>
-  <option value="1">One</option>
-  <option value="2">Two</option>
-  <option value="3">Three</option>
+                        <select name="id_unit_kerja" class="form-select" aria-label="Default select example" required >
+                            <option value="">-- Pilih --</option>
+  <option value="">-- Pilih --</option>
+                            <?php
+                                                        foreach($petugas as $unit_kerja) {
+                                                            ?>
+                                                            <option value="<?= $unit_kerja->name ?>"><?= $unit_kerja->name ?></option>
+                                                        <?php
+                                                        }
+                                                        ?>
 </select>
 <br>
       <label for="text" class="form-label">Bidang</label>
-                        <select class="form-select" aria-label="Default select example" required>
-                            <option value="">--Pilih bidang--</option>
-  <option value="1">One</option>
-  <option value="2">Two</option>
-  <option value="3">Three</option>
-</select>
+                        <select name="id_bidang" class="form-select" aria-label="Default select example" required>
+                            <option value="">-- Pilih --</option>
+  <option value="">-- Pilih --</option>
+                            <?php
+                                                        foreach($petugas as $unit_kerja) {
+                                                            ?>
+                                                            <option value="<?= $unit_kerja->name ?>"><?= $unit_kerja->name ?></option>
+                                                        <?php
+                                                        }
+                                                        ?>
 </select>
 <br>
       <label for="text" class="form-label">Unit Usaha</label>
-                        <select class="form-select" aria-label="Default select example" disabled>
-                            <option selected><?= session('data')->role ?></option>
-  <option value="1">One</option>
-  <option value="2">Two</option>
-  <option value="3">Three</option>
+                        <input type="hidden" value="<?= session('data')->name ?>" id='hidid' name="id_unit_usaha">
+                        <select name="" class="form-select" aria-label="Default select example" disabled>
+                            <option value="<?= session('data')->id ?>" ><?= session('data')->name ?></option>
+
 </select>
                     </div>
 
@@ -372,28 +380,37 @@
                         <span><h3 alt="" height="18"> Edit Data </h3></span>
                 </div>
 
-                <form class="ps-3 pe-3" action="#">
-
-                    <div class="mb-3">
-                        <label for="text" class="form-label">Kode</label>
-                        <input class="form-control" name="kode" type="text" id="kode" required="" placeholder="">
-                    </div>
+                <form class="ps-3 pe-3" action="/editpetugas" method="POST">
+                    @csrf
                     <div class="mb-3">
                         <label for="text" class="form-label">Nama Kelompok</label>
-                        <input class="form-control" name="name" type="text" id="name" required="" placeholder="">
-                    </div>
-                    <div class="mb-3">
-                        <label for="image" class="form-label">Choose Image</label>
-                        <input class="form-control" name="image" type="file" id="image" required="" >
-                    </div>
-                    <div class="mb-3">
-                        <label for="text" class="form-label">Username</label>
-                        <input class="form-control" name="username" type="text" id="username" required="Enter your Username" >
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input class="form-control" name="password" type="password" required="" id="password" placeholder="Enter your password">
+                        <input class="form-control" name="name" type="text" id="nameedit" required="" placeholder="">
+                        <input class="form-control" name="id" type="hidden" id="idedit" required="" placeholder="">
+                        <br>
+                        <label for="text" class="form-label">Unit Kerja</label>
+                        <select class="form-select" aria-label="Default select example" required >
+                            <option value="">--Pilih unit kerja--</option>
+  <option value="1">One</option>
+  <option value="2">Two</option>
+  <option value="3">Three</option>
+</select>
+<br>
+      <label for="text" class="form-label">Bidang</label>
+                        <select class="form-select" aria-label="Default select example" required>
+                            <option value="">--Pilih bidang--</option>
+  <option value="1">One</option>
+  <option value="2">Two</option>
+  <option value="3">Three</option>
+</select>
+</select>
+<br>
+      <label for="text" class="form-label">Unit Usaha</label>
+                        <select class="form-select" aria-label="Default select example" disabled>
+                            <option selected><?= session('data')->role ?></option>
+  <option value="1">One</option>
+  <option value="2">Two</option>
+  <option value="3">Three</option>
+</select>
                     </div>
                     </div>
 
@@ -438,6 +455,39 @@
         <!-- demo app -->
         <script src="../assets/js/pages/demo.datatable-init.js"></script>
         <!-- end demo js-->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script>
+            function swallnya(id) {
+    swal({
+      title: "Apakah kamu yakin?",
+      text: "Data yang dihapus tidak bisa dikembalikan",
+      icon: "warning",
+      buttons: [
+        'Tidak',
+        'Ya, saya yakin!'
+      ],
+      dangerMode: true,
+    }).then(function(isConfirm) {
+      if (isConfirm) {
+        window.location.href = '/deletepetugas/'+id;
+      } else {
+      }
+    })
+            }
+            $('[id="editbutton"]').each(function () {
+    $(this).on("click", function () {
+        $('#nameedit').val($(this).data('nama'));
+        $('#hidid').val($(this).data('id'));
+        document.getElementById('id_unit_kerjaedit').value = $(this).data('name');
+        document.getElementById('id_bidang_edit').value = $(this).data('name');
+        document.getElementById('id_unit_usahaedit').value = $(this).data('name');
+        document.getElementById('id_unit_usahaedit').innerHTML = $(this).data('name');
+        $('#idedit').val($(this).data('id'));
+        console.log($(this).data('nama'));
+    });
+});
+        </script>
+
 
     </body>
 </html>

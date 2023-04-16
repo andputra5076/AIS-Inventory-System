@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Aset Gedung dan Bangunan | AIS</title>
+        <title>Aset Alat Mekanik     | AIS</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description">
         <meta content="Coderthemes" name="author">
@@ -181,8 +181,8 @@
                                     <nav aria-label="breadcrumb">
     <ol class="breadcrumb bg-light-lighten p-2">
         <li class="breadcrumb-item"><a href="/welcome"><i class="uil-home-alt"></i> Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Inventaris</li>
-        <li class="breadcrumb-item active" aria-current="page">Gedung dan Bangunan</li>
+        <li class="breadcrumb-item active" aria-current="page">Aset</li>
+        <li class="breadcrumb-item active" aria-current="page">Alat Mekanik</li>
     </ol>
 </nav>
                                 </div>

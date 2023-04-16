@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Dashboard Unit Usaha | AIS</title>
+        <title>Dashboard Profil | AIS</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description">
         <meta content="Coderthemes" name="author">
@@ -69,7 +69,7 @@
                                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown" aria-labelledby="topbar-userdrop">
                                         <a href="editprofil" class="dropdown-item notify-item">
                                             <i class="mdi mdi-account-circle me-1"></i>
-                                            <span>Profil</span>
+                                            <span>Edit Profil</span>
                                         </a>
 
                                         <!-- item-->
@@ -201,7 +201,7 @@
                             <div class="col-12">
                                 <div class="card text-center">
                                     <div class="card-body">
-                                        <img src="assets/images/users/avatar-1.jpg" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image">
+                                        <img src="assets/images/users/<?= session('data')->image ?>" class="rounded-circle avatar-lg img-thumbnail" alt="profile-image">
 
                                         <h4 class="mb-0 mt-2">Soeng Souy</h4>
                                         <p class="text-muted font-14">Founder</p>
@@ -250,7 +250,7 @@
                     <div class="modal-dialog " >
                         <div class="modal-content">
                             <div class="modal-header ">
-                                <h5 class="modal-title" height="18">Profil</h5>
+                                <h5 class="modal-title" height="18">Edit Profil</h5>
                                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -258,14 +258,19 @@
                             <div class="modal-body">
                                 <form>
                                     <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="profile-img-wrap edit-img">
-                                                <img class="text-center rounded-circle avatar-lg img-thumbnail" src="assets/images/users/avatar-1.jpg" alt="user">
+                                        <div class="card text-center">
+                                            <br>
+                                        <div class="profile-img-wrap edit-img">
+                                                
+                                                <img class="text-center rounded-circle avatar-lg img-thumbnail" src="assets/images/users/<?= session('data')->image ?>" alt="profile-image">
                                                 <br>
                                                 <div class="fileupload btn">
                                                     <input class="upload" type="file" required="">
                                                 </div>
                                             </div><br>
+                                        </div>
+                                        <div class="col-md-12">
+
                                             <div class="row">
                                                 <div class="mb-3">
                         <label for="text" class="form-label">Nama</label>
@@ -274,7 +279,7 @@
                                                 <div class="mb-3">
                         <label for="password" class="form-label">Password Lama</label>
                         <input class="form-control" name="password" type="password" required="" id="password" placeholder="Enter your old password">
-                    </div>
+                    </div> 
                     <div class="mb-3">
                         <label for="password" class="form-label">Password Baru</label>
                         <input class="form-control" name="password" type="password" required="" id="password" placeholder="Enter your new password">

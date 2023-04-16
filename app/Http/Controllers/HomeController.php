@@ -100,19 +100,46 @@ class HomeController extends Controller
 
     public function bidang()
     {
+        if (session('data')->id == '1') {
+            $users = DB::table('users')
+                ->join('bidang', 'users.id', '=', 'bidang.id_unit_usaha')
+                ->get();
+            $users = DB::table('unit_kerja')
+                ->join('bidang', 'unit_kerja.id', '=', 'bidang.id_unit_kerja')
+                ->get();
+        } else {
+            $users = DB::table('users')
+                ->join('bidang', 'users.id', '=', 'bidang.id_unit_usaha')
+                ->where('users.name', '=', session('data')->name)
+                ->get();
+        }
         if (!session()->has('username')) {
             return redirect("/");
         }
-        $users = DB::table('bidang')->get();
 
         return view('bidang/bidang', ['bidang' => $users]);
     }
     public function petugas()
     {
+        if (session('data')->id == '1') {
+            $users = DB::table('users')
+                ->join('petugas', 'users.id', '=', 'petugas.id_unit_usaha')
+                ->get();
+            $users = DB::table('bidang')
+                ->join('petugas', 'bidang.id', '=', 'petugas.id_bidang')
+                ->get();
+            $users = DB::table('unit_kerja')
+                ->join('petugas', 'unit_kerja.id', '=', 'petugas.id_unit_kerja')
+                ->get();
+        } else {
+            $users = DB::table('users')
+                ->join('petugas', 'users.id', '=', 'petugas.id_unit_usaha')
+                ->where('users.name', '=', session('data')->name)
+                ->get();
+        }
         if (!session()->has('username')) {
             return redirect("/");
         }
-        $users = DB::table('petugas')->get();
         return view('petugas/petugas', ['petugas' => $users]);
     }
     public function addunitkerja(Request $request)
@@ -135,6 +162,59 @@ class HomeController extends Controller
         $deleted = DB::table('unit_kerja')->where('id', '=', $id)->delete();
         return redirect('/unitkerja')->with('success', 'Data has been deleted successfully');
     }
+    public function addbidang(Request $request)
+    {
+        DB::table('bidang')->insert([
+            'id_unit_usaha' => $request->input('id_unit_usaha'),
+            'id_unit_kerja' => $request->input('id_unit_kerja'),
+            'name' => $request->input('name'),
+        ]);
+        return redirect('/bidang')->with('success', 'New Data has been created successfully');
+    }
+    public function editbidang(Request $request)
+    {
+        DB::table('bidang')
+            ->where('id', $request->input('id'))
+            ->update([
+                'id_unit_usaha' => $request->input('id_unit_usaha'),
+                'id_unit_kerja' => $request->input('id_unit_kerja'),
+                'name' => $request->input('name'),
+            ]);
+        return redirect('/bidang')->with('success', 'Data has been updated successfully');
+    }
+    public function deletebidang($id)
+    {
+        $deleted = DB::table('bidang')->where('id', '=', $id)->delete();
+        return redirect('/bidang')->with('success', 'Data has been deleted successfully');
+    }
+    public function addpetugas(Request $request)
+    {
+        DB::table('petugas')->insert([
+            'name' => $request->input('name'),
+            'id_unit_usaha' => $request->input('id_unit_usaha'),
+            'id_bidang' => $request->input('id_bidang'),
+            'id_unit_kerja' => $request->input('id_unit_kerja'),
+        ]);
+        return redirect('/petugas')->with('success', 'New Data has been created successfully');
+    }
+    public function editpetugas(Request $request)
+    {
+        DB::table('petugas')
+            ->where('id', $request->input('id'))
+            ->update([
+                'name' => $request->input('name'),
+                'id_unit_usaha' => $request->input('id_unit_usaha'),
+                'id_bidang' => $request->input('id_bidang'),
+                'id_unit_kerja' => $request->input('id_unit_kerja'),
+            ]);
+        return redirect('/petugas')->with('success', 'Data has been updated successfully');
+    }
+    public function deletepetugas($id)
+    {
+        $deleted = DB::table('petugas')->where('id', '=', $id)->delete();
+        return redirect('/petugas')->with('success', 'Data has been deleted successfully');
+    }
+
     public function editprofil()
     {
     }
@@ -247,5 +327,95 @@ class HomeController extends Controller
         $users = DB::table('petugas')->get();
 
         return view('aset/tanah', ['petugas' => $users]);
+    }
+    public function gedungdanbangunan()
+    {
+        if (!session()->has('username')) {
+            return redirect("/");
+        }
+        $users = DB::table('petugas')->get();
+
+        return view('aset/gedungdanbangunan', ['petugas' => $users]);
+    }
+    public function kendaraandanambulance()
+    {
+        if (!session()->has('username')) {
+            return redirect("/");
+        }
+        $users = DB::table('petugas')->get();
+
+        return view('aset/kendaraandanambulance', ['petugas' => $users]);
+    }
+    public function alattelekomunikasi()
+    {
+        if (!session()->has('username')) {
+            return redirect("/");
+        }
+        $users = DB::table('petugas')->get();
+
+        return view('aset/alattelekomunikasi', ['petugas' => $users]);
+    }
+    public function alatkantor()
+    {
+        if (!session()->has('username')) {
+            return redirect("/");
+        }
+        $users = DB::table('petugas')->get();
+
+        return view('aset/alatkantor', ['petugas' => $users]);
+    }
+    public function komputer()
+    {
+        if (!session()->has('username')) {
+            return redirect("/");
+        }
+        $users = DB::table('petugas')->get();
+
+        return view('aset/komputer', ['petugas' => $users]);
+    }
+    public function alatlistrik()
+    {
+        if (!session()->has('username')) {
+            return redirect("/");
+        }
+        $users = DB::table('petugas')->get();
+
+        return view('aset/alatlistrik', ['petugas' => $users]);
+    }
+    public function alatmekanik()
+    {
+        if (!session()->has('username')) {
+            return redirect("/");
+        }
+        $users = DB::table('petugas')->get();
+
+        return view('aset/alatmekanik', ['petugas' => $users]);
+    }
+    public function alatac()
+    {
+        if (!session()->has('username')) {
+            return redirect("/");
+        }
+        $users = DB::table('petugas')->get();
+
+        return view('aset/alatac', ['petugas' => $users]);
+    }
+    public function alatlift()
+    {
+        if (!session()->has('username')) {
+            return redirect("/");
+        }
+        $users = DB::table('petugas')->get();
+
+        return view('aset/alatlift', ['petugas' => $users]);
+    }
+    public function alatmedis()
+    {
+        if (!session()->has('username')) {
+            return redirect("/");
+        }
+        $users = DB::table('petugas')->get();
+
+        return view('aset/alatmedis', ['petugas' => $users]);
     }
 }

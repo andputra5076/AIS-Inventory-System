@@ -63,7 +63,7 @@
                                         </span>
                                         <span>
                                             <span class="account-user-name"><?= session('data')->name ?></span>
-                                            <span class="account-position"><?= session('username') ?></span>
+                                            <span class="account-position"><?= session('data')->role ?></span>
                                         </span>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown" aria-labelledby="topbar-userdrop">
@@ -123,7 +123,7 @@
                                             <div class="dropdown-menu" aria-labelledby="topnav-pages">
                                                 <a href="/aset/tanah" class="dropdown-item">Tanah</a>
                                                 <a href="/aset/gedungdanbangunan" class="dropdown-item">Gedung Dan Bangunan</a>
-                                                <a href="/aset/kendaraan dan abulance" class="dropdown-item">Kendaraan dan Ambulance</a>
+                                                <a href="/aset/kendaraandanambulance" class="dropdown-item">Kendaraan dan Ambulance</a>
                                                 <a href="/aset/alattelekomunikasi" class="dropdown-item">Alat Telekomunikasi</a>
                                                 <a href="/aset/alatkantor" class="dropdown-item">Alat Kantor</a>
                                                 <a href="/aset/komputer" class="dropdown-item">Komputer</a>
@@ -214,7 +214,7 @@
 
                                                         }else {
                                                             ?>
-                                                            <button type="button" href="/addkendaraan" class="btn btn-success mb-2 me-1"><i class="mdi mdi-plus-circle me-2"></i>Tambah</button>
+                                                            <button type="button"  class="btn btn-success mb-2 me-1" data-bs-toggle="modal" data-bs-target="#addkendaraan"><i class="mdi mdi-plus-circle me-2"></i>Tambah</button>
                                                             <?php
                                                         }
                                                         ?>
@@ -269,7 +269,7 @@
                                                         }
                                                         ?>
 
-                                                            <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-barcode"></i></a>
+                                                            <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-qrcode"></i></a>
                                                             </td>
 
                                                         <?php
@@ -323,6 +323,123 @@
 
         </div>
         <!-- END wrapper -->
+
+<div class="modal fade" id="addkendaraan" tabindex="-1" role="dialog" aria-labelledby="scrollableModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" height="18">Tambah Kendaraan</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+            <div class="modal-body">
+                <div class="text-center mt-2 mb-4">
+                </div>
+
+                <form class="ps-3 pe-3" action="/addbidang" method="POST">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="text" class="form-label">Nama Kendaraan</label>
+                        <input class="form-control" name="name" type="text" id="name" required="" placeholder="">
+                        <input class="form-control" name="id" type="hidden" id="idedit" required="" placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="text" class="form-label">Kode</label>
+                        <input class="form-control" name="name" type="text" id="name" required="" placeholder="">
+                        <input class="form-control" name="id" type="hidden" id="idedit" required="" placeholder="">
+                    </div>
+
+                    <div class="mb-3">
+                    <label for="text" class="form-label" >Kondisi</label>
+                        <select name="id_unit_kerja" class="form-select" aria-label="Default select example" required="">
+                            <option value="">-- Pilih --</option>
+                            <?php
+                                                        foreach($petugas as $user) {
+                                                            ?>
+                                                            <option value="<?= $user->name ?>"><?= $user->name ?></option>
+                                                        <?php
+                                                        }
+                                                        ?>
+</select>
+</div>
+                    <div class="mb-3">
+                    <label for="text" class="form-label" >Unit Kerja</label>
+                        <select name="id_unit_kerja" class="form-select" aria-label="Default select example" required="">
+                            <option value="">-- Pilih --</option>
+                            <?php
+                                                        foreach($petugas as $user) {
+                                                            ?>
+                                                            <option value="<?= $user->name ?>"><?= $user->name ?></option>
+                                                        <?php
+                                                        }
+                                                        ?>
+</select>
+</div>
+                    <div class="mb-3">
+                    <label for="text" class="form-label" >Bidang</label>
+                        <select name="id_unit_kerja" class="form-select" aria-label="Default select example" required="">
+                            <option value="">-- Pilih --</option>
+                            <?php
+                                                        foreach($petugas as $user) {
+                                                            ?>
+                                                            <option value="<?= $user->name ?>"><?= $user->name ?></option>
+                                                        <?php
+                                                        }
+                                                        ?>
+</select>
+</div>
+                    <div class="mb-3">
+                        <label for="text" class="form-label">Unit Usaha</label>
+                        <input type="hidden" value="<?= session('data')->name ?>" id='hidid' name="id_unit_usaha">
+                        <select name="" class="form-select" aria-label="Default select example" disabled>
+                            <option value="<?= session('data')->id ?>" ><?= session('data')->name ?></option>
+
+</select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="text" class="form-label">Kode</label>
+                        <input class="form-control" name="name" type="text" id="name" required="" placeholder="">
+                        <input class="form-control" name="id" type="hidden" id="idedit" required="" placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="text" class="form-label">Kode</label>
+                        <input class="form-control" name="name" type="text" id="name" required="" placeholder="">
+                        <input class="form-control" name="id" type="hidden" id="idedit" required="" placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="text" class="form-label">Kode</label>
+                        <input class="form-control" name="name" type="text" id="name" required="" placeholder="">
+                        <input class="form-control" name="id" type="hidden" id="idedit" required="" placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="text" class="form-label">Kode</label>
+                        <input class="form-control" name="name" type="text" id="name" required="" placeholder="">
+                        <input class="form-control" name="id" type="hidden" id="idedit" required="" placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="text" class="form-label">Kode</label>
+                        <input class="form-control" name="name" type="text" id="name" required="" placeholder="">
+                        <input class="form-control" name="id" type="hidden" id="idedit" required="" placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="text" class="form-label">Kode</label>
+                        <input class="form-control" name="name" type="text" id="name" required="" placeholder="">
+                        <input class="form-control" name="id" type="hidden" id="idedit" required="" placeholder="">
+                    </div>
+
+
+                    <div class="modal-footer">
+                    <button type="submit" class="btn btn-sm btn-flat btn-primary" id="saveBtn"><i
+                            class="fa fa-save"></i> Save </button>
+                </div>
+
+                </form>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 
 

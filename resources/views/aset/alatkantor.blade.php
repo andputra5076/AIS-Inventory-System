@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Aset Gedung dan Bangunan | AIS</title>
+        <title>Aset Alat Kantor | AIS</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description">
         <meta content="Coderthemes" name="author">
@@ -73,7 +73,7 @@
                                         </a>
 
                                         <!-- item-->
-                                        <a href="./actionlogout" class="dropdown-item notify-item">
+                                        <a href="/actionlogout" class="dropdown-item notify-item">
                                             <i class="mdi mdi-logout me-1"></i>
                                             <span>Logout</span>
                                         </a>
@@ -181,8 +181,8 @@
                                     <nav aria-label="breadcrumb">
     <ol class="breadcrumb bg-light-lighten p-2">
         <li class="breadcrumb-item"><a href="/welcome"><i class="uil-home-alt"></i> Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Inventaris</li>
-        <li class="breadcrumb-item active" aria-current="page">Gedung dan Bangunan</li>
+        <li class="breadcrumb-item active" aria-current="page">Aset</li>
+        <li class="breadcrumb-item active" aria-current="page">Alat Kantor</li>
     </ol>
 </nav>
                                 </div>
@@ -209,7 +209,16 @@
                                             <div class="col-sm-8">
 
                                                 <div class="text-sm-end">
+                                                    <?php
+                                                        if (session('data')->role == 'Corporation') {
+
+                                                        }else {
+                                                            ?>
                                                             <button type="button" href="/addkendaraan" class="btn btn-success mb-2 me-1"><i class="mdi mdi-plus-circle me-2"></i>Tambah</button>
+                                                            <?php
+                                                        }
+                                                        ?>
+
 
                                                 </div>
 
@@ -249,8 +258,17 @@
                                                             <td></td>
                                                             <td class="table-action">
                                                             <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a>
+                                                            <?php
+                                                        if (session('data')->role == 'Corporation') {
+
+                                                        }else {
+                                                            ?>
                                                             <a data-bs-toggle="modal" data-bs-target="#editunitusaha" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
                                                             <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                                            <?php
+                                                        }
+                                                        ?>
+
                                                             <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-qrcode"></i></a>
                                                             </td>
 

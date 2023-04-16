@@ -61,11 +61,11 @@
                                         </span>
                                         <span>
                                             <span class="account-user-name"><?= session('data')->name ?></span>
-                                            <span class="account-position"><?= session('username') ?></span>
+                                            <span class="account-position"><?= session('data')->role ?></span>
                                         </span>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu File-dropdown" aria-labelledby="topbar-userdrop">
-                                        <a href="editprofil" class="dropdown-item notify-item">
+                                        <a href="/editprofil" class="dropdown-item notify-item">
                                             <i class="mdi mdi-account-circle me-1"></i>
                                             <span>Profil</span>
                                         </a>
@@ -123,7 +123,7 @@
 
                                                 <a href="/aset/tanah" class="dropdown-item">Tanah</a>
                                                 <a href="/aset/gedungdanbangunan" class="dropdown-item">Gedung Dan Bangunan</a>
-                                                <a href="/aset/kendaraan dan abulance" class="dropdown-item">Kendaraan dan Ambulance</a>
+                                                <a href="/aset/kendaraandanambulance" class="dropdown-item">Kendaraan dan Ambulance</a>
                                                 <a href="/aset/alattelekomunikasi" class="dropdown-item">Alat Telekomunikasi</a>
                                                 <a href="/aset/alatkantor" class="dropdown-item">Alat Kantor</a>
                                                 <a href="/aset/komputer" class="dropdown-item">Komputer</a>

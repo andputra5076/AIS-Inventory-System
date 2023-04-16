@@ -63,7 +63,7 @@
                                         </span>
                                         <span>
                                             <span class="account-user-name"><?= session('data')->name ?></span>
-                                            <span class="account-position"><?= session('username') ?></span>
+                                            <span class="account-position"><?= session('data')->role ?></span>
                                         </span>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown" aria-labelledby="topbar-userdrop">
@@ -121,19 +121,17 @@
                                                 <i class="uil-package me-1"></i>Aset <div class="arrow-down"></div>
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="topnav-pages">
-
-
-                                                <a href="#" class="dropdown-item">Tanah</a>
-                                                <a href="#" class="dropdown-item">Gedung Dan Bangunan</a>
-                                                <a href="#" class="dropdown-item">Kendaraan dan Ambulance</a>
-                                                <a href="#" class="dropdown-item">Alat Telekomunikasi</a>
-                                                <a href="#" class="dropdown-item">Peralatan Kantor</a>
-                                                <a href="#" class="dropdown-item">Komputer</a>
-                                                <a href="#" class="dropdown-item">Alat Listrik</a>
-                                                <a href="#" class="dropdown-item">Alat Mekanik</a>
-                                                <a href="#" class="dropdown-item">Alat AC</a>
-                                                <a href="#" class="dropdown-item">Alat Lift</a>
-                                                <a href="#" class="dropdown-item">Alat Medis</a>
+                                                <a href="/aset/tanah" class="dropdown-item">Tanah</a>
+                                                <a href="/aset/gedungdanbangunan" class="dropdown-item">Gedung Dan Bangunan</a>
+                                                <a href="/aset/kendaraandanambulance" class="dropdown-item">Kendaraan dan Ambulance</a>
+                                                <a href="/aset/alattelekomunikasi" class="dropdown-item">Alat Telekomunikasi</a>
+                                                <a href="/aset/alatkantor" class="dropdown-item">Alat Kantor</a>
+                                                <a href="/aset/komputer" class="dropdown-item">Komputer</a>
+                                                <a href="/aset/alatlistrik" class="dropdown-item">Alat Listrik</a>
+                                                <a href="/aset/alatmekanik" class="dropdown-item">Alat Mekanik</a>
+                                                <a href="/aset/alatac" class="dropdown-item">Alat AC</a>
+                                                <a href="/aset/alatlift" class="dropdown-item">Alat Lift</a>
+                                                <a href="/aset/alatmedis" class="dropdown-item">Alat Medis</a>
                                             </div>
                                         </li>
                                         <li class="nav-item dropdown">
@@ -271,7 +269,7 @@
                                                         }
                                                         ?>
 
-                                                            <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-barcode"></i></a>
+                                                            <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-qrcode"></i></a>
                                                             </td>
 
                                                         <?php

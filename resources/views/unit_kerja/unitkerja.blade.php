@@ -64,7 +64,7 @@
                                         </span>
                                         <span>
                                             <span class="account-user-name"><?= session('data')->name ?></span>
-                                            <span class="account-position"><?= session('username') ?></span>
+                                            <span class="account-position"><?= session('data')->role ?></span>
                                         </span>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown" aria-labelledby="topbar-userdrop">
@@ -124,7 +124,7 @@
                                             <div class="dropdown-menu" aria-labelledby="topnav-pages">
                                                 <a href="/aset/tanah" class="dropdown-item">Tanah</a>
                                                 <a href="/aset/gedungdanbangunan" class="dropdown-item">Gedung Dan Bangunan</a>
-                                                <a href="/aset/kendaraan dan abulance" class="dropdown-item">Kendaraan dan Ambulance</a>
+                                                <a href="/aset/kendaraandanambulance" class="dropdown-item">Kendaraan dan Ambulance</a>
                                                 <a href="/aset/alattelekomunikasi" class="dropdown-item">Alat Telekomunikasi</a>
                                                 <a href="/aset/alatkantor" class="dropdown-item">Alat Kantor</a>
                                                 <a href="/aset/komputer" class="dropdown-item">Komputer</a>
@@ -407,12 +407,6 @@
         <script src="assets/js/pages/demo.datatable-init.js"></script>
         <!-- end demo js-->
          <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script>
-            @if(Session::has('success'))
-            swal("Good job!", "You clicked the button!", "success");
-            @endif
-
-        </script>
         <script>
             function swallnya(id) {
     swal({
