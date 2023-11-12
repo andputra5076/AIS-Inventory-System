@@ -14,6 +14,7 @@ use App\Exports\inventaris_peralatanac;
 use App\Exports\inventaris_peralatanlift;
 use App\Exports\inventaris_peralatanmedis;
 use App\Exports\inventaris_peralatankantor;
+use App\Exports\inventarisall;
 
 // Export Aset
 use App\Exports\aset_tanah;
@@ -27,6 +28,7 @@ use App\Exports\aset_alatac;
 use App\Exports\aset_alatlift;
 use App\Exports\aset_alatmedis;
 use App\Exports\aset_komputer;
+use App\Exports\asetall;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Qr2Controller;
 
@@ -75,6 +77,9 @@ Route::get('/exportinventarisperalatanlift', function () {
 Route::get('/exportinventarisperalatanmedis', function () {
     return Excel::download(new inventaris_peralatanmedis, 'Data Inventaris Peralatan Medis.xlsx');
 });
+Route::get('/exportinventarisall', function () {
+    return Excel::download(new inventaris_peralatanmedis, 'All Data Inventaris.xlsx');
+});
 // Export Aset
 Route::get('/exportasettanah', function () {
     return Excel::download(new aset_tanah, 'Data Aset Tanah.xlsx');
@@ -109,13 +114,13 @@ Route::get('/exportasetalatlift', function () {
 Route::get('/exportasetalatmedis', function () {
     return Excel::download(new aset_alatmedis, 'Data Aset Alat Medis.xlsx');
 });
+Route::get('/exportasetall', function () {
+    return Excel::download(new aset_alatmedis, 'All Data Aset.xlsx');
+});
 
+// Cetak Laporan
+Route::get('/laporan', [HomeController::class, 'laporan'])->name('laporan');
 
-
-
-
-
-Route::get('/master', [HomeController::class, 'master'])->name('master');
 Route::get('/unitkerja', [HomeController::class, 'unitkerja'])->name('unitkerja');
 Route::post('/addunitkerja', [HomeController::class, 'addunitkerja'])->name('addunitkerja');
 Route::post('/editunitkerja', [HomeController::class, 'editunitkerja'])->name('editunitkerja');

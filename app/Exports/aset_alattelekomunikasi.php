@@ -91,13 +91,13 @@ class aset_alattelekomunikasi implements FromCollection, WithHeadings, ShouldAut
             $petugas2 = explode(',', $user->id_petugas2);
             $data->push([
                 $nourut,
+                $user->kode_alattelekomunikasi,
                 $no,
                 $user->nama_alattelekomunikasi,
                 $merek,
                 $jenis,
                 $tipe,
                 $spesifikasi,
-                $user->kode_alattelekomunikasi,
                 $user->kondisi,
                 $user->jumlah,
                 $user->satuan,
@@ -123,13 +123,13 @@ class aset_alattelekomunikasi implements FromCollection, WithHeadings, ShouldAut
     {
         return [
             'No Urut',
+            'Kode Aset',
             'No Aset',
             'Nama Aset',
             'Jenis Aset',
             'Merek',
             'Tipe',
             'Spesifikasi',
-            'Kode Aset',
             'Kondisi',
             'Jumlah',
             'Satuan',
@@ -143,7 +143,7 @@ class aset_alattelekomunikasi implements FromCollection, WithHeadings, ShouldAut
             'Unit Kerja',
             'Bidang',
             'Petugas 1',
-            'Petugas 2',
+            'Penanggung Jawab',
             'Keterangan',
         ];
     }

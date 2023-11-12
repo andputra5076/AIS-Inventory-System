@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Dashboard Profil | AIS</title>
+        <title>Profil Dashboard | AIS</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description">
         <meta content="Coderthemes" name="author">
@@ -105,18 +105,14 @@
                                     <ul class="navbar-nav">
                                         <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="uil-server me-1"></i>Inventaris <div class="arrow-down"></div>
+                                                <i class=" uil-users-alt me-1"></i>Master <div class="arrow-down"></div>
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="topnav-pages">
-                                                <a href="/inventaris/kendaraan" class="dropdown-item">Kendaraan</a>
-                                                <a href="/inventaris/peralatantelekomunikasi" class="dropdown-item">Peralatan Telekomunikasi</a>
-                                                <a href="/inventaris/peralatankantor" class="dropdown-item">Peralatan Kantor</a>
-                                                <a href="/inventaris/peralatanteknikinformatika" class="dropdown-item">Peralatan Teknik Informatika</a>
-                                                <a href="/inventaris/peralatantekniklistrikdanmekanik" class="dropdown-item">Peralatan Teknik Listrik dan Mekanik</a>
-                                                <a href="/inventaris/peralatanac" class="dropdown-item">Peralatan AC</a>
-                                                <a href="/inventaris/peralatanlift" class="dropdown-item">Peralatan Lift</a>
-                                                <a href="/inventaris/peralatanmedis" class="dropdown-item">Peralatan Medis</a>
-                                            </div>
+                                                
+                                                <a href="/unitkerja" class="dropdown-item">Unit Kerja</a>
+                                                <a href="/bidang" class="dropdown-item">Bidang</a>
+                                                <a href="/petugas" class="dropdown-item">Petugas</a>
+                    
                                         </li>
                                         <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -138,24 +134,30 @@
                                         </li>
                                         <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class=" uil-users-alt me-1"></i>Master <div class="arrow-down"></div>
+                                                <i class="uil-server me-1"></i>Inventaris <div class="arrow-down"></div>
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="topnav-pages">
-                                                <?php
-                                                        if (session('data')->role != 'Corporation') {
+                                                <a href="/inventaris/kendaraan" class="dropdown-item">Kendaraan</a>
+                                                <a href="/inventaris/peralatantelekomunikasi" class="dropdown-item">Peralatan Telekomunikasi</a>
+                                                <a href="/inventaris/peralatankantor" class="dropdown-item">Peralatan Kantor</a>
+                                                <a href="/inventaris/peralatanteknikinformatika" class="dropdown-item">Peralatan Teknik Informatika</a>
+                                                <a href="/inventaris/peralatantekniklistrikdanmekanik" class="dropdown-item">Peralatan Teknik Listrik dan Mekanik</a>
+                                                <a href="/inventaris/peralatanac" class="dropdown-item">Peralatan AC</a>
+                                                <a href="/inventaris/peralatanlift" class="dropdown-item">Peralatan Lift</a>
+                                                <a href="/inventaris/peralatanmedis" class="dropdown-item">Peralatan Medis</a>
+                                            </div>
+                                        </li>
+                                        <?php
+                                        if (session('data')->role == 'Corporation') {
 
                                                         }else {
                                                             ?>
-                                                            <a href="master" class="dropdown-item">Unit Usaha</a>
+                                                            <a class="nav-link dropdown-toggle arrow-none" href="/laporan" >
+                                                <i class="mdi mdi-download-box-outline me-1"></i>Laporan 
+                                            </a>
                                                             <?php
                                                         }
                                                         ?>
-                                                <a href="/unitkerja" class="dropdown-item">Unit Kerja</a>
-                                                <a href="/bidang" class="dropdown-item">Bidang</a>
-                                                <a href="/petugas" class="dropdown-item">Petugas</a>
-
-                                        </li>
-                                        
                                     </ul>
                                 </div>
                             </nav>

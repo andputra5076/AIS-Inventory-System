@@ -91,13 +91,13 @@ class inventaris_peralatanteknikinformatika implements FromCollection, WithHeadi
             $petugas2 = explode(',', $user->id_petugas2);
             $data->push([
                 $nourut,
+                $user->kode_peralatanteknikinformatika,
                 $no,
                 $user->nama_peralatanteknikinformatika,
                 $merek,
                 $jenis,
                 $tipe,
                 $spesifikasi,
-                $user->kode_peralatanteknikinformatika,
                 $user->kondisi,
                 $user->jumlah,
                 $user->satuan,
@@ -123,13 +123,13 @@ class inventaris_peralatanteknikinformatika implements FromCollection, WithHeadi
     {
         return [
             'No Urut',
+            'Kode Barang',
             'No Inventaris',
             'Nama Barang',
             'Jenis Barang',
             'Merek',
             'Tipe',
             'Spesifikasi',
-            'Kode Barang',
             'Kondisi',
             'Jumlah',
             'Satuan',
@@ -143,7 +143,7 @@ class inventaris_peralatanteknikinformatika implements FromCollection, WithHeadi
             'Unit Kerja',
             'Bidang',
             'Petugas 1',
-            'Petugas 2',
+            'Penanggung Jawab',
             'Keterangan',
         ];
     }

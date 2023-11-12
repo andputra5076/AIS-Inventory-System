@@ -21,7 +21,6 @@
         <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css">
         <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css" id="light-style">
         <link href="../assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="dark-style">
-
     </head>
 
 
@@ -104,18 +103,14 @@
                                     <ul class="navbar-nav">
                                         <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="uil-server me-1"></i>Inventaris <div class="arrow-down"></div>
+                                                <i class=" uil-users-alt me-1"></i>Master <div class="arrow-down"></div>
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="topnav-pages">
-                                                <a href="/inventaris/kendaraan" class="dropdown-item">Kendaraan</a>
-                                                <a href="/inventaris/peralatantelekomunikasi" class="dropdown-item">Peralatan Telekomunikasi</a>
-                                                <a href="/inventaris/peralatankantor" class="dropdown-item">Peralatan Kantor</a>
-                                                <a href="/inventaris/peralatanteknikinformatika" class="dropdown-item">Peralatan Teknik Informatika</a>
-                                                <a href="/inventaris/peralatantekniklistrikdanmekanik" class="dropdown-item">Peralatan Teknik Listrik dan Mekanik</a>
-                                                <a href="/inventaris/peralatanac" class="dropdown-item">Peralatan AC</a>
-                                                <a href="/inventaris/peralatanlift" class="dropdown-item">Peralatan Lift</a>
-                                                <a href="/inventaris/peralatanmedis" class="dropdown-item">Peralatan Medis</a>
-                                            </div>
+                                                
+                                                <a href="/unitkerja" class="dropdown-item">Unit Kerja</a>
+                                                <a href="/bidang" class="dropdown-item">Bidang</a>
+                                                <a href="/petugas" class="dropdown-item">Petugas</a>
+                    
                                         </li>
                                         <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -137,24 +132,30 @@
                                         </li>
                                         <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class=" uil-users-alt me-1"></i>Master <div class="arrow-down"></div>
+                                                <i class="uil-server me-1"></i>Inventaris <div class="arrow-down"></div>
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="topnav-pages">
-                                                <?php
-                                                        if (session('data')->role != 'Corporation') {
+                                                <a href="/inventaris/kendaraan" class="dropdown-item">Kendaraan</a>
+                                                <a href="/inventaris/peralatantelekomunikasi" class="dropdown-item">Peralatan Telekomunikasi</a>
+                                                <a href="/inventaris/peralatankantor" class="dropdown-item">Peralatan Kantor</a>
+                                                <a href="/inventaris/peralatanteknikinformatika" class="dropdown-item">Peralatan Teknik Informatika</a>
+                                                <a href="/inventaris/peralatantekniklistrikdanmekanik" class="dropdown-item">Peralatan Teknik Listrik dan Mekanik</a>
+                                                <a href="/inventaris/peralatanac" class="dropdown-item">Peralatan AC</a>
+                                                <a href="/inventaris/peralatanlift" class="dropdown-item">Peralatan Lift</a>
+                                                <a href="/inventaris/peralatanmedis" class="dropdown-item">Peralatan Medis</a>
+                                            </div>
+                                        </li>
+                                        <?php
+                                        if (session('data')->role == 'Corporation') {
 
                                                         }else {
                                                             ?>
-                                                            <a href="/master" class="dropdown-item">Unit Usaha</a>
+                                                            <a class="nav-link dropdown-toggle arrow-none" href="/laporan" >
+                                                <i class="mdi mdi-download-box-outline me-1"></i>Laporan 
+                                            </a>
                                                             <?php
                                                         }
                                                         ?>
-                                                <a href="/unitkerja" class="dropdown-item">Unit Kerja</a>
-                                                <a href="/bidang" class="dropdown-item">Bidang</a>
-                                                <a href="/petugas" class="dropdown-item">Petugas</a>
-
-                                        </li>
-                                        
                                     </ul>
                                 </div>
                             </nav>
@@ -212,9 +213,9 @@
                         @endif
                     </div>
                                             <div class="col-sm-8">
-
                                                 <div class="text-sm-end">
-                                                   <a href="../exportinventariskendaraan"> <button type="button"   class="btn btn-danger mb-2 me-1"><i class="mdi mdi-file-excel me-2"></i>Excel</button></a>
+                                                    
+                                                   <a href="../exportinventariskendaraan"> <button type="button" class="btn btn-danger mb-2 me-1"><i class="mdi mdi-file-excel me-2"></i>Excel</button></a>
                                                     <?php
                                                         if (session('data')->role == 'Corporation') {
 
@@ -224,15 +225,12 @@
                                                             <?php
                                                         }
                                                         ?>
-
-
                                                 </div>
 
                                             </div><!-- end col-->
                                         <div class="tab-content">
 
                                             <div class="tab-pane show active" id="buttons-table-preview">
-
                                                 <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100">
                                                     <thead>
                                                         <tr>
@@ -369,7 +367,7 @@ data-keterangan='<?= isset($user->keterangan) ? $user->keterangan : '-'; ?>'
                                             <p class="text"><strong>Unit Kerja :</strong><span class="ms-1"> <?= $user->namakerja?> </span></p>
                                             <p class="text"><strong>Bidang :</strong><span class="ms-1"> <?= $user->bidangnama?> </span></p>
                                             <p class="text"><strong>Petugas 1 :</strong><span class="ms-1"> <?= $user->petugasnama?> </span></p>
-                                            <p class="text"><strong>Petugas 2 :</strong><span class="ms-1"> <?= isset($petugas2[1]) ? $petugas2[1] : '-'; ?> </span></p>
+                                            <p class="text"><strong>Penanggung Jawab :</strong><span class="ms-1"> <?= isset($petugas2[1]) ? $petugas2[1] : '-'; ?> </span></p>
                                             <p class="text2"><strong>Keterangan :</strong><span class="ms-1"> <?= isset($user->keterangan) ? $user->keterangan : '-'; ?> </span></p>
                                             </div> <!-- end col-->
                                         </div>    
@@ -538,40 +536,30 @@ please do not upload images larger than 2 mb</p>
                     </div>
                      <div class="mb-3">
                     <label for="text" class="form-label" >Unit Kerja</label>
-                        <select name="id_unit_kerja" class="form-select" aria-label="Default select example" required="">
-                            <option value="">-- Pilih --</option>
-                            <?php
-                                                        foreach($unit_kerja as $unit_kerjas) {                                              
-                                                            ?>
-<option value="<?= $unit_kerjas->id ?>"><?= $unit_kerjas->name ?></option>
-
-                                                        <?php
-                                                        }
-                                                        ?>
-</select>          
-</div>
-                    <div class="mb-3">
-                    <label for="text" class="form-label" >Bidang</label>
-                        <select name="id_bidang" class="form-select" aria-label="Default select example" required="">
-                           <option value="">-- Pilih --</option>
-                            <?php
-                                                        foreach($bidang as $bidangs) {                                              
-                                                            ?>
-<option value="<?= $bidangs->id ?>"><?= $bidangs->name ?></option>
-
-                                                        <?php
-                                                        }
-                                                        ?>
+                        <select id="kon" name="id_unit_kerja" class="form-select" aria-label="Default select example" onchange="updateBidangOptions()" required="">
+    <option value="">-- Pilih --</option>
+    <?php foreach($unit_kerja as $unit_kerjas) { ?>
+        <option value="<?= $unit_kerjas->id ?>"><?= $unit_kerjas->name ?></option>
+    <?php } ?>
+</select>
+<br>
+<!-- Your existing HTML code for the Bidang dropdown -->
+<label for="text" class="form-label">Bidang</label>
+<select name="id_bidang" id="tel" class="form-select" aria-label="Default select example" onchange="updatePetugasOptions()" required>
+    <option value="">-- Pilih --</option>
+    <?php foreach($bidang as $bidangs) { ?>
+        <option data-unit="<?= $bidangs->id_unit_kerja ?>" value="<?= $bidangs->id ?>"><?= $bidangs->name ?></option>
+    <?php } ?>
 </select>          
 </div>
                     <div class="mb-3">
                     <label for="text" class="form-label" >Petugas 1</label>
-                        <select name="id_petugas1" class="form-select" aria-label="Default select example" required="">
+                        <select id="ahai" name="id_petugas1" class="form-select" aria-label="Default select example" required="">
                            <option value="">-- Pilih --</option>
                             <?php
                                                         foreach($petugas as $petugasd) {                                              
                                                             ?>
-<option value="<?= $petugasd->id ?>"><?= $petugasd->name ?></option>
+<option data-bidang="<?= $petugasd->id_bidang ?>" value="<?= $petugasd->id ?>"><?= $petugasd->name ?></option>
 
                                                         <?php
                                                         }
@@ -579,13 +567,13 @@ please do not upload images larger than 2 mb</p>
 </select>          
 </div>
                     <div class="mb-3">
-                    <label for="text" class="form-label" >Petugas 2</label>
-                        <select name="id_petugas2" class="form-select" aria-label="Default select example"  >
+                    <label for="text" class="form-label" >Penanggung Jawab</label>
+                        <select id="ahai2" name="id_petugas2" class="form-select" aria-label="Default select example"  >
                            <option value="">-- Pilih --</option>
                             <?php
                                                         foreach($petugas as $petugasd) {                                              
                                                             ?>
-<option value="<?= $petugasd->id ?>,<?= $petugasd->name ?>"><?= $petugasd->name ?></option>
+<option data-bidang="<?= $petugasd->id_bidang ?>" value="<?= $petugasd->id ?>,<?= $petugasd->name ?>"><?= $petugasd->name ?></option>
 
                                                         <?php
                                                         }
@@ -769,7 +757,7 @@ please do not upload images larger than 2 mb</p>
 </select>          
 </div>
                     <div class="mb-3">
-                    <label for="text" class="form-label" >Petugas 2</label>
+                    <label for="text" class="form-label" >Penanggung Jawab</label>
                         <select name="id_petugas2" id="hoy" class="form-select" aria-label="Default select example">
                            <option id="petugas2">-- Pilih --</option>
                             <?php
@@ -839,6 +827,84 @@ please do not upload images larger than 2 mb</p>
 <script src="assets/js/ui/component.fileupload.js"></script>
 
         <script>
+            function updateBidangOptions() {
+        var unitKerjaDropdown = document.getElementById("kon");
+        var bidangDropdown = document.getElementById("tel");
+        
+        // Get the selected unit value
+        var selectedUnitValue = unitKerjaDropdown.value;
+
+        // Clear the Bidang dropdown value when "-- Pilih --" is selected in Unit Kerja
+        if (selectedUnitValue === "") {
+            bidangDropdown.innerHTML = '<option value="">-- Pilih --</option>';
+            return; // Exit the function early
+        }
+
+        // Reset Bidang dropdown options
+        bidangDropdown.innerHTML = '';
+
+
+        // Loop through Bidang options and add options based on the selected unit
+        <?php foreach($bidang as $bidangs) { ?>
+            var dataUnit = <?= json_encode($bidangs->id_unit_kerja) ?>;
+            if (selectedUnitValue === "" || selectedUnitValue == dataUnit) {
+                var option = document.createElement('option');
+                option.value = <?= json_encode($bidangs->id) ?>;
+                option.text = <?= json_encode($bidangs->name) ?>;
+                bidangDropdown.add(option);
+            }
+        <?php } ?>
+    }
+
+    // Add an event listener to call the function when the page loads
+    window.addEventListener('load', updateBidangOptions);
+
+    // Additional event listener for Unit Kerja dropdown change
+    document.getElementById("kon").addEventListener('change', updateBidangOptions);
+        
+    function updatePetugasOptions() {
+        var bidangDropdown = document.getElementById("tel");
+        var petugasDropdown = document.getElementById("ahai");
+        var petugas2Dropdown = document.getElementById("ahai2");
+        
+        // Get the selected unit value
+        var selectedUnitValue = bidangDropdown.value;
+
+        // Clear the Bidang dropdown value when "-- Pilih --" is selected in Unit Kerja
+        if (selectedUnitValue === "") {
+            petugasDropdown.innerHTML = '<option value="">-- Pilih --</option>';
+            petugas2Dropdown.innerHTML = '<option value="">-- Pilih --</option>';
+            return; // Exit the function early
+        }
+        
+        // Reset Bidang dropdown options
+        petugasDropdown.innerHTML = '';
+        petugas2Dropdown.innerHTML = '';
+
+
+        // Loop through Bidang options and add options based on the selected unit
+        <?php foreach($petugas as $petugasd) { ?>
+            var dataBidang = <?= json_encode($petugasd->id_bidang) ?>;
+            if (selectedUnitValue === "" || selectedUnitValue == dataBidang) {
+                var option = document.createElement('option');
+                option.value = <?= json_encode($petugasd->id) ?>;
+                option.text = <?= json_encode($petugasd->name) ?>;
+                petugasDropdown.add(option);
+            }
+            if (selectedUnitValue === "" || selectedUnitValue == dataBidang) {
+                var option = document.createElement('option');
+                option.value = <?= json_encode($petugasd->id) ?>;
+                option.text = <?= json_encode($petugasd->name) ?>;
+                petugas2Dropdown.add(option);
+            }
+        <?php } ?>
+    }
+
+    // Add an event listener to call the function when the page loads
+    window.addEventListener('load', updatePetugasOptions);
+
+    // Additional event listener for Unit Kerja dropdown change
+    document.getElementById("kon").addEventListener('change', updatePetugasOptions);
             function swallnya(id) {
     swal({
       title: "Apakah kamu yakin?",

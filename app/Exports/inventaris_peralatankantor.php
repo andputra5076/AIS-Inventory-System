@@ -91,13 +91,13 @@ class inventaris_peralatankantor implements FromCollection, WithHeadings, Should
             $petugas2 = explode(',', $user->id_petugas2);
             $data->push([
                 $nourut,
+                $user->kode_peralatankantor,
                 $no,
                 $user->nama_peralatankantor,
                 $merek,
                 $jenis,
                 $tipe,
                 $spesifikasi,
-                $user->kode_peralatankantor,
                 $user->kondisi,
                 $user->jumlah,
                 $user->satuan,
@@ -123,13 +123,13 @@ class inventaris_peralatankantor implements FromCollection, WithHeadings, Should
     {
         return [
             'No Urut',
+            'Kode Barang',
             'No Inventaris',
             'Nama Barang',
             'Jenis Barang',
             'Merek',
             'Tipe',
             'Spesifikasi',
-            'Kode Barang',
             'Kondisi',
             'Jumlah',
             'Satuan',
@@ -143,7 +143,7 @@ class inventaris_peralatankantor implements FromCollection, WithHeadings, Should
             'Unit Kerja',
             'Bidang',
             'Petugas 1',
-            'Petugas 2',
+            'Penanggung Jawab',
             'Keterangan',
         ];
     }

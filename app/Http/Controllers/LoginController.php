@@ -29,7 +29,7 @@ class LoginController extends Controller
 
             // If the cooldown has not expired, prevent login and show an error message
             $cooldownDuration = 30; // 30 seconds cooldown
-            if ($loginAttempts >= 5 && (time() - $lastFailedAttempt) < $cooldownDuration) {
+            if ($loginAttempts >= 3 && (time() - $lastFailedAttempt) < $cooldownDuration) {
                 return redirect('/')->with('error', 'Too many login attempts. Please try again later.');
             }
 
@@ -42,7 +42,7 @@ class LoginController extends Controller
 
         $data = DB::table('users')->where('username', $input['username'])->where('password', md5($input['password']))->first();
         if ($data) {
-            $request->session()->flash('success', 'Login Successfully');
+            $request->session()->flash('success', 'Login Successful');
             $request->session()->put('username', $input['username']);
             $request->session()->put('data', $data);
 
@@ -57,7 +57,7 @@ class LoginController extends Controller
             $request->session()->put('login_attempts', $loginAttempts);
             $request->session()->put('last_failed_attempt', time());
 
-            $request->session()->flash('error', 'Login fail Check our Username or Password!!');
+            $request->session()->flash('error', 'Login failed! Please check our username or password');
             return redirect('/');
         }
     }
@@ -68,7 +68,7 @@ class LoginController extends Controller
         // Periksa apakah data pengguna ada dalam session
         if (session()->has('data')) {
             session()->flush();
-            return redirect('welcome')->with('success', 'You have been logged out Successfully');
+            return redirect('welcome')->with('success', 'You have successfully logged out!');
         }
     }
 }

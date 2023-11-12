@@ -91,13 +91,13 @@ class aset_alatmedis implements FromCollection, WithHeadings, ShouldAutoSize, Wi
             $petugas2 = explode(',', $user->id_petugas2);
             $data->push([
                 $nourut,
+                $user->kode_alatmedis,
                 $no,
                 $user->nama_alatmedis,
                 $merek,
                 $jenis,
                 $tipe,
                 $spesifikasi,
-                $user->kode_alatmedis,
                 $user->kondisi,
                 $user->jumlah,
                 $user->satuan,
@@ -123,13 +123,13 @@ class aset_alatmedis implements FromCollection, WithHeadings, ShouldAutoSize, Wi
     {
         return [
             'No Urut',
+            'Kode Aset',
             'No Aset',
             'Nama Aset',
             'Jenis Aset',
             'Merek',
             'Tipe',
             'Spesifikasi',
-            'Kode Aset',
             'Kondisi',
             'Jumlah',
             'Satuan',
@@ -143,7 +143,7 @@ class aset_alatmedis implements FromCollection, WithHeadings, ShouldAutoSize, Wi
             'Unit Kerja',
             'Bidang',
             'Petugas 1',
-            'Petugas 2',
+            'Penanggung Jawab',
             'Keterangan',
         ];
     }

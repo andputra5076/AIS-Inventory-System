@@ -91,13 +91,13 @@ class aset_alatac implements FromCollection, WithHeadings, ShouldAutoSize, WithS
             $petugas2 = explode(',', $user->id_petugas2);
             $data->push([
                 $nourut,
+                $user->kode_alatac,
                 $no,
                 $user->nama_alatac,
                 $merek,
                 $jenis,
                 $tipe,
                 $spesifikasi,
-                $user->kode_alatac,
                 $user->kondisi,
                 $user->jumlah,
                 $user->satuan,
@@ -123,13 +123,13 @@ class aset_alatac implements FromCollection, WithHeadings, ShouldAutoSize, WithS
     {
         return [
             'No Urut',
+            'Kode Aset',
             'No Aset',
             'Nama Aset',
             'Jenis Aset',
             'Merek',
             'Tipe',
             'Spesifikasi',
-            'Kode Aset',
             'Kondisi',
             'Jumlah',
             'Satuan',
@@ -143,7 +143,7 @@ class aset_alatac implements FromCollection, WithHeadings, ShouldAutoSize, WithS
             'Unit Kerja',
             'Bidang',
             'Petugas 1',
-            'Petugas 2',
+            'Penanggung Jawab',
             'Keterangan',
         ];
     }

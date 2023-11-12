@@ -52,10 +52,9 @@
         <label for="password" class="form-label">Password</label>
         <div class="input-group input-group-merge">
             <input id="password" type="password" required="" name="password" class="form-control" placeholder="Enter your password">
-            <div class="input-group-text" data-password="false">
-                <span class="password-eye"></span>
-            </div>
-        </div>
+            <div class="" data-password="false">
+</div>
+</div>
     </div>
 
     <div class="mb-0 mb-0 text-center">

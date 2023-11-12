@@ -90,11 +90,11 @@ class aset_kendaraandanambulance implements FromCollection, WithHeadings, Should
             $petugas2 = explode(',', $user->id_petugas2);
             $data->push([
                 $nourut,
+                $user->kode_aset_kendaraandanambulance,
                 $no,
                 $user->nama_kendaraandanambulance,
                 $jenis,
                 $merek,
-                $user->kode_aset_kendaraandanambulance,
                 $nopol,
                 $user->kepemilikan_stnk,
                 $user->norangka,
@@ -125,11 +125,11 @@ class aset_kendaraandanambulance implements FromCollection, WithHeadings, Should
     {
         return [
             'No Urut',
+            'Kode Aset',
             'No Aset',
             'Nama Aset/Kendaraan',
             'Jenis Kendaraan',
             'Merek',
-            'Kode Aset',
             'No Polisi',
             'Kepemilikan/STNK',
             'No Rangka',
@@ -148,7 +148,7 @@ class aset_kendaraandanambulance implements FromCollection, WithHeadings, Should
             'Unit Kerja',
             'Bidang',
             'Petugas 1',
-            'Petugas 2',
+            'Penanggung Jawab',
             'Keterangan',
         ];
     }

@@ -91,13 +91,13 @@ class aset_alatkantor implements FromCollection, WithHeadings, ShouldAutoSize, W
             $petugas2 = explode(',', $user->id_petugas2);
             $data->push([
                 $nourut,
+                $user->kode_alatkantor,
                 $no,
                 $user->nama_alatkantor,
                 $merek,
                 $jenis,
                 $tipe,
                 $spesifikasi,
-                $user->kode_alatkantor,
                 $user->kondisi,
                 $user->jumlah,
                 $user->satuan,
@@ -123,13 +123,13 @@ class aset_alatkantor implements FromCollection, WithHeadings, ShouldAutoSize, W
     {
         return [
             'No Urut',
+            'Kode Aset',
             'No Aset',
             'Nama Aset',
             'Jenis Aset',
             'Merek',
             'Tipe',
             'Spesifikasi',
-            'Kode Aset',
             'Kondisi',
             'Jumlah',
             'Satuan',
@@ -143,7 +143,7 @@ class aset_alatkantor implements FromCollection, WithHeadings, ShouldAutoSize, W
             'Unit Kerja',
             'Bidang',
             'Petugas 1',
-            'Petugas 2',
+            'Penanggung Jawab',
             'Keterangan',
         ];
     }

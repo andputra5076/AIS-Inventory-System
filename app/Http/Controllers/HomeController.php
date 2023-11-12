@@ -54,7 +54,7 @@ class HomeController extends Controller
         return view('welcome', ['users' => $users]);
     }
 
-    public function master()
+    public function laporan()
     {
         if (!session()->has('username')) {
             return redirect("/");
@@ -76,8 +76,9 @@ class HomeController extends Controller
         }
 
 
-        return view('master', ['users' => $users]);
+        return view('laporan/laporan', ['users' => $users]);
     }
+
     public function profil()
     {
         if (!session()->has('username')) {
@@ -158,7 +159,7 @@ class HomeController extends Controller
             $users = DB::table('users')
                 ->join('bidang', 'users.id', '=', 'bidang.id_unit_usaha')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'bidang.id_unit_kerja')
-                ->select('*', 'bidang.id as bidangid', 'bidang.id_unit_usaha as idusaha', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'bidang.name as bidangnama')
+                ->select('*', 'bidang.id as bidangid', 'bidang.id_unit_usaha as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'bidang.name as bidangnama')
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
@@ -167,7 +168,7 @@ class HomeController extends Controller
             $users = DB::table('users')
                 ->join('bidang', 'users.id', '=', 'bidang.id_unit_usaha')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'bidang.id_unit_kerja')
-                ->select('*', 'bidang.id as bidangid', 'bidang.id_unit_usaha as idusaha', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'bidang.name as bidangnama')
+                ->select('*', 'bidang.id as bidangid', 'bidang.id_unit_usaha as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'bidang.name as bidangnama')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $unit_kerja = DB::table('users')

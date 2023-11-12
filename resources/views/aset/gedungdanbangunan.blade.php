@@ -105,18 +105,14 @@
                                     <ul class="navbar-nav">
                                         <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="uil-server me-1"></i>Inventaris <div class="arrow-down"></div>
+                                                <i class=" uil-users-alt me-1"></i>Master <div class="arrow-down"></div>
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="topnav-pages">
-                                                <a href="/inventaris/kendaraan" class="dropdown-item">Kendaraan</a>
-                                                <a href="/inventaris/peralatantelekomunikasi" class="dropdown-item">Peralatan Telekomunikasi</a>
-                                                <a href="/inventaris/peralatankantor" class="dropdown-item">Peralatan Kantor</a>
-                                                <a href="/inventaris/peralatanteknikinformatika" class="dropdown-item">Peralatan Teknik Informatika</a>
-                                                <a href="/inventaris/peralatantekniklistrikdanmekanik" class="dropdown-item">Peralatan Teknik Listrik dan Mekanik</a>
-                                                <a href="/inventaris/peralatanac" class="dropdown-item">Peralatan AC</a>
-                                                <a href="/inventaris/peralatanlift" class="dropdown-item">Peralatan Lift</a>
-                                                <a href="/inventaris/peralatanmedis" class="dropdown-item">Peralatan Medis</a>
-                                            </div>
+                                                
+                                                <a href="/unitkerja" class="dropdown-item">Unit Kerja</a>
+                                                <a href="/bidang" class="dropdown-item">Bidang</a>
+                                                <a href="/petugas" class="dropdown-item">Petugas</a>
+                    
                                         </li>
                                         <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -138,24 +134,30 @@
                                         </li>
                                         <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-pages" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class=" uil-users-alt me-1"></i>Master <div class="arrow-down"></div>
+                                                <i class="uil-server me-1"></i>Inventaris <div class="arrow-down"></div>
                                             </a>
                                             <div class="dropdown-menu" aria-labelledby="topnav-pages">
-                                                <?php
-                                                        if (session('data')->role != 'Corporation') {
+                                                <a href="/inventaris/kendaraan" class="dropdown-item">Kendaraan</a>
+                                                <a href="/inventaris/peralatantelekomunikasi" class="dropdown-item">Peralatan Telekomunikasi</a>
+                                                <a href="/inventaris/peralatankantor" class="dropdown-item">Peralatan Kantor</a>
+                                                <a href="/inventaris/peralatanteknikinformatika" class="dropdown-item">Peralatan Teknik Informatika</a>
+                                                <a href="/inventaris/peralatantekniklistrikdanmekanik" class="dropdown-item">Peralatan Teknik Listrik dan Mekanik</a>
+                                                <a href="/inventaris/peralatanac" class="dropdown-item">Peralatan AC</a>
+                                                <a href="/inventaris/peralatanlift" class="dropdown-item">Peralatan Lift</a>
+                                                <a href="/inventaris/peralatanmedis" class="dropdown-item">Peralatan Medis</a>
+                                            </div>
+                                        </li>
+                                        <?php
+                                        if (session('data')->role == 'Corporation') {
 
                                                         }else {
                                                             ?>
-                                                            <a href="/master" class="dropdown-item">Unit Usaha</a>
+                                                            <a class="nav-link dropdown-toggle arrow-none" href="/laporan" >
+                                                <i class="mdi mdi-download-box-outline me-1"></i>Laporan 
+                                            </a>
                                                             <?php
                                                         }
                                                         ?>
-                                                <a href="/unitkerja" class="dropdown-item">Unit Kerja</a>
-                                                <a href="/bidang" class="dropdown-item">Bidang</a>
-                                                <a href="/petugas" class="dropdown-item">Petugas</a>
-
-                                        </li>
-                                        
                                     </ul>
                                 </div>
                             </nav>
@@ -238,7 +240,7 @@
                                                             <th>Nama Aset</th>
                                                             <th>Nama Objek</th>
                                                             <th>Kode Aset</th>
-                                                            <th>Jenis Gedung dan Bangunan</th>
+                                                            <th>Konstruksi Gedung/Bangunan</th>
                                                             <th>Tahun</th>
                                                             <th>Bulan</th>
                                                             <th>Pengguna Barang</th>
@@ -331,7 +333,7 @@ data-keterangan='<?= isset($user->keterangan) ? $user->keterangan : '-'; ?>'
                                             <div class="col-sm-4">
                                                 <p class="text"><strong>Nama Aset :</strong> <span class="ms-1"><?= $user->nama_gedungdanbangunan?></span></p>
                                                 <p class="text"><strong>Nama Objek :</strong> <span class="ms-1"><?= $objek?></span></p>
-                                                <p class="text"><strong>Jenis Gedung/Bangunan :</strong> <span class="ms-1"><?= $jenis?></span></p>
+                                                <p class="text"><strong>Konstruksi Gedung/Bangunan :</strong> <span class="ms-1"><?= $jenis?></span></p>
                                             <p class="text"><strong>Kode Aset :</strong> <span class="ms-1"><?= $user->kode_aset_gedungdanbangunan?></span></p>
                                             <p class="text"><strong>Luas Gedung/Bangunan :</strong> <span class="ms-1"><?= $luas?></span></p>
                                             <p class="text"><strong>Kondisi :</strong> <span class="ms-1"><?= $user->kondisi?></span></p>
@@ -356,7 +358,7 @@ data-keterangan='<?= isset($user->keterangan) ? $user->keterangan : '-'; ?>'
                                             <p class="text"><strong>Unit Kerja :</strong><span class="ms-1"> <?= $user->namakerja?> </span></p>
                                             <p class="text"><strong>Bidang :</strong><span class="ms-1"> <?= $user->bidangnama?> </span></p>
                                             <p class="text"><strong>Petugas 1 :</strong><span class="ms-1"> <?= $user->petugasnama?> </span></p>
-                                            <p class="text"><strong>Petugas 2 :</strong><span class="ms-1"> <?= isset($petugas2[1]) ? $petugas2[1] : '-'; ?> </span></p>
+                                            <p class="text"><strong>Penanggung Jawab :</strong><span class="ms-1"> <?= isset($petugas2[1]) ? $petugas2[1] : '-'; ?> </span></p>
                                             <p class="text2"><strong>Keterangan :</strong><span class="ms-1"> <?= isset($user->keterangan) ? $user->keterangan : '-'; ?> </span></p>
                                             </div> <!-- end col-->
                                         </div>    
@@ -442,7 +444,7 @@ data-keterangan='<?= isset($user->keterangan) ? $user->keterangan : '-'; ?>'
                         <input class="form-control" name="nama_objek" type="text" style="text-transform:uppercase;" id="nama_objek" required="" placeholder="">
                     </div>
                     <div class="mb-3">
-                    <label for="text" class="form-label">Jenis Gedung/Bangunan</label>
+                    <label for="text" class="form-label">Konstruksi Gedung/Bangunan</label>
                         <input class="form-control" name="jenis_gedungdanbangunan" type="text" id="jenis_gedungdanbangunan" required="" placeholder="">
                     </div>
                     <div class="mb-3">
@@ -560,7 +562,7 @@ please do not upload images larger than 2 mb</p>
 </select>          
 </div>
                     <div class="mb-3">
-                    <label for="text" class="form-label" >Petugas 2</label>
+                    <label for="text" class="form-label" >Penanggung Jawab</label>
                         <select name="id_petugas2" class="form-select" aria-label="Default select example" >
                            <option value="">-- Pilih --</option>
                             <?php
@@ -575,7 +577,7 @@ please do not upload images larger than 2 mb</p>
 </div>
 <div class="mb-3">
                     <label for="text" class="form-label">Keterangan</label>
-                        <textarea class="form-control" name="keterangan" id="keterangan" rows="5" placeholder="Masukkan keterangan tanah.."></textarea>
+                        <textarea class="form-control" name="keterangan" id="keterangan" rows="5" placeholder="Masukkan keterangan Gedung/Bangunan.."></textarea>
                     </div>
             </div>
             <div class="modal-footer">
@@ -609,7 +611,7 @@ please do not upload images larger than 2 mb</p>
                         <input class="form-control" name="id" type="hidden" id="idedit" required="" placeholder="">
                     </div>
                     <div class="mb-3">
-                    <label for="text" class="form-label">Jenis Gedung/Bangunan</label>
+                    <label for="text" class="form-label">Konstruksi Gedung/Bangunan</label>
                         <input class="form-control" name="jenis_gedungdanbangunan" type="text" id="nameedit2" required="" placeholder="">
                         <input class="form-control" name="id" type="hidden" id="idedit2" required="" placeholder="">
                     </div>
@@ -736,7 +738,7 @@ please do not upload images larger than 2 mb</p>
 </select>          
 </div>
                     <div class="mb-3">
-                    <label for="text" class="form-label" >Petugas 2</label>
+                    <label for="text" class="form-label" >Penanggung Jawab</label>
                         <select name="id_petugas2" id="hoy" class="form-select" aria-label="Default select example">
                            <option id="petugas2">-- Pilih --</option>
                             <?php

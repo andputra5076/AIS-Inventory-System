@@ -93,11 +93,11 @@ class aset_gedungdanbangunan implements FromCollection, WithHeadings, ShouldAuto
             $petugas2 = explode(',', $user->id_petugas2);
             $data->push([
                 $nourut,
+                $user->kode_aset_gedungdanbangunan,
                 $no,
                 $user->nama_gedungdanbangunan,
                 $objek,
                 $jenis,
-                $user->kode_aset_gedungdanbangunan,
                 $luas,
                 $user->kondisi,
                 $latitude,
@@ -126,11 +126,11 @@ class aset_gedungdanbangunan implements FromCollection, WithHeadings, ShouldAuto
     {
         return [
             'No Urut',
+            'Kode Aset',
             'No Aset',
             'Nama Aset',
             'Nama Objek',
-            'Jenis Gedung/Bangunan',
-            'Kode Aset',
+            'Konstruksi Gedung/Bangunan',
             'Luas Gedung/Bangunan',
             'Kondisi',
             'Latitude',
@@ -147,7 +147,7 @@ class aset_gedungdanbangunan implements FromCollection, WithHeadings, ShouldAuto
             'Unit Kerja',
             'Bidang',
             'Petugas 1',
-            'Petugas 2',
+            'Penanggung Jawab',
             'Keterangan',
         ];
     }

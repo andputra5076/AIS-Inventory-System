@@ -91,13 +91,13 @@ class aset_komputer implements FromCollection, WithHeadings, ShouldAutoSize, Wit
             $petugas2 = explode(',', $user->id_petugas2);
             $data->push([
                 $nourut,
+                $user->kode_komputer,
                 $no,
                 $user->nama_komputer,
                 $merek,
                 $jenis,
                 $tipe,
                 $spesifikasi,
-                $user->kode_komputer,
                 $user->kondisi,
                 $user->jumlah,
                 $user->satuan,
@@ -123,13 +123,13 @@ class aset_komputer implements FromCollection, WithHeadings, ShouldAutoSize, Wit
     {
         return [
             'No Urut',
+            'Kode Aset',
             'No Aset',
             'Nama Aset',
             'Jenis Aset',
             'Merek',
             'Tipe',
             'Spesifikasi',
-            'Kode Aset',
             'Kondisi',
             'Jumlah',
             'Satuan',
@@ -143,7 +143,7 @@ class aset_komputer implements FromCollection, WithHeadings, ShouldAutoSize, Wit
             'Unit Kerja',
             'Bidang',
             'Petugas 1',
-            'Petugas 2',
+            'Penanggung Jawab',
             'Keterangan',
         ];
     }
