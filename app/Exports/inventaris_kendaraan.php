@@ -33,15 +33,15 @@ class inventaris_kendaraan implements FromCollection, WithHeadings, ShouldAutoSi
         $users = DB::table('users')
             ->join('inventaris_kendaraan', 'users.id', '=', 'inventaris_kendaraan.pengguna_barang')
             ->join('unit_kerja', 'unit_kerja.id', '=', 'inventaris_kendaraan.id_unit_kerja')
-            ->join('bidang', 'bidang.id', '=', 'inventaris_kendaraan.id_bidang')
+            ->join('ruangan', 'ruangan.id', '=', 'inventaris_kendaraan.id_ruangan')
             ->join('petugas', 'petugas.id', '=', 'inventaris_kendaraan.id_petugas1')
-            ->select('*', 'bidang.id as bidangid', 'unit_kerja.id as idkerja', 'users.id as id_user', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas');
+            ->select('*', 'ruangan.id as ruanganid', 'unit_kerja.id as idkerja', 'users.id as id_user', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas');
 
         $unit_kerja = DB::table('users')
             ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id');
 
-        $bidang = DB::table('users')
-            ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id');
+        $ruangan = DB::table('users')
+            ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id');
 
         $petugas = DB::table('users')
             ->join('petugas', 'petugas.id_unit_usaha', '=', 'users.id');
@@ -49,12 +49,12 @@ class inventaris_kendaraan implements FromCollection, WithHeadings, ShouldAutoSi
         if ($loggedInUserId == '1') {
             $users = $users->get();
             $unit_kerja = $unit_kerja->get();
-            $bidang = $bidang->get();
+            $ruangan = $ruangan->get();
             $petugas = $petugas->get();
         } else {
             $users = $users->where('users.name', '=', $loggedInUserName)->get();
             $unit_kerja = $unit_kerja->where('users.name', '=', $loggedInUserName)->get();
-            $bidang = $bidang->where('users.name', '=', $loggedInUserName)->get();
+            $ruangan = $ruangan->where('users.name', '=', $loggedInUserName)->get();
             $petugas = $petugas->where('users.name', '=', $loggedInUserName)->get();
         }
 
@@ -72,17 +72,20 @@ class inventaris_kendaraan implements FromCollection, WithHeadings, ShouldAutoSi
             $kosong = '00000000000000000000000';
             $no = $kosong . $no;
             $no = substr($no, strlen($no) - 6, strlen($no));
-
             $date = DateTime::createFromFormat("Y-m-d h:i:s", $user->date_created);
             $tanggalbarang = DateTime::createFromFormat("Y-m-d", $user->tanggal_barang);
-
+            $y = $tanggalbarang->format("Y");
+            $m = $tanggalbarang->format("m");
+            $t = $user->kode_barang_kendaraan;
+            $id = $user->id_user;
+            $gabung = $y . $m . $t . $id . '.' . $no;
             $merek = $user->merek_kendaraan;
             $jenis = $user->jenis_kendaraan;
             $nopol = $user->nopol;
             $petugas2 = explode(',', $user->id_petugas2);
             $data->push([
                 $nourut,
-                $user->kode_barang_kendaraan,
+                $gabung,
                 $no,
                 $user->nama_barang_kendaraan,
                 $jenis,
@@ -103,7 +106,7 @@ class inventaris_kendaraan implements FromCollection, WithHeadings, ShouldAutoSi
                 $user->usernamanya,
                 $user->usernamanya,
                 $user->namakerja,
-                $user->bidangnama,
+                $user->ruangannama,
                 $user->petugasnama,
                 isset($petugas2[1]) ? $petugas2[1] : '-',
                 isset($user->keterangan) ? $user->keterangan : '-',
@@ -132,14 +135,14 @@ class inventaris_kendaraan implements FromCollection, WithHeadings, ShouldAutoSi
             'Satuan',
             'Nilai Perolehan',
             'Tanggal Barang',
-            'Foto Barang',
+            'Foto Barang/Kendaraan',
             'Alamat',
             'Pengelola Barang',
             'Pengguna Barang',
             'Kuasa Pengguna Barang',
             'Unit Kerja',
-            'Bidang',
-            'Petugas 1',
+            'Ruangan',
+            'P. Pencatat',
             'Penanggung Jawab',
             'Keterangan',
         ];

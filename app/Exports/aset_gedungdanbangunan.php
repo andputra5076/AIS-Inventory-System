@@ -31,15 +31,15 @@ class aset_gedungdanbangunan implements FromCollection, WithHeadings, ShouldAuto
             $users = DB::table('users')
                 ->join('aset_gedungdanbangunan', 'users.id', '=', 'aset_gedungdanbangunan.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'aset_gedungdanbangunan.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'aset_gedungdanbangunan.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'aset_gedungdanbangunan.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'aset_gedungdanbangunan.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'aset_gedungdanbangunan.id_petugas2 as idusaha', 'aset_gedungdanbangunan.id_petugas2 as idusaha', 'unit_kerja.id as idkerja', 'users.id as id_user',  'unit_kerja.name as namakerja', 'users.name as usernamanya', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'aset_gedungdanbangunan.id_petugas2 as idusaha', 'aset_gedungdanbangunan.id_petugas2 as idusaha', 'unit_kerja.id as idkerja', 'users.id as id_user',  'unit_kerja.name as namakerja', 'users.name as usernamanya', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->get();
             $petugas = DB::table('users')
                 ->join('petugas', 'petugas.id_unit_usaha', '=', 'users.id')
@@ -48,17 +48,17 @@ class aset_gedungdanbangunan implements FromCollection, WithHeadings, ShouldAuto
             $users = DB::table('users')
                 ->join('aset_gedungdanbangunan', 'users.id', '=', 'aset_gedungdanbangunan.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'aset_gedungdanbangunan.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'aset_gedungdanbangunan.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'aset_gedungdanbangunan.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'aset_gedungdanbangunan.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'aset_gedungdanbangunan.id_petugas2 as idusaha', 'aset_gedungdanbangunan.pengguna_barang as idusaha',  'unit_kerja.id as idkerja',  'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'aset_gedungdanbangunan.id_petugas2 as idusaha', 'aset_gedungdanbangunan.pengguna_barang as idusaha',  'unit_kerja.id as idkerja',  'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $petugas = DB::table('users')
@@ -83,7 +83,11 @@ class aset_gedungdanbangunan implements FromCollection, WithHeadings, ShouldAuto
 
             $date = DateTime::createFromFormat("Y-m-d h:i:s", $user->date_created);
             $tanggal_aset = DateTime::createFromFormat("Y-m-d", $user->tanggal_aset);
-
+            $y = $tanggal_aset->format("Y");
+            $m = $tanggal_aset->format("m");
+            $t = $user->kode_aset_gedungdanbangunan;
+            $id = $user->id_user;
+            $gabung = $y . $m . $t . $id . '.' . $no;
             $jenis = $user->jenis_gedungdanbangunan;
             $objek = $user->nama_objek;
             $luas = $user->luas_gedungdanbangunan;
@@ -93,7 +97,7 @@ class aset_gedungdanbangunan implements FromCollection, WithHeadings, ShouldAuto
             $petugas2 = explode(',', $user->id_petugas2);
             $data->push([
                 $nourut,
-                $user->kode_aset_gedungdanbangunan,
+                $gabung,
                 $no,
                 $user->nama_gedungdanbangunan,
                 $objek,
@@ -112,7 +116,7 @@ class aset_gedungdanbangunan implements FromCollection, WithHeadings, ShouldAuto
                 $user->usernamanya,
                 $user->usernamanya,
                 $user->namakerja,
-                $user->bidangnama,
+                $user->ruangannama,
                 $user->petugasnama,
                 isset($petugas2[1]) ? $petugas2[1] : '-',
                 isset($user->keterangan) ? $user->keterangan : '-',
@@ -139,14 +143,14 @@ class aset_gedungdanbangunan implements FromCollection, WithHeadings, ShouldAuto
             'Satuan',
             'Nilai Perolehan',
             'Tanggal Aset',
-            'Foto Lokasi',
+            'Foto Gedung/Bangunan',
             'Alamat',
             'Pengelola Barang',
             'Pengguna Barang',
             'Kuasa Pengguna Barang',
             'Unit Kerja',
-            'Bidang',
-            'Petugas 1',
+            'Ruangan',
+            'P. Pencatat',
             'Penanggung Jawab',
             'Keterangan',
         ];

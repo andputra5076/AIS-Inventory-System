@@ -23,15 +23,15 @@ class QrController extends Controller
         $users = DB::table('users')
             ->join('aset_tanah', 'users.id', '=', 'aset_tanah.pengguna_barang')
             ->join('unit_kerja', 'unit_kerja.id', '=', 'aset_tanah.id_unit_kerja')
-            ->join('bidang', 'bidang.id', '=', 'aset_tanah.id_bidang')
+            ->join('ruangan', 'ruangan.id', '=', 'aset_tanah.id_ruangan')
             ->join('petugas', 'petugas.id', '=', 'aset_tanah.id_petugas1')
-            ->select('*', 'bidang.id as bidangid', 'unit_kerja.id as idkerja', 'users.id as id_user', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas');
+            ->select('*', 'ruangan.id as ruanganid', 'unit_kerja.id as idkerja', 'users.id as id_user', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas');
 
         $unit_kerja = DB::table('users')
             ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id');
 
-        $bidang = DB::table('users')
-            ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id');
+        $ruangan = DB::table('users')
+            ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id');
 
         $petugas = DB::table('users')
             ->join('petugas', 'petugas.id_unit_usaha', '=', 'users.id');
@@ -39,12 +39,12 @@ class QrController extends Controller
         if ($loggedInUserId == '1') {
             $users = $users->get();
             $unit_kerja = $unit_kerja->get();
-            $bidang = $bidang->get();
+            $ruangan = $ruangan->get();
             $petugas = $petugas->get();
         } else {
             $users = $users->where('users.name', '=', $loggedInUserName)->get();
             $unit_kerja = $unit_kerja->where('users.name', '=', $loggedInUserName)->get();
-            $bidang = $bidang->where('users.name', '=', $loggedInUserName)->get();
+            $ruangan = $ruangan->where('users.name', '=', $loggedInUserName)->get();
             $petugas = $petugas->where('users.name', '=', $loggedInUserName)->get();
         }
 
@@ -55,7 +55,7 @@ class QrController extends Controller
         return view('aset/tanah', [
             'aset_tanah' => $users,
             'unit_kerja' => $unit_kerja,
-            'bidang' => $bidang,
+            'ruangan' => $ruangan,
             'petugas' => $petugas
         ]);
     }
@@ -188,7 +188,7 @@ setTimeout(window.close, 5000);
             'pengguna_barang' => $request->input('pengguna_barang'),
             'kuasa_pengguna_barang' => $request->input('kuasa_pengguna_barang'),
             'id_unit_kerja' => $request->input('id_unit_kerja'),
-            'id_bidang' => $request->input('id_bidang'),
+            'id_ruangan' => $request->input('id_ruangan'),
             'id_petugas1' => $request->input('id_petugas1'),
             'id_petugas2' => $request->input('id_petugas2'),
         ]);
@@ -239,7 +239,7 @@ setTimeout(window.close, 5000);
                         'alamat' => $request->input('alamat'),
                         'keterangan' => $request->input('keterangan'),
                         'id_unit_kerja' => $request->input('id_unit_kerja'),
-                        'id_bidang' => $request->input('id_bidang'),
+                        'id_ruangan' => $request->input('id_ruangan'),
                         'id_petugas1' => $request->input('id_petugas1'),
                         'id_petugas2' => $request->input('id_petugas2'),
                     ]);
@@ -277,7 +277,7 @@ setTimeout(window.close, 5000);
                     'alamat' => $request->input('alamat'),
                     'keterangan' => $request->input('keterangan'),
                     'id_unit_kerja' => $request->input('id_unit_kerja'),
-                    'id_bidang' => $request->input('id_bidang'),
+                    'id_ruangan' => $request->input('id_ruangan'),
                     'id_petugas1' => $request->input('id_petugas1'),
                     'id_petugas2' => $request->input('id_petugas2'),
                 ]);
@@ -297,15 +297,15 @@ setTimeout(window.close, 5000);
             $users = DB::table('users')
                 ->join('inventaris_peralatankantor', 'users.id', '=', 'inventaris_peralatankantor.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'inventaris_peralatankantor.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'inventaris_peralatankantor.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_peralatankantor.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'inventaris_peralatankantor.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'inventaris_peralatankantor.id_petugas2 as idusaha',  'inventaris_peralatankantor.pengguna_barang as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'inventaris_peralatankantor.id_petugas2 as idusaha',  'inventaris_peralatankantor.pengguna_barang as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->get();
             $petugas = DB::table('users')
                 ->join('petugas', 'petugas.id_unit_usaha', '=', 'users.id')
@@ -314,17 +314,17 @@ setTimeout(window.close, 5000);
             $users = DB::table('users')
                 ->join('inventaris_peralatankantor', 'users.id', '=', 'inventaris_peralatankantor.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'inventaris_peralatankantor.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'inventaris_peralatankantor.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_peralatankantor.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'inventaris_peralatankantor.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'inventaris_peralatankantor.id_petugas2 as idusaha',  'inventaris_peralatankantor.pengguna_barang as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'inventaris_peralatankantor.id_petugas2 as idusaha',  'inventaris_peralatankantor.pengguna_barang as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $petugas = DB::table('users')
@@ -473,15 +473,15 @@ setTimeout(window.close, 5000);
             $users = DB::table('users')
                 ->join('inventaris_perateknikinformatika', 'users.id', '=', 'inventaris_peralatanteknikinformatika.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'inventaris_peralatanteknikinformatika.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'inventaris_peralatanteknikinformatika.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_peralatanteknikinformatika.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'inventaris_peralatanteknikinformatika.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'inventaris_peralatanteknikinformatika.id_petugas2 as idusaha', 'inventaris_peralatanteknikinformatika.pengguna_barang as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'inventaris_peralatanteknikinformatika.id_petugas2 as idusaha', 'inventaris_peralatanteknikinformatika.pengguna_barang as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->get();
             $petugas = DB::table('users')
                 ->join('petugas', 'petugas.id_unit_usaha', '=', 'users.id')
@@ -490,17 +490,17 @@ setTimeout(window.close, 5000);
             $users = DB::table('users')
                 ->join('inventaris_peralatanteknikinformatika', 'users.id', '=', 'inventaris_peralatanteknikinformatika.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'inventaris_peralatanteknikinformatika.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'inventaris_peralatanteknikinformatika.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_peralatanteknikinformatika.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'inventaris_peralatanteknikinformatika.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'inventaris_peralatanteknikinformatika.id_petugas2 as idusaha', 'inventaris_peralatanteknikinformatika.pengguna_barang as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'inventaris_peralatanteknikinformatika.id_petugas2 as idusaha', 'inventaris_peralatanteknikinformatika.pengguna_barang as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $petugas = DB::table('users')
@@ -649,15 +649,15 @@ setTimeout(window.close, 5000);
             $users = DB::table('users')
                 ->join('inventaris_peralatantekniklistrikdanmekanik', 'users.id', '=', 'inventaris_peralatantekniklistrikdanmekanik.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'inventaris_peralatantekniklistrikdanmekanik.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'inventaris_peralatantekniklistrikdanmekanik.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_peralatantekniklistrikdanmekanik.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'inventaris_peralatantekniklistrikdanmekanik.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'inventaris_peralatantekniklistrikdanmekanik.id_petugas2 as idusaha',  'inventaris_peralatantekniklistrikdanmekanik.pengguna_barang as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'inventaris_peralatantekniklistrikdanmekanik.id_petugas2 as idusaha',  'inventaris_peralatantekniklistrikdanmekanik.pengguna_barang as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->get();
             $petugas = DB::table('users')
                 ->join('petugas', 'petugas.id_unit_usaha', '=', 'users.id')
@@ -666,17 +666,17 @@ setTimeout(window.close, 5000);
             $users = DB::table('users')
                 ->join('inventaris_tekniklistrikdanmekanik', 'users.id', '=', 'inventaris_peralatantekniklistrikdanmekanik.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'inventaris_peralatantekniklistrikdanmekanik.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'inventaris_peralatantekniklistrikdanmekanik.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_peralatantekniklistrikdanmekanik.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'inventaris_peralatantekniklistrikdanmekanik.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'inventaris_peralatantekniklistrikdanmekanik.id_petugas2 as idusaha',  'inventaris_peralatantekniklistrikdanmekanik.pengguna_barang as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'inventaris_peralatantekniklistrikdanmekanik.id_petugas2 as idusaha',  'inventaris_peralatantekniklistrikdanmekanik.pengguna_barang as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $petugas = DB::table('users')
@@ -825,15 +825,15 @@ setTimeout(window.close, 5000);
             $users = DB::table('users')
                 ->join('inventaris_peralatanac', 'users.id', '=', 'inventaris_peralatanac.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'inventaris_peralatanac.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'inventaris_peralatanac.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_peralatanac.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'inventaris_peralatanac.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'inventaris_peralatanac.id_petugas2 as idusaha',  'inventaris_peralatanac.pengguna_barang as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'inventaris_peralatanac.id_petugas2 as idusaha',  'inventaris_peralatanac.pengguna_barang as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->get();
             $petugas = DB::table('users')
                 ->join('petugas', 'petugas.id_unit_usaha', '=', 'users.id')
@@ -842,17 +842,17 @@ setTimeout(window.close, 5000);
             $users = DB::table('users')
                 ->join('inventaris_peralatanac', 'users.id', '=', 'inventaris_peralatanac.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'inventaris_peralatanac.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'inventaris_peralatanac.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_peralatanac.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'inventaris_peralatanac.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'inventaris_peralatanac.id_petugas2 as idusaha',  'inventaris_peralatanac.pengguna_barang as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'inventaris_peralatanac.id_petugas2 as idusaha',  'inventaris_peralatanac.pengguna_barang as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $petugas = DB::table('users')
@@ -1001,15 +1001,15 @@ setTimeout(window.close, 5000);
             $users = DB::table('users')
                 ->join('inventaris_peralatanlift', 'users.id', '=', 'inventaris_peralatanlift.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'inventaris_peralatanlift.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'inventaris_peralatanlift.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_peralatanlift.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'inventaris_peralatanlift.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'inventaris_peralatanlift.id_petugas2 as idusaha',  'inventaris_peralatanlift.pengguna_barang as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'inventaris_peralatanlift.id_petugas2 as idusaha',  'inventaris_peralatanlift.pengguna_barang as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->get();
             $petugas = DB::table('users')
                 ->join('petugas', 'petugas.id_unit_usaha', '=', 'users.id')
@@ -1018,17 +1018,17 @@ setTimeout(window.close, 5000);
             $users = DB::table('users')
                 ->join('inventaris_peralatanlift', 'users.id', '=', 'inventaris_peralatanlift.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'inventaris_peralatanlift.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'inventaris_peralatanlift.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_peralatanlift.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'inventaris_peralatanlift.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'inventaris_peralatanlift.id_petugas2 as idusaha',  'inventaris_peralatanlift.pengguna_barang as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'inventaris_peralatanlift.id_petugas2 as idusaha',  'inventaris_peralatanlift.pengguna_barang as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $petugas = DB::table('users')
@@ -1177,15 +1177,15 @@ setTimeout(window.close, 5000);
             $users = DB::table('users')
                 ->join('inventaris_peralatanmedis', 'users.id', '=', 'inventaris_peralatanmedis.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'inventaris_peralatanmedis.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'inventaris_peralatanmedis.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_peralatanmedis.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'inventaris_peralatanmedis.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'inventaris_peralatanmedis.id_petugas2 as idusaha',  'inventaris_peralatanmedis.pengguna_barang as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'inventaris_peralatanmedis.id_petugas2 as idusaha',  'inventaris_peralatanmedis.pengguna_barang as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->get();
             $petugas = DB::table('users')
                 ->join('petugas', 'petugas.id_unit_usaha', '=', 'users.id')
@@ -1194,17 +1194,17 @@ setTimeout(window.close, 5000);
             $users = DB::table('users')
                 ->join('inventaris_peralatanmedis', 'users.id', '=', 'inventaris_peralatanmedis.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'inventaris_peralatanmedis.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'inventaris_peralatanmedis.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_peralatanmedis.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'inventaris_peralatanmedis.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'inventaris_peralatanmedis.id_petugas2 as idusaha',  'inventaris_peralatanmedis.pengguna_barang as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'inventaris_peralatanmedis.id_petugas2 as idusaha',  'inventaris_peralatanmedis.pengguna_barang as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $petugas = DB::table('users')
@@ -1356,24 +1356,24 @@ setTimeout(window.close, 5000);
             $users = DB::table('users')
                 ->join('aset_tanah', 'users.id', '=', 'aset_tanah.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'aset_tanah.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'aset_tanah.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'aset_tanah.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'aset_tanah.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'aset_tanah.pengguna_barang as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'aset_tanah.pengguna_barang as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->get();
             $unit_kerja = DB::table('unit_kerja')->get();
-            $bidang = DB::table('bidang')->get();
+            $ruangan = DB::table('ruangan')->get();
             $petugas = DB::table('petugas')->get();
         } else {
             $users = DB::table('users')
                 ->join('aset_tanah', 'users.id', '=', 'aset_tanah.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'aset_tanah.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'aset_tanah.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'aset_tanah.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'aset_tanah.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'aset_tanah.pengguna_barang as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'aset_tanah.pengguna_barang as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->where('users.id', $loggedInUserId)
                 ->get();
             $unit_kerja = DB::table('unit_kerja')->where('id_unit_usaha', $loggedInUserId)->get();
-            $bidang = DB::table('bidang')->where('id_unit_usaha', $loggedInUserId)->get();
+            $ruangan = DB::table('ruangan')->where('id_unit_usaha', $loggedInUserId)->get();
             $petugas = DB::table('petugas')->where('id_unit_usaha', $loggedInUserId)->get();
         }
         $gabung = [];
@@ -1516,15 +1516,15 @@ setTimeout(window.close, 5000);
             $users = DB::table('users')
                 ->join('inventaris_peralatankantor', 'users.id', '=', 'inventaris_peralatankantor.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'inventaris_peralatankantor.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'inventaris_peralatankantor.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_peralatankantor.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'inventaris_peralatankantor.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'unit_kerja.id as idkerja', 'users.id as id_user', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'unit_kerja.id as idkerja', 'users.id as id_user', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->get();
             $petugas = DB::table('users')
                 ->join('petugas', 'petugas.id_unit_usaha', '=', 'users.id')
@@ -1533,17 +1533,17 @@ setTimeout(window.close, 5000);
             $users = DB::table('users')
                 ->join('inventaris_peralatankantor', 'users.id', '=', 'inventaris_peralatankantor.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'inventaris_peralatankantor.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'inventaris_peralatankantor.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_peralatankantor.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'inventaris_peralatankantor.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'unit_kerja.id as idkerja', 'users.id as id_user', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'unit_kerja.id as idkerja', 'users.id as id_user', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $petugas = DB::table('users')
@@ -1556,7 +1556,7 @@ setTimeout(window.close, 5000);
             return redirect("/");
         }
 
-        return view('inventaris/peralatankantor', ['inventaris_peralatankantor' => $users, 'unit_kerja' => $unit_kerja, 'bidang' => $bidang, 'petugas' => $petugas]);
+        return view('inventaris/peralatankantor', ['inventaris_peralatankantor' => $users, 'unit_kerja' => $unit_kerja, 'ruangan' => $ruangan, 'petugas' => $petugas]);
     }
     public function addperalatankantor(Request $request)
     {
@@ -1587,7 +1587,7 @@ setTimeout(window.close, 5000);
             'pengguna_barang' => $request->input('pengguna_barang'),
             'kuasa_pengguna_barang' => $request->input('kuasa_pengguna_barang'),
             'id_unit_kerja' => $request->input('id_unit_kerja'),
-            'id_bidang' => $request->input('id_bidang'),
+            'id_ruangan' => $request->input('id_ruangan'),
             'id_petugas1' => $request->input('id_petugas1'),
             'id_petugas2' => $request->input('id_petugas2'),
         ]);
@@ -1630,7 +1630,7 @@ setTimeout(window.close, 5000);
                         'alamat' => $request->input('alamat'),
                         'keterangan' => $request->input('keterangan'),
                         'id_unit_kerja' => $request->input('id_unit_kerja'),
-                        'id_bidang' => $request->input('id_bidang'),
+                        'id_ruangan' => $request->input('id_ruangan'),
                         'id_petugas1' => $request->input('id_petugas1'),
                         'id_petugas2' => $request->input('id_petugas2'),
                     ]);
@@ -1666,7 +1666,7 @@ setTimeout(window.close, 5000);
                     'alamat' => $request->input('alamat'),
                     'keterangan' => $request->input('keterangan'),
                     'id_unit_kerja' => $request->input('id_unit_kerja'),
-                    'id_bidang' => $request->input('id_bidang'),
+                    'id_ruangan' => $request->input('id_ruangan'),
                     'id_petugas1' => $request->input('id_petugas1'),
                     'id_petugas2' => $request->input('id_petugas2'),
                 ]);
@@ -1692,15 +1692,15 @@ setTimeout(window.close, 5000);
             $users = DB::table('users')
                 ->join('inventaris_peralatanteknikinformatika', 'users.id', '=', 'inventaris_peralatanteknikinformatika.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'inventaris_peralatanteknikinformatika.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'inventaris_peralatanteknikinformatika.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_peralatanteknikinformatika.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'inventaris_peralatanteknikinformatika.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'unit_kerja.id as idkerja', 'users.id as id_user', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'unit_kerja.id as idkerja', 'users.id as id_user', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->get();
             $petugas = DB::table('users')
                 ->join('petugas', 'petugas.id_unit_usaha', '=', 'users.id')
@@ -1709,17 +1709,17 @@ setTimeout(window.close, 5000);
             $users = DB::table('users')
                 ->join('inventaris_peralatanteknikinformatika', 'users.id', '=', 'inventaris_peralatanteknikinformatika.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'inventaris_peralatanteknikinformatika.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'inventaris_peralatanteknikinformatika.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_peralatanteknikinformatika.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'inventaris_peralatanteknikinformatika.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'unit_kerja.id as idkerja', 'users.id as id_user', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'unit_kerja.id as idkerja', 'users.id as id_user', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $petugas = DB::table('users')
@@ -1732,7 +1732,7 @@ setTimeout(window.close, 5000);
             return redirect("/");
         }
 
-        return view('inventaris/peralatanteknikinformatika', ['inventaris_peralatanteknikinformatika' => $users, 'unit_kerja' => $unit_kerja, 'bidang' => $bidang, 'petugas' => $petugas]);
+        return view('inventaris/peralatanteknikinformatika', ['inventaris_peralatanteknikinformatika' => $users, 'unit_kerja' => $unit_kerja, 'ruangan' => $ruangan, 'petugas' => $petugas]);
     }
 
     public function addperalatanteknikinformatika(Request $request)
@@ -1764,7 +1764,7 @@ setTimeout(window.close, 5000);
             'pengguna_barang' => $request->input('pengguna_barang'),
             'kuasa_pengguna_barang' => $request->input('kuasa_pengguna_barang'),
             'id_unit_kerja' => $request->input('id_unit_kerja'),
-            'id_bidang' => $request->input('id_bidang'),
+            'id_ruangan' => $request->input('id_ruangan'),
             'id_petugas1' => $request->input('id_petugas1'),
             'id_petugas2' => $request->input('id_petugas2'),
         ]);
@@ -1807,7 +1807,7 @@ setTimeout(window.close, 5000);
                         'alamat' => $request->input('alamat'),
                         'keterangan' => $request->input('keterangan'),
                         'id_unit_kerja' => $request->input('id_unit_kerja'),
-                        'id_bidang' => $request->input('id_bidang'),
+                        'id_ruangan' => $request->input('id_ruangan'),
                         'id_petugas1' => $request->input('id_petugas1'),
                         'id_petugas2' => $request->input('id_petugas2'),
                     ]);
@@ -1843,7 +1843,7 @@ setTimeout(window.close, 5000);
                     'alamat' => $request->input('alamat'),
                     'keterangan' => $request->input('keterangan'),
                     'id_unit_kerja' => $request->input('id_unit_kerja'),
-                    'id_bidang' => $request->input('id_bidang'),
+                    'id_ruangan' => $request->input('id_ruangan'),
                     'id_petugas1' => $request->input('id_petugas1'),
                     'id_petugas2' => $request->input('id_petugas2'),
                 ]);
@@ -1871,15 +1871,15 @@ setTimeout(window.close, 5000);
             $users = DB::table('users')
                 ->join('inventaris_peralatantekniklistrikdanmekanik', 'users.id', '=', 'inventaris_peralatantekniklistrikdanmekanik.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'inventaris_peralatantekniklistrikdanmekanik.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'inventaris_peralatantekniklistrikdanmekanik.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_peralatantekniklistrikdanmekanik.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'inventaris_peralatantekniklistrikdanmekanik.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'unit_kerja.id as idkerja', 'users.id as id_user', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'unit_kerja.id as idkerja', 'users.id as id_user', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->get();
             $petugas = DB::table('users')
                 ->join('petugas', 'petugas.id_unit_usaha', '=', 'users.id')
@@ -1888,17 +1888,17 @@ setTimeout(window.close, 5000);
             $users = DB::table('users')
                 ->join('inventaris_peralatantekniklistrikdanmekanik', 'users.id', '=', 'inventaris_peralatantekniklistrikdanmekanik.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'inventaris_peralatantekniklistrikdanmekanik.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'inventaris_peralatantekniklistrikdanmekanik.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_peralatantekniklistrikdanmekanik.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'inventaris_peralatantekniklistrikdanmekanik.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'unit_kerja.id as idkerja', 'users.id as id_user', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'unit_kerja.id as idkerja', 'users.id as id_user', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $petugas = DB::table('users')
@@ -1911,7 +1911,7 @@ setTimeout(window.close, 5000);
             return redirect("/");
         }
 
-        return view('inventaris/peralatantekniklistrikdanmekanik', ['inventaris_peralatantekniklistrikdanmekanik' => $users, 'unit_kerja' => $unit_kerja, 'bidang' => $bidang, 'petugas' => $petugas]);
+        return view('inventaris/peralatantekniklistrikdanmekanik', ['inventaris_peralatantekniklistrikdanmekanik' => $users, 'unit_kerja' => $unit_kerja, 'ruangan' => $ruangan, 'petugas' => $petugas]);
     }
 
 
@@ -1944,7 +1944,7 @@ setTimeout(window.close, 5000);
             'pengguna_barang' => $request->input('pengguna_barang'),
             'kuasa_pengguna_barang' => $request->input('kuasa_pengguna_barang'),
             'id_unit_kerja' => $request->input('id_unit_kerja'),
-            'id_bidang' => $request->input('id_bidang'),
+            'id_ruangan' => $request->input('id_ruangan'),
             'id_petugas1' => $request->input('id_petugas1'),
             'id_petugas2' => $request->input('id_petugas2'),
         ]);
@@ -1988,7 +1988,7 @@ setTimeout(window.close, 5000);
                         'alamat' => $request->input('alamat'),
                         'keterangan' => $request->input('keterangan'),
                         'id_unit_kerja' => $request->input('id_unit_kerja'),
-                        'id_bidang' => $request->input('id_bidang'),
+                        'id_ruangan' => $request->input('id_ruangan'),
                         'id_petugas1' => $request->input('id_petugas1'),
                         'id_petugas2' => $request->input('id_petugas2'),
                     ]);
@@ -2024,7 +2024,7 @@ setTimeout(window.close, 5000);
                     'alamat' => $request->input('alamat'),
                     'keterangan' => $request->input('keterangan'),
                     'id_unit_kerja' => $request->input('id_unit_kerja'),
-                    'id_bidang' => $request->input('id_bidang'),
+                    'id_ruangan' => $request->input('id_ruangan'),
                     'id_petugas1' => $request->input('id_petugas1'),
                     'id_petugas2' => $request->input('id_petugas2'),
                 ]);
@@ -2078,7 +2078,7 @@ setTimeout(window.close, 5000);
             'pengguna_barang' => $request->input('pengguna_barang'),
             'kuasa_pengguna_barang' => $request->input('kuasa_pengguna_barang'),
             'id_unit_kerja' => $request->input('id_unit_kerja'),
-            'id_bidang' => $request->input('id_bidang'),
+            'id_ruangan' => $request->input('id_ruangan'),
             'id_petugas1' => $request->input('id_petugas1'),
             'id_petugas2' => $request->input('id_petugas2'),
         ]);
@@ -2131,7 +2131,7 @@ setTimeout(window.close, 5000);
                         'alamat' => $request->input('alamat'),
                         'keterangan' => $request->input('keterangan'),
                         'id_unit_kerja' => $request->input('id_unit_kerja'),
-                        'id_bidang' => $request->input('id_bidang'),
+                        'id_ruangan' => $request->input('id_ruangan'),
                         'id_petugas1' => $request->input('id_petugas1'),
                         'id_petugas2' => $request->input('id_petugas2'),
                     ]);
@@ -2167,7 +2167,7 @@ setTimeout(window.close, 5000);
                     'alamat' => $request->input('alamat'),
                     'keterangan' => $request->input('keterangan'),
                     'id_unit_kerja' => $request->input('id_unit_kerja'),
-                    'id_bidang' => $request->input('id_bidang'),
+                    'id_ruangan' => $request->input('id_ruangan'),
                     'id_petugas1' => $request->input('id_petugas1'),
                     'id_petugas2' => $request->input('id_petugas2'),
                 ]);
@@ -2187,15 +2187,15 @@ setTimeout(window.close, 5000);
             $users = DB::table('users')
                 ->join('inventaris_peralatanac', 'users.id', '=', 'inventaris_peralatanac.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'inventaris_peralatanac.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'inventaris_peralatanac.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_peralatanac.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'inventaris_peralatanac.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'unit_kerja.id as idkerja', 'users.id as id_user', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'unit_kerja.id as idkerja', 'users.id as id_user', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->get();
             $petugas = DB::table('users')
                 ->join('petugas', 'petugas.id_unit_usaha', '=', 'users.id')
@@ -2204,17 +2204,17 @@ setTimeout(window.close, 5000);
             $users = DB::table('users')
                 ->join('inventaris_peralatanac', 'users.id', '=', 'inventaris_peralatanac.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'inventaris_peralatanac.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'inventaris_peralatanac.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_peralatanac.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'inventaris_peralatanac.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'unit_kerja.id as idkerja', 'users.id as id_user', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'unit_kerja.id as idkerja', 'users.id as id_user', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $petugas = DB::table('users')
@@ -2227,7 +2227,7 @@ setTimeout(window.close, 5000);
             return redirect("/");
         }
 
-        return view('inventaris/peralatanac', ['inventaris_peralatanac' => $users, 'unit_kerja' => $unit_kerja, 'bidang' => $bidang, 'petugas' => $petugas]);
+        return view('inventaris/peralatanac', ['inventaris_peralatanac' => $users, 'unit_kerja' => $unit_kerja, 'ruangan' => $ruangan, 'petugas' => $petugas]);
     }
 
     public function peralatanlift()
@@ -2236,15 +2236,15 @@ setTimeout(window.close, 5000);
             $users = DB::table('users')
                 ->join('inventaris_peralatanlift', 'users.id', '=', 'inventaris_peralatanlift.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'inventaris_peralatanlift.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'inventaris_peralatanlift.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_peralatanlift.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'inventaris_peralatanlift.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'unit_kerja.id as idkerja', 'users.id as id_user', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'unit_kerja.id as idkerja', 'users.id as id_user', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->get();
             $petugas = DB::table('users')
                 ->join('petugas', 'petugas.id_unit_usaha', '=', 'users.id')
@@ -2253,17 +2253,17 @@ setTimeout(window.close, 5000);
             $users = DB::table('users')
                 ->join('inventaris_peralatanlift', 'users.id', '=', 'inventaris_peralatanlift.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'inventaris_peralatanlift.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'inventaris_peralatanlift.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_peralatanlift.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'inventaris_peralatanlift.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'unit_kerja.id as idkerja', 'users.id as id_user', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'unit_kerja.id as idkerja', 'users.id as id_user', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $petugas = DB::table('users')
@@ -2276,7 +2276,7 @@ setTimeout(window.close, 5000);
             return redirect("/");
         }
 
-        return view('inventaris/peralatanlift', ['inventaris_peralatanlift' => $users, 'unit_kerja' => $unit_kerja, 'bidang' => $bidang, 'petugas' => $petugas]);
+        return view('inventaris/peralatanlift', ['inventaris_peralatanlift' => $users, 'unit_kerja' => $unit_kerja, 'ruangan' => $ruangan, 'petugas' => $petugas]);
     }
 
     public function addperalatanlift(Request $request)
@@ -2308,7 +2308,7 @@ setTimeout(window.close, 5000);
             'pengguna_barang' => $request->input('pengguna_barang'),
             'kuasa_pengguna_barang' => $request->input('kuasa_pengguna_barang'),
             'id_unit_kerja' => $request->input('id_unit_kerja'),
-            'id_bidang' => $request->input('id_bidang'),
+            'id_ruangan' => $request->input('id_ruangan'),
             'id_petugas1' => $request->input('id_petugas1'),
             'id_petugas2' => $request->input('id_petugas2'),
         ]);
@@ -2360,7 +2360,7 @@ setTimeout(window.close, 5000);
                         'alamat' => $request->input('alamat'),
                         'keterangan' => $request->input('keterangan'),
                         'id_unit_kerja' => $request->input('id_unit_kerja'),
-                        'id_bidang' => $request->input('id_bidang'),
+                        'id_ruangan' => $request->input('id_ruangan'),
                         'id_petugas1' => $request->input('id_petugas1'),
                         'id_petugas2' => $request->input('id_petugas2'),
                     ]);
@@ -2396,7 +2396,7 @@ setTimeout(window.close, 5000);
                     'alamat' => $request->input('alamat'),
                     'keterangan' => $request->input('keterangan'),
                     'id_unit_kerja' => $request->input('id_unit_kerja'),
-                    'id_bidang' => $request->input('id_bidang'),
+                    'id_ruangan' => $request->input('id_ruangan'),
                     'id_petugas1' => $request->input('id_petugas1'),
                     'id_petugas2' => $request->input('id_petugas2'),
                 ]);
@@ -2416,15 +2416,15 @@ setTimeout(window.close, 5000);
             $users = DB::table('users')
                 ->join('inventaris_peralatanmedis', 'users.id', '=', 'inventaris_peralatanmedis.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'inventaris_peralatanmedis.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'inventaris_peralatanmedis.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_peralatanmedis.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'inventaris_peralatanmedis.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'unit_kerja.id as idkerja', 'users.id as id_user', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'unit_kerja.id as idkerja', 'users.id as id_user', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->get();
             $petugas = DB::table('users')
                 ->join('petugas', 'petugas.id_unit_usaha', '=', 'users.id')
@@ -2433,17 +2433,17 @@ setTimeout(window.close, 5000);
             $users = DB::table('users')
                 ->join('inventaris_peralatanmedis', 'users.id', '=', 'inventaris_peralatanmedis.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'inventaris_peralatanmedis.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'inventaris_peralatanmedis.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_peralatanmedis.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'inventaris_peralatanmedis.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'unit_kerja.id as idkerja', 'users.id as id_user', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'unit_kerja.id as idkerja', 'users.id as id_user', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $petugas = DB::table('users')
@@ -2456,7 +2456,7 @@ setTimeout(window.close, 5000);
             return redirect("/");
         }
 
-        return view('inventaris/peralatanmedis', ['inventaris_peralatanmedis' => $users, 'unit_kerja' => $unit_kerja, 'bidang' => $bidang, 'petugas' => $petugas]);
+        return view('inventaris/peralatanmedis', ['inventaris_peralatanmedis' => $users, 'unit_kerja' => $unit_kerja, 'ruangan' => $ruangan, 'petugas' => $petugas]);
     }
 
     public function addperalatanmedis(Request $request)
@@ -2488,7 +2488,7 @@ setTimeout(window.close, 5000);
             'pengguna_barang' => $request->input('pengguna_barang'),
             'kuasa_pengguna_barang' => $request->input('kuasa_pengguna_barang'),
             'id_unit_kerja' => $request->input('id_unit_kerja'),
-            'id_bidang' => $request->input('id_bidang'),
+            'id_ruangan' => $request->input('id_ruangan'),
             'id_petugas1' => $request->input('id_petugas1'),
             'id_petugas2' => $request->input('id_petugas2'),
         ]);
@@ -2533,7 +2533,7 @@ setTimeout(window.close, 5000);
                         'alamat' => $request->input('alamat'),
                         'keterangan' => $request->input('keterangan'),
                         'id_unit_kerja' => $request->input('id_unit_kerja'),
-                        'id_bidang' => $request->input('id_bidang'),
+                        'id_ruangan' => $request->input('id_ruangan'),
                         'id_petugas1' => $request->input('id_petugas1'),
                         'id_petugas2' => $request->input('id_petugas2'),
                     ]);
@@ -2569,7 +2569,7 @@ setTimeout(window.close, 5000);
                     'alamat' => $request->input('alamat'),
                     'keterangan' => $request->input('keterangan'),
                     'id_unit_kerja' => $request->input('id_unit_kerja'),
-                    'id_bidang' => $request->input('id_bidang'),
+                    'id_ruangan' => $request->input('id_ruangan'),
                     'id_petugas1' => $request->input('id_petugas1'),
                     'id_petugas2' => $request->input('id_petugas2'),
                 ]);

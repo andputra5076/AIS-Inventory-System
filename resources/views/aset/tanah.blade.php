@@ -110,7 +110,7 @@
                                             <div class="dropdown-menu" aria-labelledby="topnav-pages">
                                                 
                                                 <a href="/unitkerja" class="dropdown-item">Unit Kerja</a>
-                                                <a href="/bidang" class="dropdown-item">Bidang</a>
+                                                <a href="/ruangan" class="dropdown-item">Ruangan</a>
                                                 <a href="/petugas" class="dropdown-item">Petugas</a>
                     
                                         </li>
@@ -245,7 +245,7 @@
                                                             <th>Bulan</th>
                                                             <th>Pengguna Barang</th>
                                                             <th>Unit Kerja</th>
-                                                            <th>Bidang</th>
+                                                            <th>Ruangan</th>
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
@@ -291,7 +291,7 @@
                                                             <td><?=$tanggalbarang->format("m")?></td>
                                                             <td><?= $user->usernamanya ?></td>
                                                             <td><?= $user->namakerja ?></td>
-                                                            <td><?= $user->bidangnama ?></td>
+                                                            <td><?= $user->ruangannama ?></td>
                                                             <td class="table-action">
                                                             <a data-bs-toggle="modal" data-bs-target="#previewtanah-<?=$user->id_tanah?>" data-id='<?= $user->id_tanah ?>' class="action-icon"> <i class="mdi mdi-eye"></i></a>
                                                             <?php
@@ -313,7 +313,7 @@ data-image='../assets/images/aset/<?= $user->image?> '
 data-tanggal='<?= $tanggalbarang->format("d-m-Y")?>'
 data-alamat='<?= $user->alamat?>'
 data-keterangan='<?= isset($user->keterangan) ? $user->keterangan : '-'; ?>'  
-                                                                data-user='<?= $user->usernamanya ?>' data-usaha='<?= $user->pengguna_barang ?>' data-idunitkerja='<?= $user->idkerja ?>'  data-namaunitkerja='<?= $user->namakerja ?>' data-namabidang='<?= $user->bidangnama ?>' data-idnyabidang='<?= $user->bidangid ?>'data-namapetugas='<?= $user->petugasnama ?>' data-idnyapetugas='<?= $user->idpetugas ?>'><i class="mdi mdi-square-edit-outline"></i></a>
+                                                                data-user='<?= $user->usernamanya ?>' data-usaha='<?= $user->pengguna_barang ?>' data-idunitkerja='<?= $user->idkerja ?>'  data-namaunitkerja='<?= $user->namakerja ?>' data-namaruangan='<?= $user->ruangannama ?>' data-idnyaruangan='<?= $user->ruanganid ?>'data-namapetugas='<?= $user->petugasnama ?>' data-idnyapetugas='<?= $user->idpetugas ?>'><i class="mdi mdi-square-edit-outline"></i></a>
                                                             <a onclick="return swallnya(<?=$user->id_tanah ?>)" href="#" class="action-icon"> <i class="mdi mdi-delete"></i></a>
                                                             <?php
                                                         }
@@ -363,8 +363,8 @@ data-keterangan='<?= isset($user->keterangan) ? $user->keterangan : '-'; ?>'
                                             <p class="text"><strong>Pengguna Barang :</strong><span class="ms-1"> <?= $user->usernamanya?> </span></p>
                                             <p class="text"><strong>Kuasa Pengguna Barang :</strong><span class="ms-1"> <?= $user->usernamanya?> </span></p>
                                             <p class="text"><strong>Unit Kerja :</strong><span class="ms-1"> <?= $user->namakerja?> </span></p>
-                                            <p class="text"><strong>Bidang :</strong><span class="ms-1"> <?= $user->bidangnama?> </span></p>
-                                            <p class="text"><strong>Petugas 1 :</strong><span class="ms-1"> <?= $user->petugasnama?> </span></p>
+                                            <p class="text"><strong>Ruangan :</strong><span class="ms-1"> <?= $user->ruangannama?> </span></p>
+                                            <p class="text"><strong>P. Pencatat :</strong><span class="ms-1"> <?= $user->petugasnama?> </span></p>
                                             <p class="text"><strong>Penanggung Jawab :</strong><span class="ms-1"> <?= isset($petugas2[1]) ? $petugas2[1] : '-'; ?> </span></p>
                                             <p class="text2"><strong>Keterangan :</strong><span class="ms-1"> <?= isset($user->keterangan) ? $user->keterangan : '-'; ?> </span></p>
                                             </div> <!-- end col-->
@@ -467,7 +467,7 @@ data-keterangan='<?= isset($user->keterangan) ? $user->keterangan : '-'; ?>'
                     </div>
                     <div class="mb-3">
                     <label for="text" class="form-label">Kondisi</label>
-                        <textarea class="form-control" name="kondisi" id="kondisi" required="" rows="5" placeholder="Masukkan beberapa ringkasan tentang kondisi tanah.."></textarea>
+                        <textarea class="form-control" name="kondisi" id="kondisi" required="" rows="5" placeholder="Masukkan beberapa ringkasan tentang kondisi Tanah.."></textarea>
                     </div>
                     <div class="mb-3">
                     <label for="text" class="form-label">Satuan</label>
@@ -493,7 +493,7 @@ data-keterangan='<?= isset($user->keterangan) ? $user->keterangan : '-'; ?>'
 please do not upload images larger than 2 mb</p>
 <div class="mb-3">
                     <label for="text" class="form-label">Alamat</label>
-                        <textarea class="form-control" name="alamat" id="alamat" rows="5" required="" placeholder="Masukkan alamat lokasi tanah.."></textarea>
+                        <textarea class="form-control" name="alamat" id="alamat" rows="5" required="" placeholder="Masukkan alamat lokasi Tanah.."></textarea>
                     </div>
                     <div class="mb-3">
                     <label for="text" class="form-label">latitude</label>
@@ -541,13 +541,13 @@ please do not upload images larger than 2 mb</p>
 </select>          
 </div>
                     <div class="mb-3">
-                    <label for="text" class="form-label" >Bidang</label>
-                        <select name="id_bidang" class="form-select" aria-label="Default select example" required="">
+                    <label for="text" class="form-label" >Ruangan</label>
+                        <select name="id_ruangan" class="form-select" aria-label="Default select example" required="">
                            <option value="">-- Pilih --</option>
                             <?php
-                                                        foreach($bidang as $bidangs) {                                              
+                                                        foreach($ruangan as $ruangans) {                                              
                                                             ?>
-<option value="<?= $bidangs->id ?>"><?= $bidangs->name ?></option>
+<option value="<?= $ruangans->id ?>"><?= $ruangans->name ?></option>
 
                                                         <?php
                                                         }
@@ -555,7 +555,7 @@ please do not upload images larger than 2 mb</p>
 </select>          
 </div>
                     <div class="mb-3">
-                    <label for="text" class="form-label" >Petugas 1</label>
+                    <label for="text" class="form-label" >P. Pencatat</label>
                         <select name="id_petugas1" class="form-select" aria-label="Default select example" required="">
                            <option value="">-- Pilih --</option>
                             <?php
@@ -584,7 +584,7 @@ please do not upload images larger than 2 mb</p>
 </div>
 <div class="mb-3">
                     <label for="text" class="form-label">Keterangan</label>
-                        <textarea class="form-control" name="keterangan" id="keterangan" rows="5" placeholder="Masukkan keterangan tanah.."></textarea>
+                        <textarea class="form-control" name="keterangan" id="keterangan" rows="5" placeholder="Masukkan keterangan Tanah.."></textarea>
                     </div>
             </div>
             <div class="modal-footer">
@@ -636,7 +636,7 @@ please do not upload images larger than 2 mb</p>
                     </div>
                     <div class="mb-3">
                     <label for="text" class="form-label">Kondisi</label>
-                        <textarea class="form-control" name="kondisi" id="nameedit4" required="" rows="5" placeholder="Masukkan beberapa ringkasan tentang kondisi tanah.."></textarea>
+                        <textarea class="form-control" name="kondisi" id="nameedit4" required="" rows="5" placeholder="Masukkan beberapa ringkasan tentang kondisi Tanah.."></textarea>
                         <input class="form-control" name="id" type="hidden" id="idedit4" required="" placeholder="">
                     </div>
                     <div class="mb-3">
@@ -667,7 +667,7 @@ please do not upload images larger than 2 mb</p>
 please do not upload images larger than 2 mb</p>
 <div class="mb-3">
                     <label for="text" class="form-label">Alamat</label>
-                        <textarea class="form-control" name="alamat" id="nameedit9" rows="5" required="" placeholder="Masukkan alamat lokasi tanah.."></textarea>
+                        <textarea class="form-control" name="alamat" id="nameedit9" rows="5" required="" placeholder="Masukkan alamat lokasi Tanah.."></textarea>
                         <input class="form-control" name="id" type="hidden" id="idedit9" required="" placeholder="">
                     </div>
                     <div class="mb-3">
@@ -718,13 +718,13 @@ please do not upload images larger than 2 mb</p>
 </select>         
 </div>
                     <div class="mb-3">
-                    <label for="text" class="form-label" >Bidang</label>
-                        <select name="id_bidang" id="lol" class="form-select" aria-label="Default select example" required>
-                           <option id="bidang" value="">-- Pilih --</option>
+                    <label for="text" class="form-label" >Ruangan</label>
+                        <select name="id_ruangan" id="lol" class="form-select" aria-label="Default select example" required>
+                           <option id="ruangan" value="">-- Pilih --</option>
                             <?php
-                                                        foreach($bidang as $bidangs) {                                              
+                                                        foreach($ruangan as $ruangans) {                                              
                                                             ?>
-<option databidang="<?= $bidangs->id_unit_usaha ?>"  value="<?= $bidangs->id ?>"><?= $bidangs->name ?></option>
+<option dataruangan="<?= $ruangans->id_unit_usaha ?>"  value="<?= $ruangans->id ?>"><?= $ruangans->name ?></option>
 
                                                         <?php
                                                         }
@@ -732,7 +732,7 @@ please do not upload images larger than 2 mb</p>
 </select>          
 </div>
                     <div class="mb-3">
-                    <label for="text" class="form-label" >Petugas 1</label>
+                    <label for="text" class="form-label" >P. Pencatat</label>
                         <select name="id_petugas1" id="hey" class="form-select" aria-label="Default select example" required="">
                            <option id="petugas">-- Pilih --</option>
                             <?php
@@ -761,7 +761,7 @@ please do not upload images larger than 2 mb</p>
 </div>
 <div class="mb-3">
                     <label for="text" class="form-label">Keterangan</label>
-                        <textarea class="form-control" name="keterangan" id="nameedit12" rows="5" placeholder="Masukkan keterangan tanah.."></textarea>
+                        <textarea class="form-control" name="keterangan" id="nameedit12" rows="5" placeholder="Masukkan keterangan Tanah.."></textarea>
                         <input class="form-control" name="id" type="hidden" id="idedit12" required="" placeholder="">
                     </div>
             </div>
@@ -867,8 +867,8 @@ please do not upload images larger than 2 mb</p>
     document.getElementById('id_unit_usahaedit2').innerHTML = $('#editbutton-'+urut).data('user');
     document.getElementById('kerja').value = $('#editbutton-'+urut).data('idunitkerja');
     document.getElementById('kerja').innerHTML = $('#editbutton-'+urut).data('namaunitkerja');
-    document.getElementById('bidang').value = $('#editbutton-'+urut).data('idnyabidang');
-    document.getElementById('bidang').innerHTML = $('#editbutton-'+urut).data('namabidang');
+    document.getElementById('ruangan').value = $('#editbutton-'+urut).data('idnyaruangan');
+    document.getElementById('ruangan').innerHTML = $('#editbutton-'+urut).data('namaruangan');
     document.getElementById('petugas').value = $('#editbutton-'+urut).data('idnyapetugas');
     document.getElementById('petugas').innerHTML = $('#editbutton-'+urut).data('namapetugas');
     var datadua = $('#editbutton-'+urut).data('petugasdua').split(",");
@@ -915,7 +915,7 @@ please do not upload images larger than 2 mb</p>
     }
 
     for (var i = 1; i < select2.length; i++) {
-      var txt = select2.options[i].getAttribute('databidang');
+      var txt = select2.options[i].getAttribute('dataruangan');
       if (txt != $('#editbutton-'+urut).data('usaha')) {
         $(select2.options[i]).attr('disabled', 'disabled').hide();
       } else {

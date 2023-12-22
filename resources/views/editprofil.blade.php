@@ -110,7 +110,7 @@
                                             <div class="dropdown-menu" aria-labelledby="topnav-pages">
                                                 
                                                 <a href="/unitkerja" class="dropdown-item">Unit Kerja</a>
-                                                <a href="/bidang" class="dropdown-item">Bidang</a>
+                                                <a href="/ruangan" class="dropdown-item">Ruangan</a>
                                                 <a href="/petugas" class="dropdown-item">Petugas</a>
                     
                                         </li>
@@ -275,7 +275,6 @@
                     <label class="form-label" for="showPassword"> Ubah Password</label>
                 <input class="form-control" name="password" type="password" id="password" style="display: none;" placeholder="Enter your new password">
                 <br>
-                <span id="passwordError" style="color: red; display: none;">Password must be made up of 4 or 5 different characters</span>
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-sm btn-flat btn-primary" id="saveBtn">
@@ -346,24 +345,6 @@
         }
     }
 
-    function validatePasswordUniqueness() {
-        var passwordInput = document.getElementById("password");
-        var passwordError = document.getElementById("passwordError");
-        var password = passwordInput.value.trim();
-
-        // Check if password has unique characters
-        var uniqueChars = new Set(password);
-        if (password.length !== uniqueChars.size) {
-            passwordError.style.display = "block";
-        } else {
-            passwordError.style.display = "none";
-        }
-    }
-
-    // Additional validation to show the error message when password uniqueness is incorrect
-    document.getElementById("password").addEventListener("keyup", function () {
-        validatePasswordUniqueness();
-    });
 
     // Call togglePasswordVisibility() on page load to set initial display correctly
     togglePasswordVisibility();

@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Bidang Dashboard | AIS</title>
+        <title>Ruangan Dashboard | AIS</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description">
         <meta content="Coderthemes" name="author">
@@ -109,7 +109,7 @@
                                             <div class="dropdown-menu" aria-labelledby="topnav-pages">
                                                 
                                                 <a href="/unitkerja" class="dropdown-item">Unit Kerja</a>
-                                                <a href="/bidang" class="dropdown-item">Bidang</a>
+                                                <a href="/ruangan" class="dropdown-item">Ruangan</a>
                                                 <a href="/petugas" class="dropdown-item">Petugas</a>
                     
                                         </li>
@@ -178,7 +178,7 @@
     <ol class="breadcrumb bg-light-lighten p-2">
         <li class="breadcrumb-item"><a href="/welcome"><i class="uil-home-alt"></i> Home</a></li>
         <li class="breadcrumb-item active" aria-current="page">Master</li>
-        <li class="breadcrumb-item active" aria-current="page">Bidang</li>
+        <li class="breadcrumb-item active" aria-current="page">Ruangan</li>
     </ol>
 </nav>
                                 </div>
@@ -206,7 +206,7 @@
 
                                                         }else {
                                                             ?>
-                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#addbidang" class="btn btn-success mb-2 me-1"><i class="mdi mdi-plus-circle me-2"></i>Tambah</button>
+                                                            <button type="button" data-bs-toggle="modal" data-bs-target="#addruangan" class="btn btn-success mb-2 me-1"><i class="mdi mdi-plus-circle me-2"></i>Tambah</button>
                                                             <?php
                                                         }
                                                         ?>
@@ -233,17 +233,17 @@
                                                     <tbody>
                                                         <?php
                                                         $no = 0;
-                                                        foreach($bidang as $user) {
+                                                        foreach($ruangan as $user) {
                                                             $no++;
                                                             ?>
                                                             <tr>
                                                             <td><?= $no ?></td>
-                                                            <td><?= $user->bidangnama  ?></td>
+                                                            <td><?= $user->ruangannama  ?></td>
                                                             <td><?= $user->namakerja?></td>
                                                             <td><?= $user->usernamanya?></td>
                                                             <td class="table-action">
-                                                            <a data-bs-toggle="modal" data-bs-target="#editbidang" class="action-icon" id="editbutton" data-id='<?= $user->bidangid  ?>' data-nama='<?= $user->bidangnama  ?>' data-idunitkerja='<?= $user->idkerja ?>' data-user='<?= $user->usernamanya ?>' data-usaha='<?= $user->idusaha ?>' data-namaunitkerja='<?= $user->namakerja ?>'>  <i class="mdi mdi-square-edit-outline"></i></a>
-                                                            <a onclick="return swallnya(<?=$user->bidangid ?>)" href="#" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                                            <a data-bs-toggle="modal" data-bs-target="#editruangan" class="action-icon" id="editbutton" data-id='<?= $user->ruanganid  ?>' data-nama='<?= $user->ruangannama  ?>' data-idunitkerja='<?= $user->idkerja ?>' data-user='<?= $user->usernamanya ?>' data-usaha='<?= $user->idusaha ?>' data-namaunitkerja='<?= $user->namakerja ?>'>  <i class="mdi mdi-square-edit-outline"></i></a>
+                                                            <a onclick="return swallnya(<?=$user->ruanganid ?>)" href="#" class="action-icon"> <i class="mdi mdi-delete"></i></a>
                                                             </td>
 
                                                         <?php
@@ -297,16 +297,16 @@
 
         </div>
         <!-- END wrapper -->
-        <div id="addbidang" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div id="addruangan" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <div class="modal-body">
                 <div class="text-center mt-2 mb-4">
-                        <span><h3 alt="" height="18"> Tambah Bidang </h3></span>
+                        <span><h3 alt="" height="18"> Tambah Ruangan </h3></span>
                 </div>
 
-                <form class="ps-3 pe-3" action="/addbidang" method="POST">
+                <form class="ps-3 pe-3" action="/addruangan" method="POST">
                     @csrf
                     <div class="mb-3">
                     <label for="text" class="form-label">Nama Kelompok</label>
@@ -350,7 +350,7 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<div id="editbidang" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="editruangan" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -359,7 +359,7 @@
                         <span><h3 alt="" height="18"> Edit Data </h3></span>
                 </div>
 
-                <form class="ps-3 pe-3" action="/editbidang" method="POST">
+                <form class="ps-3 pe-3" action="/editruangan" method="POST">
                     @csrf
                     <div class="mb-3">
                     <label for="text" class="form-label">Nama Kelompok</label>
@@ -447,7 +447,7 @@
       dangerMode: true,
     }).then(function(isConfirm) {
       if (isConfirm) {
-        window.location.href = '/deletebidang/'+id;
+        window.location.href = '/deleteruangan/'+id;
       } else {
       }
     })

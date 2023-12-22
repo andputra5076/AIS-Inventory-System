@@ -31,15 +31,15 @@ class aset_alatmekanik implements FromCollection, WithHeadings, ShouldAutoSize, 
             $users = DB::table('users')
                 ->join('aset_alatmekanik', 'users.id', '=', 'aset_alatmekanik.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'aset_alatmekanik.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'aset_alatmekanik.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'aset_alatmekanik.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'aset_alatmekanik.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'aset_alatmekanik.id_petugas2 as idusaha', 'aset_alatmekanik.id_petugas2 as idusaha', 'unit_kerja.id as idkerja', 'users.id as id_user',  'unit_kerja.name as namakerja', 'users.name as usernamanya', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'aset_alatmekanik.id_petugas2 as idusaha', 'aset_alatmekanik.id_petugas2 as idusaha', 'unit_kerja.id as idkerja', 'users.id as id_user',  'unit_kerja.name as namakerja', 'users.name as usernamanya', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->get();
             $petugas = DB::table('users')
                 ->join('petugas', 'petugas.id_unit_usaha', '=', 'users.id')
@@ -48,17 +48,17 @@ class aset_alatmekanik implements FromCollection, WithHeadings, ShouldAutoSize, 
             $users = DB::table('users')
                 ->join('aset_alatmekanik', 'users.id', '=', 'aset_alatmekanik.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'aset_alatmekanik.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'aset_alatmekanik.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'aset_alatmekanik.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'aset_alatmekanik.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'aset_alatmekanik.id_petugas2 as idusaha', 'aset_alatmekanik.pengguna_barang as idusaha',  'unit_kerja.id as idkerja',  'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'aset_alatmekanik.id_petugas2 as idusaha', 'aset_alatmekanik.pengguna_barang as idusaha',  'unit_kerja.id as idkerja',  'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $petugas = DB::table('users')
@@ -82,8 +82,12 @@ class aset_alatmekanik implements FromCollection, WithHeadings, ShouldAutoSize, 
             $no = substr($no, strlen($no) - 6, strlen($no));
 
             $date = DateTime::createFromFormat("Y-m-d h:i:s", $user->date_created);
-            $tanggalaset = DateTime::createFromFormat("Y-m-d", $user->tanggal_aset);
-
+            $tanggal_aset = DateTime::createFromFormat("Y-m-d", $user->tanggal_aset);
+            $y = $tanggal_aset->format("Y");
+            $m = $tanggal_aset->format("m");
+            $t = $user->kode_alatmekanik;
+            $id = $user->id_user;
+            $gabung = $y . $m . $t . $id . '.' . $no;
             $merek = $user->merek_alatmekanik;
             $jenis = $user->jenis_alatmekanik;
             $tipe = $user->tipe_alatmekanik;
@@ -91,7 +95,7 @@ class aset_alatmekanik implements FromCollection, WithHeadings, ShouldAutoSize, 
             $petugas2 = explode(',', $user->id_petugas2);
             $data->push([
                 $nourut,
-                $user->kode_alatmekanik,
+                $gabung,
                 $no,
                 $user->nama_alatmekanik,
                 $merek,
@@ -102,14 +106,14 @@ class aset_alatmekanik implements FromCollection, WithHeadings, ShouldAutoSize, 
                 $user->jumlah,
                 $user->satuan,
                 'Rp. ' . number_format($user->nilaiperolehan, 2, ",", "."),
-                $tanggalaset->format("d-m-Y"),
+                $tanggal_aset->format("d-m-Y"),
                 url("../assets/images/aset/" . $user->image), // Display URL of the photo
                 $user->alamat,
                 $user->pengelola_barang,
                 $user->usernamanya,
                 $user->usernamanya,
                 $user->namakerja,
-                $user->bidangnama,
+                $user->ruangannama,
                 $user->petugasnama,
                 isset($petugas2[1]) ? $petugas2[1] : '-',
                 isset($user->keterangan) ? $user->keterangan : '-',
@@ -141,8 +145,8 @@ class aset_alatmekanik implements FromCollection, WithHeadings, ShouldAutoSize, 
             'Pengguna Barang',
             'Kuasa Pengguna Barang',
             'Unit Kerja',
-            'Bidang',
-            'Petugas 1',
+            'Ruangan',
+            'P. Pencatat',
             'Penanggung Jawab',
             'Keterangan',
         ];

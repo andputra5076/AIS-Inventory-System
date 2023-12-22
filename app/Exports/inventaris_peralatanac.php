@@ -31,15 +31,15 @@ class inventaris_peralatanac implements FromCollection, WithHeadings, ShouldAuto
             $users = DB::table('users')
                 ->join('inventaris_peralatanac', 'users.id', '=', 'inventaris_peralatanac.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'inventaris_peralatanac.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'inventaris_peralatanac.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_peralatanac.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'inventaris_peralatanac.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'inventaris_peralatanac.id_petugas2 as idusaha', 'inventaris_peralatanac.id_petugas2 as idusaha', 'unit_kerja.id as idkerja', 'users.id as id_user',  'unit_kerja.name as namakerja', 'users.name as usernamanya', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'inventaris_peralatanac.id_petugas2 as idusaha', 'inventaris_peralatanac.id_petugas2 as idusaha', 'unit_kerja.id as idkerja', 'users.id as id_user',  'unit_kerja.name as namakerja', 'users.name as usernamanya', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->get();
             $petugas = DB::table('users')
                 ->join('petugas', 'petugas.id_unit_usaha', '=', 'users.id')
@@ -48,17 +48,17 @@ class inventaris_peralatanac implements FromCollection, WithHeadings, ShouldAuto
             $users = DB::table('users')
                 ->join('inventaris_peralatanac', 'users.id', '=', 'inventaris_peralatanac.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'inventaris_peralatanac.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'inventaris_peralatanac.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'inventaris_peralatanac.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'inventaris_peralatanac.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'inventaris_peralatanac.id_petugas2 as idusaha', 'inventaris_peralatanac.pengguna_barang as idusaha',  'unit_kerja.id as idkerja',  'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'inventaris_peralatanac.id_petugas2 as idusaha', 'inventaris_peralatanac.pengguna_barang as idusaha',  'unit_kerja.id as idkerja',  'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $petugas = DB::table('users')
@@ -83,7 +83,11 @@ class inventaris_peralatanac implements FromCollection, WithHeadings, ShouldAuto
 
             $date = DateTime::createFromFormat("Y-m-d h:i:s", $user->date_created);
             $tanggalbarang = DateTime::createFromFormat("Y-m-d", $user->tanggal_barang);
-
+            $y = $tanggalbarang->format("Y");
+            $m = $tanggalbarang->format("m");
+            $t = $user->kode_peralatanac;
+            $id = $user->id_user;
+            $gabung = $y . $m . $t . $id . '.' . $no;
             $merek = $user->merek_peralatanac;
             $jenis = $user->jenis_peralatanac;
             $tipe = $user->tipe_peralatanac;
@@ -91,7 +95,7 @@ class inventaris_peralatanac implements FromCollection, WithHeadings, ShouldAuto
             $petugas2 = explode(',', $user->id_petugas2);
             $data->push([
                 $nourut,
-                $user->kode_peralatanac,
+                $gabung,
                 $no,
                 $user->nama_peralatanac,
                 $merek,
@@ -109,7 +113,7 @@ class inventaris_peralatanac implements FromCollection, WithHeadings, ShouldAuto
                 $user->usernamanya,
                 $user->usernamanya,
                 $user->namakerja,
-                $user->bidangnama,
+                $user->ruangannama,
                 $user->petugasnama,
                 isset($petugas2[1]) ? $petugas2[1] : '-',
                 isset($user->keterangan) ? $user->keterangan : '-',
@@ -141,8 +145,8 @@ class inventaris_peralatanac implements FromCollection, WithHeadings, ShouldAuto
             'Pengguna Barang',
             'Kuasa Pengguna Barang',
             'Unit Kerja',
-            'Bidang',
-            'Petugas 1',
+            'Ruangan',
+            'P. Pencatat',
             'Penanggung Jawab',
             'Keterangan',
         ];

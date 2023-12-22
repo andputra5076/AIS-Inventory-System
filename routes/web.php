@@ -125,10 +125,10 @@ Route::get('/unitkerja', [HomeController::class, 'unitkerja'])->name('unitkerja'
 Route::post('/addunitkerja', [HomeController::class, 'addunitkerja'])->name('addunitkerja');
 Route::post('/editunitkerja', [HomeController::class, 'editunitkerja'])->name('editunitkerja');
 Route::get('/deleteunitkerja/{id}', [HomeController::class, 'deleteunitkerja'])->name('deleteunitkerja');
-Route::get('/bidang', [HomeController::class, 'bidang'])->name('bidang');
-Route::post('/addbidang', [HomeController::class, 'addbidang'])->name('addbidang');
-Route::post('/editbidang', [HomeController::class, 'editbidang'])->name('editbidang');
-Route::get('/deletebidang/{id}', [HomeController::class, 'deletebidang'])->name('deletebidang');
+Route::get('/ruangan', [HomeController::class, 'ruangan'])->name('ruangan');
+Route::post('/addruangan', [HomeController::class, 'addruangan'])->name('addruangan');
+Route::post('/editruangan', [HomeController::class, 'editruangan'])->name('editruangan');
+Route::get('/deleteruangan/{id}', [HomeController::class, 'deleteruangan'])->name('deleteruangan');
 Route::get('/petugas', [HomeController::class, 'petugas'])->name('petugas');
 Route::get('/qrall', [HomeController::class, 'qrall'])->name('qrall');
 Route::get('/qrall2', [HomeController::class, 'qrall2'])->name('qrall2');

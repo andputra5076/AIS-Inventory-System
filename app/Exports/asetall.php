@@ -31,15 +31,15 @@ class aset_tanah implements FromCollection, WithHeadings, ShouldAutoSize, WithSt
             $users = DB::table('users')
                 ->join('aset_tanah', 'users.id', '=', 'aset_tanah.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'aset_tanah.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'aset_tanah.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'aset_tanah.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'aset_tanah.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'aset_tanah.id_petugas2 as idusaha', 'aset_tanah.id_petugas2 as idusaha', 'unit_kerja.id as idkerja', 'users.id as id_user',  'unit_kerja.name as namakerja', 'users.name as usernamanya', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'aset_tanah.id_petugas2 as idusaha', 'aset_tanah.id_petugas2 as idusaha', 'unit_kerja.id as idkerja', 'users.id as id_user',  'unit_kerja.name as namakerja', 'users.name as usernamanya', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->get();
             $petugas = DB::table('users')
                 ->join('petugas', 'petugas.id_unit_usaha', '=', 'users.id')
@@ -48,17 +48,17 @@ class aset_tanah implements FromCollection, WithHeadings, ShouldAutoSize, WithSt
             $users = DB::table('users')
                 ->join('aset_tanah', 'users.id', '=', 'aset_tanah.pengguna_barang')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'aset_tanah.id_unit_kerja')
-                ->join('bidang', 'bidang.id', '=', 'aset_tanah.id_bidang')
+                ->join('ruangan', 'ruangan.id', '=', 'aset_tanah.id_ruangan')
                 ->join('petugas', 'petugas.id', '=', 'aset_tanah.id_petugas1')
-                ->select('*', 'bidang.id as bidangid', 'aset_tanah.id_petugas2 as idusaha', 'aset_tanah.pengguna_barang as idusaha',  'unit_kerja.id as idkerja',  'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'bidang.name as bidangnama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
+                ->select('*', 'ruangan.id as ruanganid', 'aset_tanah.id_petugas2 as idusaha', 'aset_tanah.pengguna_barang as idusaha',  'unit_kerja.id as idkerja',  'unit_kerja.name as namakerja', 'users.name as usernamanya', 'users.id as id_user', 'ruangan.name as ruangannama', 'petugas.name as petugasnama', 'petugas.id as idpetugas')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
-            $bidang = DB::table('users')
-                ->join('bidang', 'bidang.id_unit_usaha', '=', 'users.id')
+            $ruangan = DB::table('users')
+                ->join('ruangan', 'ruangan.id_unit_usaha', '=', 'users.id')
                 ->where('users.name', '=', session('data')->name)
                 ->get();
             $petugas = DB::table('users')
@@ -112,7 +112,7 @@ class aset_tanah implements FromCollection, WithHeadings, ShouldAutoSize, WithSt
                 $user->usernamanya,
                 $user->usernamanya,
                 $user->namakerja,
-                $user->bidangnama,
+                $user->ruangannama,
                 $user->petugasnama,
                 isset($petugas2[1]) ? $petugas2[1] : '-',
                 isset($user->keterangan) ? $user->keterangan : '-',
@@ -145,8 +145,8 @@ class aset_tanah implements FromCollection, WithHeadings, ShouldAutoSize, WithSt
             'Pengguna Barang',
             'Kuasa Pengguna Barang',
             'Unit Kerja',
-            'Bidang',
-            'Petugas 1',
+            'Ruangan',
+            'P. Pencatat',
             'Penanggung Jawab',
             'Keterangan',
         ];
