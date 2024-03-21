@@ -522,30 +522,20 @@ data-keterangan='<?= isset($user->keterangan) ? $user->keterangan : '-'; ?>'
                     </div>
                      <div class="mb-3">
                     <label for="text" class="form-label" >Unit Kerja</label>
-                        <select name="id_unit_kerja" class="form-select" aria-label="Default select example" required="">
-                            <option value="">-- Pilih --</option>
-                            <?php
-                                                        foreach($unit_kerja as $unit_kerjas) {                                              
-                                                            ?>
-<option value="<?= $unit_kerjas->id ?>"><?= $unit_kerjas->name ?></option>
-
-                                                        <?php
-                                                        }
-                                                        ?>
-</select>          
-</div>
-                    <div class="mb-3">
-                    <label for="text" class="form-label" >Ruangan</label>
-                        <select name="id_ruangan" class="form-select" aria-label="Default select example" required="">
-                           <option value="">-- Pilih --</option>
-                            <?php
-                                                        foreach($ruangan as $ruangans) {                                              
-                                                            ?>
-<option value="<?= $ruangans->id ?>"><?= $ruangans->name ?></option>
-
-                                                        <?php
-                                                        }
-                                                        ?>
+                        <select id="kon" name="id_unit_kerja" class="form-select" aria-label="Default select example" onchange="updateruanganOptions()" required="">
+    <option value="">-- Pilih --</option>
+    <?php foreach($unit_kerja as $unit_kerjas) { ?>
+        <option value="<?= $unit_kerjas->id ?>"><?= $unit_kerjas->name ?></option>
+    <?php } ?>
+</select>
+<br>
+<!-- Your existing HTML code for the ruangan dropdown -->
+<label for="text" class="form-label">Ruangan</label>
+<select name="id_ruangan" id="tel" class="form-select" aria-label="Default select example" required>
+    <option value="">-- Pilih --</option>
+    <?php foreach($ruangan as $ruangans) { ?>
+        <option data-unit="<?= $ruangans->id_unit_kerja ?>" value="<?= $ruangans->id ?>"><?= $ruangans->name ?></option>
+    <?php } ?>
 </select>          
 </div>
                     <div class="mb-3">
@@ -807,7 +797,192 @@ please do not upload images larger than 2 mb</p>
 <script src="assets/js/ui/component.fileupload.js"></script>
 
         <script>
-            function swallnya(id) {
+function updateruanganOptions() {
+        var unitKerjaDropdown = document.getElementById("kon");
+        var ruanganDropdown = document.getElementById("tel");
+        
+        // Get the selected unit value
+        var selectedUnitValue = unitKerjaDropdown.value;
+
+        // Clear the ruangan dropdown value when "-- Pilih --" is selected in Unit Kerja
+        if (selectedUnitValue === "") {
+            ruanganDropdown.innerHTML = '<option value="">-- Pilih --</option>';
+            return; // Exit the function early
+        }
+
+        // Reset ruangan dropdown options
+        ruanganDropdown.innerHTML = '';
+
+
+        // Loop through ruangan options and add options based on the selected unit
+        <?php foreach($ruangan as $ruangans) { ?>
+            var dataUnit = <?= json_encode($ruangans->id_unit_kerja) ?>;
+            if (selectedUnitValue === "" || selectedUnitValue == dataUnit) {
+                var option = document.createElement('option');
+                option.value = <?= json_encode($ruangans->id) ?>;
+                option.text = <?= json_encode($ruangans->name) ?>;
+                ruanganDropdown.add(option);
+            }
+        <?php } ?>
+    }
+
+    // Add an event listener to call the function when the page loads
+    window.addEventListener('load', updateruanganOptions);
+
+    // Additional event listener for Unit Kerja dropdown change
+    document.getElementById("kon").addEventListener('change', updateruanganOptions);
+        
+    function updatePetugasOptions() {
+        var ruanganDropdown = document.getElementById("tel");
+        var petugasDropdown = document.getElementById("ahai");
+        var petugas2Dropdown = document.getElementById("ahai2");
+        
+        // Get the selected unit value
+        var selectedUnitValue = ruanganDropdown.value;
+
+        // Clear the ruangan dropdown value when "-- Pilih --" is selected in Unit Kerja
+        if (selectedUnitValue === "") {
+            petugasDropdown.innerHTML = '<option value="">-- Pilih --</option>';
+            petugas2Dropdown.innerHTML = '<option value="">-- Pilih --</option>';
+            return; // Exit the function early
+        }
+        
+        // Reset ruangan dropdown options
+        petugasDropdown.innerHTML = '';
+        petugas2Dropdown.innerHTML = '';
+
+
+        // Loop through ruangan options and add options based on the selected unit
+        <?php foreach($petugas as $petugasd) { ?>
+            var dataruangan = <?= json_encode($petugasd->id_ruangan) ?>;
+            if (selectedUnitValue === "" || selectedUnitValue == dataruangan) {
+                var option = document.createElement('option');
+                option.value = <?= json_encode($petugasd->id) ?>;
+                option.text = <?= json_encode($petugasd->name) ?>;
+                petugasDropdown.add(option);
+            }
+            if (selectedUnitValue === "" || selectedUnitValue == dataruangan) {
+    var option = document.createElement('option');
+
+    // Concatenate id and name with a separator (e.g., comma)
+    var optionValue = <?= json_encode($petugasd->id . ',' . $petugasd->name) ?>;
+
+    // Split the concatenated value into an array using the separator (',')
+    var valuesArray = optionValue.split(',');
+
+    // Set the value and text of the option to the second part (index 1, which is the name)
+    option.value = valuesArray;
+    option.text = valuesArray[1];
+
+    petugas2Dropdown.add(option);
+}
+            
+        <?php } ?>
+    }
+
+    // Add an event listener to call the function when the page loads
+    window.addEventListener('load', updatePetugasOptions);
+
+    // Additional event listener for Unit Kerja dropdown change
+    document.getElementById("kon").addEventListener('change', updatePetugasOptions);
+            function updateRuanganeditOptions() {
+        var unitKerjaDropdown = document.getElementById("tol");
+        var ruanganDropdown = document.getElementById("lol");
+        
+        // Get the selected unit value
+        var selectedUnitValue = unitKerjaDropdown.value;
+
+        // Clear the ruangan dropdown value when "-- Pilih --" is selected in Unit Kerja
+        if (selectedUnitValue === "") {
+            ruanganDropdown.innerHTML = '<option value="">-- Pilih --</option>';
+            return; // Exit the function early
+        }
+
+        // Reset ruangan dropdown options
+        ruanganDropdown.innerHTML = '';
+
+
+        // Loop through ruangan options and add options based on the selected unit
+        <?php foreach($ruangan as $ruangans) { ?>
+            var dataUnit = <?= json_encode($ruangans->id_unit_kerja) ?>;
+            if (selectedUnitValue === "" || selectedUnitValue == dataUnit) {
+                var option = document.createElement('option');
+                option.value = <?= json_encode($ruangans->id) ?>;
+                option.text = <?= json_encode($ruangans->name) ?>;
+                ruanganDropdown.add(option);
+            }
+        <?php } ?>
+    }
+
+    // Add an event listener to call the function when the page loads
+    window.addEventListener('load', updateruanganOptions);
+
+    // Additional event listener for Unit Kerja dropdown change
+    document.getElementById("tol").addEventListener('change', updateruanganOptions);
+    document.getElementById("editbutton").addEventListener('click', function() {
+                        // Set the selected value if the condition is met
+        updateRuanganeditOptions();
+    });
+    function updatePetugaseditOptions() {
+        var ruanganDropdown = document.getElementById("lol");
+        var petugasDropdown = document.getElementById("hey");
+        var petugas2Dropdown = document.getElementById("hoy");
+        
+        // Get the selected unit value
+        var selectedUnitValue = ruanganDropdown.value;
+
+        // Clear the ruangan dropdown value when "-- Pilih --" is selected in Unit Kerja
+        if (selectedUnitValue === "") {
+            petugasDropdown.innerHTML = '<option value="">-- Pilih --</option>';
+            petugas2Dropdown.innerHTML = '<option value="">-- Pilih --</option>';
+            return; // Exit the function early
+        }
+        
+        // Reset ruangan dropdown options
+        petugasDropdown.innerHTML = '';
+        petugas2Dropdown.innerHTML = '';
+
+
+        // Loop through ruangan options and add options based on the selected unit
+        <?php foreach($petugas as $petugasd) { ?>
+            var dataruangan = <?= json_encode($petugasd->id_ruangan) ?>;
+            if (selectedUnitValue === "" || selectedUnitValue == dataruangan) {
+                var option = document.createElement('option');
+                option.value = <?= json_encode($petugasd->id) ?>;
+                option.text = <?= json_encode($petugasd->name) ?>;
+                petugasDropdown.add(option);
+            }
+            if (selectedUnitValue === "" || selectedUnitValue == dataruangan) {
+    var option = document.createElement('option');
+
+    // Concatenate id and name with a separator (e.g., comma)
+    var optionValue = <?= json_encode($petugasd->id . ',' . $petugasd->name) ?>;
+
+    // Set the value to the concatenated id and name
+    option.value = optionValue;
+
+    // Split the concatenated value into an array using the separator (',')
+    var valuesArray = optionValue.split(',');
+
+    // Set the text of the option to the second part (index 1, which is the name)
+    option.text = valuesArray[1];
+
+    petugas2Dropdown.add(option);
+}
+
+        <?php } ?>
+    }
+
+    // Add an event listener to call the function when the page loads
+    window.addEventListener('load', updatePetugasOptions);
+
+    // Additional event listener for Unit Kerja dropdown change
+    document.getElementById("tol").addEventListener('change', updatePetugasOptions);
+    document.getElementById("editbutton").addEventListener('click', function() {
+                        // Set the selected value if the condition is met
+        updateRuanganeditOptions();
+    });
+function swallnya(id) {
     swal({
       title: "Apakah kamu yakin?",
       text: "Data yang dihapus tidak bisa dikembalikan",

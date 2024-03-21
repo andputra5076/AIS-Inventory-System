@@ -534,7 +534,7 @@ please do not upload images larger than 2 mb</p>
 
 </select>
                     </div>
-                     <div class="mb-3">
+                    <div class="mb-3">
                     <label for="text" class="form-label" >Unit Kerja</label>
                         <select id="kon" name="id_unit_kerja" class="form-select" aria-label="Default select example" onchange="updateruanganOptions()" required="">
     <option value="">-- Pilih --</option>
