@@ -309,8 +309,11 @@ data-sertifikat='<?= $user->sertifikat_kepemilikan?>'
 data-lat='<?=   $latitude?>'
 data-long='<?=   $longitude?>'
 data-nilaiperolehan='<?= $user->nilaiperolehan?>'
+data-nilairesidu='<?= $user->nilai_residu?>'
 data-image='../assets/images/aset/<?= $user->image?> '
 data-tanggal='<?= $tanggalbarang->format("d-m-Y")?>'
+data-masamanfaat='<?= $user->masa_manfaat?>'
+data-penyusutan='<?= $user->penyusutan?>'
 data-alamat='<?= $user->alamat?>'
 data-keterangan='<?= isset($user->keterangan) ? $user->keterangan : '-'; ?>'  
                                                                 data-user='<?= $user->usernamanya ?>' data-usaha='<?= $user->pengguna_barang ?>' data-idunitkerja='<?= $user->idkerja ?>'  data-namaunitkerja='<?= $user->namakerja ?>' data-namaruangan='<?= $user->ruangannama ?>' data-idnyaruangan='<?= $user->ruanganid ?>'data-namapetugas='<?= $user->petugasnama ?>' data-idnyapetugas='<?= $user->idpetugas ?>'><i class="mdi mdi-square-edit-outline"></i></a>
@@ -353,7 +356,10 @@ data-keterangan='<?= isset($user->keterangan) ? $user->keterangan : '-'; ?>'
             
                                             <div class="col-sm-4">
                                             <p class="text"><strong>Nilai Perolehan :</strong><span class="ms-1"> Rp. <?= number_format($user->nilaiperolehan,2,",",".")?> </span></p>
+                                            <p class="text"><strong>Nilai Residu :</strong><span class="ms-1"> Rp. <?= number_format($user->nilai_residu,2,",",".")?> </span></p>
                                             <p class="text"><strong>Tanggal Aset :</strong><span class="ms-1"> <?= $tanggalbarang->format("d-m-Y")?> </span></p>
+                                            <p class="text"><strong>Masa Manfaat :</strong><span class="ms-1"> <?= $user->masa_manfaat?> </span>Tahun</p>
+                                            <p class="text"><strong>Penyusutan :</strong><span class="ms-1"> Rp. <?= number_format($user->penyusutan,2,",",".")?> </span></p>
                                             <p class="text"><strong>Foto Lokasi :</strong><span class="ms-1"><a  target="_blank" href="../assets/images/aset/<?= $user->image?> "><img src="../assets/images/aset/<?= $user->image?> " alt="aset-image" title="aset-img" class="rounded me-2" height="48"></a></span></p>
                                             <p class="text"><strong>Alamat :</strong><span class="ms-1"> <?= $user->alamat?> </span></p>
                                             <p class="text"><strong>Pengelola Barang :</strong><span class="ms-1"> <?= $user->pengelola_barang?> </span></p>
@@ -528,7 +534,7 @@ please do not upload images larger than 2 mb</p>
                     </div>
                      <div class="mb-3">
                     <label for="text" class="form-label" >Unit Kerja</label>
-                        <select name="id_unit_kerja" class="form-select" aria-label="Default select example" required="">
+                        <select id="kon" name="id_unit_kerja" class="form-select" aria-label="Default select example" onchange="updateruanganOptions()" required="">
                             <option value="">-- Pilih --</option>
                             <?php
                                                         foreach($unit_kerja as $unit_kerjas) {                                              
@@ -542,12 +548,12 @@ please do not upload images larger than 2 mb</p>
 </div>
                     <div class="mb-3">
                     <label for="text" class="form-label" >Ruangan</label>
-                        <select name="id_ruangan" class="form-select" aria-label="Default select example" required="">
+                        <select id="tel" name="id_ruangan" class="form-select" aria-label="Default select example" required="">
                            <option value="">-- Pilih --</option>
                             <?php
                                                         foreach($ruangan as $ruangans) {                                              
                                                             ?>
-<option value="<?= $ruangans->id ?>"><?= $ruangans->name ?></option>
+<option data-unit="<?= $ruangans->id_unit_kerja ?>" value="<?= $ruangans->id ?>"><?= $ruangans->name ?></option>
 
                                                         <?php
                                                         }
@@ -649,6 +655,11 @@ please do not upload images larger than 2 mb</p>
                         <input class="form-control" name="id" type="hidden" id="idedit5" required="" placeholder="">
                     </div>
                     <div class="mb-3">
+                    <label for="text" class="form-label">Nilai Residu</label>
+                        <input class="form-control" name="nilai_residu" type="number" id="nameedit13" required="" placeholder="">
+                        <input class="form-control" name="id" type="hidden" id="idedit13" required="" placeholder="">
+                    </div>
+                    <div class="mb-3">
                     <label for="text" class="form-label">Sertifikat Kepemilikan</label>
                         <input class="form-control" name="sertifikat_kepemilikan" type="text" id="nameedit6" required="" placeholder="">
                         <input class="form-control" name="id" type="hidden" id="idedit6" required="" placeholder="">
@@ -657,6 +668,16 @@ please do not upload images larger than 2 mb</p>
                     <label for="text" class="form-label">Tanggal Aset</label>
                         <input class="form-control" name="tanggal_aset" type="date" id="nameedit7" required="" placeholder="">
                         <input class="form-control" name="id" type="hidden" id="idedit7" required="" placeholder="">
+                    </div>
+                    <div class="mb-3">
+                    <label for="text" class="form-label">Masa Manfaat</label>
+                        <input class="form-control" name="masa_manfaat" type="number" id="nameedit14" required="" placeholder="">
+                        <span class="input-group-text">tahun</span>
+                    </div>
+                    <input class="form-control" name="id" type="hidden" id="idedit14" required="" placeholder="">
+                    <label for="text" class="form-label">Penyusutan</label>
+                        <input class="form-control" name="penyusutan" type="number" id="nameedit15" required="" placeholder="" disabled>
+                        <input class="form-control" name="id" type="hidden" id="idedit15" required="" placeholder="">
                     </div>
                     <div class="fallback">
                                                                 <label for="image" class="form-label">Foto Lokasi</label>
@@ -812,7 +833,192 @@ please do not upload images larger than 2 mb</p>
 <script src="assets/js/vendor/dropzone.min.js"></script>
 <!-- init js -->
 <script src="assets/js/ui/component.fileupload.js"></script>
+<script>
+    function updateruanganOptions() {
+var unitKerjaDropdown = document.getElementById("kon");
+var ruanganDropdown = document.getElementById("tel");
 
+// Get the selected unit value
+var selectedUnitValue = unitKerjaDropdown.value;
+
+// Clear the ruangan dropdown value when "-- Pilih --" is selected in Unit Kerja
+if (selectedUnitValue === "") {
+    ruanganDropdown.innerHTML = '<option value="">-- Pilih --</option>';
+    return; // Exit the function early
+}
+
+// Reset ruangan dropdown options
+ruanganDropdown.innerHTML = '';
+
+
+// Loop through ruangan options and add options based on the selected unit
+<?php foreach($ruangan as $ruangans) { ?>
+    var dataUnit = <?= json_encode($ruangans->id_unit_kerja) ?>;
+    if (selectedUnitValue === "" || selectedUnitValue == dataUnit) {
+        var option = document.createElement('option');
+        option.value = <?= json_encode($ruangans->id) ?>;
+        option.text = <?= json_encode($ruangans->name) ?>;
+        ruanganDropdown.add(option);
+    }
+<?php } ?>
+}
+
+// Add an event listener to call the function when the page loads
+window.addEventListener('load', updateruanganOptions);
+
+// Additional event listener for Unit Kerja dropdown change
+document.getElementById("kon").addEventListener('change', updateruanganOptions);
+
+function updatePetugasOptions() {
+var ruanganDropdown = document.getElementById("tel");
+var petugasDropdown = document.getElementById("ahai");
+var petugas2Dropdown = document.getElementById("ahai2");
+
+// Get the selected unit value
+var selectedUnitValue = ruanganDropdown.value;
+
+// Clear the ruangan dropdown value when "-- Pilih --" is selected in Unit Kerja
+if (selectedUnitValue === "") {
+    petugasDropdown.innerHTML = '<option value="">-- Pilih --</option>';
+    petugas2Dropdown.innerHTML = '<option value="">-- Pilih --</option>';
+    return; // Exit the function early
+}
+
+// Reset ruangan dropdown options
+petugasDropdown.innerHTML = '';
+petugas2Dropdown.innerHTML = '';
+
+
+// Loop through ruangan options and add options based on the selected unit
+<?php foreach($petugas as $petugasd) { ?>
+    var dataruangan = <?= json_encode($petugasd->id_ruangan) ?>;
+    if (selectedUnitValue === "" || selectedUnitValue == dataruangan) {
+        var option = document.createElement('option');
+        option.value = <?= json_encode($petugasd->id) ?>;
+        option.text = <?= json_encode($petugasd->name) ?>;
+        petugasDropdown.add(option);
+    }
+    if (selectedUnitValue === "" || selectedUnitValue == dataruangan) {
+var option = document.createElement('option');
+
+// Concatenate id and name with a separator (e.g., comma)
+var optionValue = <?= json_encode($petugasd->id . ',' . $petugasd->name) ?>;
+
+// Split the concatenated value into an array using the separator (',')
+var valuesArray = optionValue.split(',');
+
+// Set the value and text of the option to the second part (index 1, which is the name)
+option.value = valuesArray;
+option.text = valuesArray[1];
+
+petugas2Dropdown.add(option);
+}
+    
+<?php } ?>
+}
+
+// Add an event listener to call the function when the page loads
+window.addEventListener('load', updatePetugasOptions);
+
+// Additional event listener for Unit Kerja dropdown change
+document.getElementById("kon").addEventListener('change', updatePetugasOptions);
+    function updateRuanganeditOptions() {
+var unitKerjaDropdown = document.getElementById("tol");
+var ruanganDropdown = document.getElementById("lol");
+
+// Get the selected unit value
+var selectedUnitValue = unitKerjaDropdown.value;
+
+// Clear the ruangan dropdown value when "-- Pilih --" is selected in Unit Kerja
+if (selectedUnitValue === "") {
+    ruanganDropdown.innerHTML = '<option value="">-- Pilih --</option>';
+    return; // Exit the function early
+}
+
+// Reset ruangan dropdown options
+ruanganDropdown.innerHTML = '';
+
+
+// Loop through ruangan options and add options based on the selected unit
+<?php foreach($ruangan as $ruangans) { ?>
+    var dataUnit = <?= json_encode($ruangans->id_unit_kerja) ?>;
+    if (selectedUnitValue === "" || selectedUnitValue == dataUnit) {
+        var option = document.createElement('option');
+        option.value = <?= json_encode($ruangans->id) ?>;
+        option.text = <?= json_encode($ruangans->name) ?>;
+        ruanganDropdown.add(option);
+    }
+<?php } ?>
+}
+
+// Add an event listener to call the function when the page loads
+window.addEventListener('load', updateruanganOptions);
+
+// Additional event listener for Unit Kerja dropdown change
+document.getElementById("tol").addEventListener('change', updateruanganOptions);
+document.getElementById("editbutton").addEventListener('click', function() {
+                // Set the selected value if the condition is met
+updateRuanganeditOptions();
+});
+function updatePetugaseditOptions() {
+var ruanganDropdown = document.getElementById("lol");
+var petugasDropdown = document.getElementById("hey");
+var petugas2Dropdown = document.getElementById("hoy");
+
+// Get the selected unit value
+var selectedUnitValue = ruanganDropdown.value;
+
+// Clear the ruangan dropdown value when "-- Pilih --" is selected in Unit Kerja
+if (selectedUnitValue === "") {
+    petugasDropdown.innerHTML = '<option value="">-- Pilih --</option>';
+    petugas2Dropdown.innerHTML = '<option value="">-- Pilih --</option>';
+    return; // Exit the function early
+}
+
+// Reset ruangan dropdown options
+petugasDropdown.innerHTML = '';
+petugas2Dropdown.innerHTML = '';
+
+
+// Loop through ruangan options and add options based on the selected unit
+<?php foreach($petugas as $petugasd) { ?>
+    var dataruangan = <?= json_encode($petugasd->id_ruangan) ?>;
+    if (selectedUnitValue === "" || selectedUnitValue == dataruangan) {
+        var option = document.createElement('option');
+        option.value = <?= json_encode($petugasd->id) ?>;
+        option.text = <?= json_encode($petugasd->name) ?>;
+        petugasDropdown.add(option);
+    }
+    if (selectedUnitValue === "" || selectedUnitValue == dataruangan) {
+var option = document.createElement('option');
+
+// Concatenate id and name with a separator (e.g., comma)
+var optionValue = <?= json_encode($petugasd->id . ',' . $petugasd->name) ?>;
+
+// Set the value to the concatenated id and name
+option.value = optionValue;
+
+// Split the concatenated value into an array using the separator (',')
+var valuesArray = optionValue.split(',');
+
+// Set the text of the option to the second part (index 1, which is the name)
+option.text = valuesArray[1];
+
+petugas2Dropdown.add(option);
+}
+
+<?php } ?>
+}
+
+// Add an event listener to call the function when the page loads
+window.addEventListener('load', updatePetugasOptions);
+
+// Additional event listener for Unit Kerja dropdown change
+document.getElementById("tol").addEventListener('change', updatePetugasOptions);
+document.getElementById("editbutton").addEventListener('click', function() {
+                // Set the selected value if the condition is met
+updateRuanganeditOptions();
+});
         <script>
             function swallnya(id) {
     swal({
@@ -859,6 +1065,9 @@ please do not upload images larger than 2 mb</p>
     $('#nameedit10').val($('#editbutton-'+urut).data('lat'));
     $('#nameedit11').val($('#editbutton-'+urut).data('long'));
     $('#nameedit12').val($('#editbutton-'+urut).data('keterangan'));
+    $('#nameedit13').val($('#editbutton-'+urut).data('nilairesidu'));
+    $('#nameedit14').val($('#editbutton-'+urut).data('massamanfaat'));
+    $('#nameedit15').val($('#editbutton-'+urut).data('penyusutan'));
      document.getElementById('hidid').value = $('#editbutton-'+urut).data('usaha');
      document.getElementById('hidid2').value = $('#editbutton-'+urut).data('usaha');
     document.getElementById('id_unit_usahaedit').value = $('#editbutton-'+urut).data('user');
@@ -886,6 +1095,9 @@ please do not upload images larger than 2 mb</p>
     $('#idedit10').val($('#editbutton-'+urut).data('id'));
     $('#idedit11').val($('#editbutton-'+urut).data('id'));
     $('#idedit12').val($('#editbutton-'+urut).data('id'));
+    $('#idedit13').val($('#editbutton-'+urut).data('id'));
+    $('#idedit14').val($('#editbutton-'+urut).data('id'));
+    $('#idedit15').val($('#editbutton-'+urut).data('id'));
     console.log($('#editbutton-'+urut).data('nama'));
     console.log($('#editbutton-'+urut).data('jenis'));
     console.log($('#editbutton-'+urut).data('merek'));
@@ -897,6 +1109,9 @@ please do not upload images larger than 2 mb</p>
     console.log($('#editbutton-'+urut).data('tanggal'));
     console.log($('#editbutton-'+urut).data('alamat'));
     console.log($('#editbutton-'+urut).data('keterangan'));
+    console.log($('#editbutton-'+urut).data('nilairesidu'));
+    console.log($('#editbutton-'+urut).data('masamanfaat'));
+    console.log($('#editbutton-'+urut).data('penyusutan'));
     
 
     // Data lainnya untuk mengatur seleksi opsi dalam elemen select

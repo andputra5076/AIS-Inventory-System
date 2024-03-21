@@ -545,7 +545,7 @@ please do not upload images larger than 2 mb</p>
 <br>
 <!-- Your existing HTML code for the ruangan dropdown -->
 <label for="text" class="form-label">Ruangan</label>
-<select name="id_ruangan" id="tel" class="form-select" aria-label="Default select example" onchange="updatePetugasOptions()" required>
+<select name="id_ruangan" id="tel" class="form-select" aria-label="Default select example" required>
     <option value="">-- Pilih --</option>
     <?php foreach($ruangan as $ruangans) { ?>
         <option data-unit="<?= $ruangans->id_unit_kerja ?>" value="<?= $ruangans->id ?>"><?= $ruangans->name ?></option>
@@ -554,12 +554,12 @@ please do not upload images larger than 2 mb</p>
 </div>
                     <div class="mb-3">
                     <label for="text" class="form-label" >P. Pencatat</label>
-                        <select id="ahai" name="id_petugas1" class="form-select" aria-label="Default select example" required="">
+                        <select name="id_petugas1" class="form-select" aria-label="Default select example" required="">
                            <option value="">-- Pilih --</option>
                             <?php
                                                         foreach($petugas as $petugasd) {                                              
                                                             ?>
-<option data-ruangan="<?= $petugasd->id_ruangan ?>" value="<?= $petugasd->id ?>"><?= $petugasd->name ?></option>
+<option value="<?= $petugasd->id ?>"><?= $petugasd->name ?></option>
 
                                                         <?php
                                                         }
@@ -568,12 +568,12 @@ please do not upload images larger than 2 mb</p>
 </div>
                     <div class="mb-3">
                     <label for="text" class="form-label" >Penanggung Jawab</label>
-                        <select id="ahai2" name="id_petugas2" class="form-select" aria-label="Default select example"  >
+                        <select name="id_petugas2" class="form-select" aria-label="Default select example"  >
                            <option value="">-- Pilih --</option>
                             <?php
                                                         foreach($petugas as $petugasd) {                                              
                                                             ?>
-<option data-ruangan2="<?= $petugasd->id_ruangan ?>" value="<?= $petugasd->id ?>,<?= $petugasd->name ?>"><?= $petugasd->name ?></option>
+<option value="<?= $petugasd->id ?>,<?= $petugasd->name ?>"><?= $petugasd->name ?></option>
 
                                                         <?php
                                                         }
@@ -730,7 +730,7 @@ please do not upload images larger than 2 mb</p>
 </div>
                     <div class="mb-3">
                     <label for="text" class="form-label" >Ruangan</label>
-                        <select name="id_ruangan" id="lol" class="form-select" onchange="updatePetugaseditOptions()" aria-label="Default select example" required>
+                        <select name="id_ruangan" id="lol" class="form-select" aria-label="Default select example" required>
                            <option id="ruangan" value="">-- Pilih --</option>
                             <?php
                                                         foreach($ruangan as $ruangans) {                                              

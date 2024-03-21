@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 19 Nov 2023 pada 11.36
--- Versi server: 8.0.34
--- Versi PHP: 7.4.14
+-- Generation Time: Mar 20, 2024 at 07:44 AM
+-- Server version: 8.0.36
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `aset_alatac`
+-- Table structure for table `aset_alatac`
 --
 
 CREATE TABLE `aset_alatac` (
@@ -40,7 +40,10 @@ CREATE TABLE `aset_alatac` (
   `jumlah` int NOT NULL,
   `satuan` varchar(255) DEFAULT NULL,
   `nilaiperolehan` varchar(255) DEFAULT NULL,
+  `nilai_residu` int DEFAULT NULL,
   `tanggal_aset` date DEFAULT NULL,
+  `masa_manfaat` int DEFAULT NULL,
+  `penyusutan` int DEFAULT NULL,
   `image` varchar(255) NOT NULL,
   `alamat` text NOT NULL,
   `pengelola_barang` varchar(255) DEFAULT 'PT. Rolas Nusantara Medika',
@@ -56,10 +59,20 @@ CREATE TABLE `aset_alatac` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Triggers `aset_alatac`
+--
+DELIMITER $$
+CREATE TRIGGER `tambah_penyusutan11` BEFORE INSERT ON `aset_alatac` FOR EACH ROW BEGIN
+    SET NEW.penyusutan = (NEW.nilaiperolehan - NEW.nilai_residu) / NEW.masa_manfaat;
+END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `aset_alatkantor`
+-- Table structure for table `aset_alatkantor`
 --
 
 CREATE TABLE `aset_alatkantor` (
@@ -75,7 +88,10 @@ CREATE TABLE `aset_alatkantor` (
   `jumlah` int NOT NULL,
   `satuan` varchar(255) DEFAULT NULL,
   `nilaiperolehan` varchar(255) DEFAULT NULL,
+  `nilai_residu` int DEFAULT NULL,
   `tanggal_aset` date DEFAULT NULL,
+  `masa_manfaat` int DEFAULT NULL,
+  `penyusutan` int DEFAULT NULL,
   `image` varchar(255) NOT NULL,
   `alamat` text NOT NULL,
   `pengelola_barang` varchar(255) DEFAULT 'PT. Rolas Nusantara Medika',
@@ -91,10 +107,20 @@ CREATE TABLE `aset_alatkantor` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Triggers `aset_alatkantor`
+--
+DELIMITER $$
+CREATE TRIGGER `tambah_penyusutan10` BEFORE INSERT ON `aset_alatkantor` FOR EACH ROW BEGIN
+    SET NEW.penyusutan = (NEW.nilaiperolehan - NEW.nilai_residu) / NEW.masa_manfaat;
+END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `aset_alatlift`
+-- Table structure for table `aset_alatlift`
 --
 
 CREATE TABLE `aset_alatlift` (
@@ -110,7 +136,10 @@ CREATE TABLE `aset_alatlift` (
   `jumlah` int NOT NULL,
   `satuan` varchar(255) DEFAULT NULL,
   `nilaiperolehan` varchar(255) DEFAULT NULL,
+  `nilai_residu` int DEFAULT NULL,
   `tanggal_aset` date DEFAULT NULL,
+  `masa_manfaat` int DEFAULT NULL,
+  `penyusutan` int DEFAULT NULL,
   `image` varchar(255) NOT NULL,
   `alamat` text NOT NULL,
   `pengelola_barang` varchar(255) DEFAULT 'PT. Rolas Nusantara Medika',
@@ -126,10 +155,20 @@ CREATE TABLE `aset_alatlift` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Triggers `aset_alatlift`
+--
+DELIMITER $$
+CREATE TRIGGER `tambah_penyusutan9` BEFORE INSERT ON `aset_alatlift` FOR EACH ROW BEGIN
+    SET NEW.penyusutan = (NEW.nilaiperolehan - NEW.nilai_residu) / NEW.masa_manfaat;
+END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `aset_alatlistrik`
+-- Table structure for table `aset_alatlistrik`
 --
 
 CREATE TABLE `aset_alatlistrik` (
@@ -145,7 +184,10 @@ CREATE TABLE `aset_alatlistrik` (
   `jumlah` int NOT NULL,
   `satuan` varchar(255) DEFAULT NULL,
   `nilaiperolehan` varchar(255) DEFAULT NULL,
+  `nilai_residu` int DEFAULT NULL,
   `tanggal_aset` date DEFAULT NULL,
+  `masa_manfaat` int DEFAULT NULL,
+  `penyusutan` int DEFAULT NULL,
   `image` varchar(255) NOT NULL,
   `alamat` text NOT NULL,
   `pengelola_barang` varchar(255) DEFAULT 'PT. Rolas Nusantara Medika',
@@ -161,10 +203,20 @@ CREATE TABLE `aset_alatlistrik` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Triggers `aset_alatlistrik`
+--
+DELIMITER $$
+CREATE TRIGGER `tambah_penyusutan8` BEFORE INSERT ON `aset_alatlistrik` FOR EACH ROW BEGIN
+    SET NEW.penyusutan = (NEW.nilaiperolehan - NEW.nilai_residu) / NEW.masa_manfaat;
+END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `aset_alatmedis`
+-- Table structure for table `aset_alatmedis`
 --
 
 CREATE TABLE `aset_alatmedis` (
@@ -180,7 +232,10 @@ CREATE TABLE `aset_alatmedis` (
   `jumlah` int NOT NULL,
   `satuan` varchar(255) DEFAULT NULL,
   `nilaiperolehan` varchar(255) DEFAULT NULL,
+  `nilai_residu` int DEFAULT NULL,
   `tanggal_aset` date DEFAULT NULL,
+  `masa_manfaat` int DEFAULT NULL,
+  `penyusutan` int DEFAULT NULL,
   `image` varchar(255) NOT NULL,
   `alamat` text NOT NULL,
   `pengelola_barang` varchar(255) DEFAULT 'PT. Rolas Nusantara Medika',
@@ -196,10 +251,20 @@ CREATE TABLE `aset_alatmedis` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Triggers `aset_alatmedis`
+--
+DELIMITER $$
+CREATE TRIGGER `tambah_penyusutan7` BEFORE INSERT ON `aset_alatmedis` FOR EACH ROW BEGIN
+    SET NEW.penyusutan = (NEW.nilaiperolehan - NEW.nilai_residu) / NEW.masa_manfaat;
+END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `aset_alatmekanik`
+-- Table structure for table `aset_alatmekanik`
 --
 
 CREATE TABLE `aset_alatmekanik` (
@@ -215,7 +280,10 @@ CREATE TABLE `aset_alatmekanik` (
   `jumlah` int NOT NULL,
   `satuan` varchar(255) DEFAULT NULL,
   `nilaiperolehan` varchar(255) DEFAULT NULL,
+  `nilai_residu` int DEFAULT NULL,
   `tanggal_aset` date DEFAULT NULL,
+  `masa_manfaat` int DEFAULT NULL,
+  `penyusutan` int DEFAULT NULL,
   `image` varchar(255) NOT NULL,
   `alamat` text NOT NULL,
   `pengelola_barang` varchar(255) DEFAULT 'PT. Rolas Nusantara Medika',
@@ -231,10 +299,20 @@ CREATE TABLE `aset_alatmekanik` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Triggers `aset_alatmekanik`
+--
+DELIMITER $$
+CREATE TRIGGER `tambah_penyusutan6` BEFORE INSERT ON `aset_alatmekanik` FOR EACH ROW BEGIN
+    SET NEW.penyusutan = (NEW.nilaiperolehan - NEW.nilai_residu) / NEW.masa_manfaat;
+END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `aset_alattelekomunikasi`
+-- Table structure for table `aset_alattelekomunikasi`
 --
 
 CREATE TABLE `aset_alattelekomunikasi` (
@@ -250,7 +328,10 @@ CREATE TABLE `aset_alattelekomunikasi` (
   `jumlah` int NOT NULL,
   `satuan` varchar(255) DEFAULT NULL,
   `nilaiperolehan` varchar(255) DEFAULT NULL,
+  `nilai_residu` int DEFAULT NULL,
   `tanggal_aset` date DEFAULT NULL,
+  `masa_manfaat` int DEFAULT NULL,
+  `penyusutan` int DEFAULT NULL,
   `image` varchar(255) NOT NULL,
   `alamat` text NOT NULL,
   `pengelola_barang` varchar(255) DEFAULT 'PT. Rolas Nusantara Medika',
@@ -266,10 +347,20 @@ CREATE TABLE `aset_alattelekomunikasi` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Triggers `aset_alattelekomunikasi`
+--
+DELIMITER $$
+CREATE TRIGGER `tambah_penyusutan5` BEFORE INSERT ON `aset_alattelekomunikasi` FOR EACH ROW BEGIN
+    SET NEW.penyusutan = (NEW.nilaiperolehan - NEW.nilai_residu) / NEW.masa_manfaat;
+END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `aset_gedungdanbangunan`
+-- Table structure for table `aset_gedungdanbangunan`
 --
 
 CREATE TABLE `aset_gedungdanbangunan` (
@@ -283,8 +374,11 @@ CREATE TABLE `aset_gedungdanbangunan` (
   `luas_gedungdanbangunan` varchar(255) NOT NULL,
   `satuan` varchar(255) DEFAULT NULL,
   `nilaiperolehan` varchar(255) DEFAULT NULL,
+  `nilai_residu` int DEFAULT NULL,
   `sertifikat_kepemilikan` varchar(255) NOT NULL,
   `tanggal_aset` date DEFAULT NULL,
+  `masa_manfaat` int DEFAULT NULL,
+  `penyusutan` int DEFAULT NULL,
   `image` varchar(255) NOT NULL,
   `alamat` text NOT NULL,
   `lat` varchar(255) NOT NULL,
@@ -302,10 +396,20 @@ CREATE TABLE `aset_gedungdanbangunan` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Triggers `aset_gedungdanbangunan`
+--
+DELIMITER $$
+CREATE TRIGGER `tambah_penyusutan4` BEFORE INSERT ON `aset_gedungdanbangunan` FOR EACH ROW BEGIN
+    SET NEW.penyusutan = (NEW.nilaiperolehan - NEW.nilai_residu) / NEW.masa_manfaat;
+END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `aset_kendaraandanambulance`
+-- Table structure for table `aset_kendaraandanambulance`
 --
 
 CREATE TABLE `aset_kendaraandanambulance` (
@@ -324,7 +428,10 @@ CREATE TABLE `aset_kendaraandanambulance` (
   `jumlah` int NOT NULL,
   `satuan` varchar(255) DEFAULT NULL,
   `nilaiperolehan` varchar(255) DEFAULT NULL,
+  `nilai_residu` int DEFAULT NULL,
   `tanggal_aset` date DEFAULT NULL,
+  `masa_manfaat` int DEFAULT NULL,
+  `penyusutan` int DEFAULT NULL,
   `image` varchar(255) NOT NULL,
   `alamat` text NOT NULL,
   `pengelola_barang` varchar(255) DEFAULT 'PT. Rolas Nusantara Medika',
@@ -340,10 +447,20 @@ CREATE TABLE `aset_kendaraandanambulance` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Triggers `aset_kendaraandanambulance`
+--
+DELIMITER $$
+CREATE TRIGGER `tambah_penyusutan3` BEFORE INSERT ON `aset_kendaraandanambulance` FOR EACH ROW BEGIN
+    SET NEW.penyusutan = (NEW.nilaiperolehan - NEW.nilai_residu) / NEW.masa_manfaat;
+END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `aset_komputer`
+-- Table structure for table `aset_komputer`
 --
 
 CREATE TABLE `aset_komputer` (
@@ -359,7 +476,10 @@ CREATE TABLE `aset_komputer` (
   `jumlah` int NOT NULL,
   `satuan` varchar(255) DEFAULT NULL,
   `nilaiperolehan` varchar(255) DEFAULT NULL,
+  `nilai_residu` int DEFAULT NULL,
   `tanggal_aset` date DEFAULT NULL,
+  `masa_manfaat` int DEFAULT NULL,
+  `penyusutan` int DEFAULT NULL,
   `image` varchar(255) NOT NULL,
   `alamat` text NOT NULL,
   `pengelola_barang` varchar(255) DEFAULT 'PT. Rolas Nusantara Medika',
@@ -375,10 +495,20 @@ CREATE TABLE `aset_komputer` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Triggers `aset_komputer`
+--
+DELIMITER $$
+CREATE TRIGGER `tambah_penyusutan2` BEFORE INSERT ON `aset_komputer` FOR EACH ROW BEGIN
+    SET NEW.penyusutan = (NEW.nilaiperolehan - NEW.nilai_residu) / NEW.masa_manfaat;
+END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `aset_tanah`
+-- Table structure for table `aset_tanah`
 --
 
 CREATE TABLE `aset_tanah` (
@@ -392,8 +522,11 @@ CREATE TABLE `aset_tanah` (
   `luas_tanah` varchar(255) NOT NULL,
   `satuan` varchar(255) DEFAULT NULL,
   `nilaiperolehan` varchar(255) DEFAULT NULL,
+  `nilai_residu` int DEFAULT NULL,
   `sertifikat_kepemilikan` varchar(255) NOT NULL,
   `tanggal_aset` date DEFAULT NULL,
+  `masa_manfaat` int DEFAULT NULL,
+  `penyusutan` int DEFAULT NULL,
   `image` varchar(255) NOT NULL,
   `alamat` text NOT NULL,
   `lat` varchar(255) NOT NULL,
@@ -411,55 +544,20 @@ CREATE TABLE `aset_tanah` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- --------------------------------------------------------
-
 --
--- Struktur dari tabel `ruangan`
+-- Triggers `aset_tanah`
 --
-
-CREATE TABLE `ruangan` (
-  `id` int NOT NULL,
-  `id_unit_usaha` int DEFAULT NULL,
-  `id_unit_kerja` int DEFAULT NULL,
-  `name` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `ruangan`
---
-
-INSERT INTO `ruangan` (`id`, `id_unit_usaha`, `id_unit_kerja`, `name`) VALUES
-(228, 2, 62, 'Ruang Medis'),
-(229, 2, 60, 'Ruang Rapat'),
-(230, 2, 62, 'Ruang Operasi'),
-(232, 5, 129, 'Ruang ruangan'),
-(237, 4, 83, 'Ruang Rapat'),
-(238, 4, 83, 'Ruang Kerja'),
-(239, 4, 83, 'Ruang Operational'),
-(244, 3, 158, 'Ruang Medis'),
-(245, 3, 158, 'Ruang Asuransi Kesehatan'),
-(246, 5, 129, 'Ruang Kesehatan');
+DELIMITER $$
+CREATE TRIGGER `tambah_penyusutan` BEFORE INSERT ON `aset_tanah` FOR EACH ROW BEGIN
+    SET NEW.penyusutan = (NEW.nilaiperolehan - NEW.nilai_residu) / NEW.masa_manfaat;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `failed_jobs`
---
-
-CREATE TABLE `failed_jobs` (
-  `id` bigint UNSIGNED NOT NULL,
-  `uuid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `inventaris_kendaraan`
+-- Table structure for table `inventaris_kendaraan`
 --
 
 CREATE TABLE `inventaris_kendaraan` (
@@ -497,7 +595,7 @@ CREATE TABLE `inventaris_kendaraan` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `inventaris_peralatanac`
+-- Table structure for table `inventaris_peralatanac`
 --
 
 CREATE TABLE `inventaris_peralatanac` (
@@ -532,7 +630,7 @@ CREATE TABLE `inventaris_peralatanac` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `inventaris_peralatankantor`
+-- Table structure for table `inventaris_peralatankantor`
 --
 
 CREATE TABLE `inventaris_peralatankantor` (
@@ -567,7 +665,7 @@ CREATE TABLE `inventaris_peralatankantor` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `inventaris_peralatanlift`
+-- Table structure for table `inventaris_peralatanlift`
 --
 
 CREATE TABLE `inventaris_peralatanlift` (
@@ -602,7 +700,7 @@ CREATE TABLE `inventaris_peralatanlift` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `inventaris_peralatanmedis`
+-- Table structure for table `inventaris_peralatanmedis`
 --
 
 CREATE TABLE `inventaris_peralatanmedis` (
@@ -637,7 +735,7 @@ CREATE TABLE `inventaris_peralatanmedis` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `inventaris_peralatanteknikinformatika`
+-- Table structure for table `inventaris_peralatanteknikinformatika`
 --
 
 CREATE TABLE `inventaris_peralatanteknikinformatika` (
@@ -672,7 +770,7 @@ CREATE TABLE `inventaris_peralatanteknikinformatika` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `inventaris_peralatantekniklistrikdanmekanik`
+-- Table structure for table `inventaris_peralatantekniklistrikdanmekanik`
 --
 
 CREATE TABLE `inventaris_peralatantekniklistrikdanmekanik` (
@@ -707,7 +805,7 @@ CREATE TABLE `inventaris_peralatantekniklistrikdanmekanik` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `inventaris_peralatantelekomunikasi`
+-- Table structure for table `inventaris_peralatantelekomunikasi`
 --
 
 CREATE TABLE `inventaris_peralatantelekomunikasi` (
@@ -742,59 +840,7 @@ CREATE TABLE `inventaris_peralatantelekomunikasi` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `migrations`
---
-
-CREATE TABLE `migrations` (
-  `id` int UNSIGNED NOT NULL,
-  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data untuk tabel `migrations`
---
-
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(9, '2014_10_12_000000_create_users_table', 1),
-(10, '2014_10_12_100000_create_password_resets_table', 1),
-(11, '2019_08_19_000000_create_failed_jobs_table', 1),
-(12, '2019_12_14_000001_create_personal_access_tokens_table', 1);
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `password_resets`
---
-
-CREATE TABLE `password_resets` (
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `personal_access_tokens`
---
-
-CREATE TABLE `personal_access_tokens` (
-  `id` bigint UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tokenable_id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `last_used_at` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `petugas`
+-- Table structure for table `petugas`
 --
 
 CREATE TABLE `petugas` (
@@ -806,18 +852,48 @@ CREATE TABLE `petugas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `petugas`
+-- Dumping data for table `petugas`
 --
 
 INSERT INTO `petugas` (`id`, `name`, `id_unit_usaha`, `id_ruangan`, `id_unit_kerja`) VALUES
 (92, 'Erwin Wahyu S', 2, 228, 62),
 (93, 'Subandi', 4, 239, 83),
-(94, 'Erwin Wahyu S', 5, 232, 129);
+(94, 'Erwin Wahyu S', 5, 232, 129),
+(95, 'Saifullah', 3, 244, 158);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `unit_kerja`
+-- Table structure for table `ruangan`
+--
+
+CREATE TABLE `ruangan` (
+  `id` int NOT NULL,
+  `id_unit_usaha` int DEFAULT NULL,
+  `id_unit_kerja` int DEFAULT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ruangan`
+--
+
+INSERT INTO `ruangan` (`id`, `id_unit_usaha`, `id_unit_kerja`, `name`) VALUES
+(228, 2, 62, 'Ruang Medis'),
+(229, 2, 60, 'Ruang Rapat'),
+(230, 2, 62, 'Ruang Operasi'),
+(232, 5, 129, 'Ruang ruangan'),
+(237, 4, 83, 'Ruang Rapat'),
+(238, 4, 83, 'Ruang Kerja'),
+(239, 4, 83, 'Ruang Operational'),
+(244, 3, 158, 'Ruang Medis'),
+(245, 3, 158, 'Ruang Asuransi Kesehatan'),
+(246, 5, 129, 'Ruang Kesehatan');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `unit_kerja`
 --
 
 CREATE TABLE `unit_kerja` (
@@ -827,7 +903,7 @@ CREATE TABLE `unit_kerja` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `unit_kerja`
+-- Dumping data for table `unit_kerja`
 --
 
 INSERT INTO `unit_kerja` (`id`, `id_unit_usaha`, `name`) VALUES
@@ -879,7 +955,7 @@ INSERT INTO `unit_kerja` (`id`, `id_unit_usaha`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -896,7 +972,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `kode`, `image`, `username`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
@@ -911,326 +987,281 @@ INSERT INTO `users` (`id`, `name`, `kode`, `image`, `username`, `password`, `rol
 --
 
 --
--- Indeks untuk tabel `aset_alatac`
+-- Indexes for table `aset_alatac`
 --
 ALTER TABLE `aset_alatac`
   ADD PRIMARY KEY (`id_alatac`);
 
 --
--- Indeks untuk tabel `aset_alatkantor`
+-- Indexes for table `aset_alatkantor`
 --
 ALTER TABLE `aset_alatkantor`
   ADD PRIMARY KEY (`id_alatkantor`);
 
 --
--- Indeks untuk tabel `aset_alatlift`
+-- Indexes for table `aset_alatlift`
 --
 ALTER TABLE `aset_alatlift`
   ADD PRIMARY KEY (`id_alatlift`);
 
 --
--- Indeks untuk tabel `aset_alatlistrik`
+-- Indexes for table `aset_alatlistrik`
 --
 ALTER TABLE `aset_alatlistrik`
   ADD PRIMARY KEY (`id_alatlistrik`);
 
 --
--- Indeks untuk tabel `aset_alatmedis`
+-- Indexes for table `aset_alatmedis`
 --
 ALTER TABLE `aset_alatmedis`
   ADD PRIMARY KEY (`id_alatmedis`);
 
 --
--- Indeks untuk tabel `aset_alatmekanik`
+-- Indexes for table `aset_alatmekanik`
 --
 ALTER TABLE `aset_alatmekanik`
   ADD PRIMARY KEY (`id_alatmekanik`);
 
 --
--- Indeks untuk tabel `aset_alattelekomunikasi`
+-- Indexes for table `aset_alattelekomunikasi`
 --
 ALTER TABLE `aset_alattelekomunikasi`
   ADD PRIMARY KEY (`id_alattelekomunikasi`);
 
 --
--- Indeks untuk tabel `aset_gedungdanbangunan`
+-- Indexes for table `aset_gedungdanbangunan`
 --
 ALTER TABLE `aset_gedungdanbangunan`
   ADD PRIMARY KEY (`id_gedungdanbangunan`);
 
 --
--- Indeks untuk tabel `aset_kendaraandanambulance`
+-- Indexes for table `aset_kendaraandanambulance`
 --
 ALTER TABLE `aset_kendaraandanambulance`
   ADD PRIMARY KEY (`id_kendaraandanambulance`);
 
 --
--- Indeks untuk tabel `aset_komputer`
+-- Indexes for table `aset_komputer`
 --
 ALTER TABLE `aset_komputer`
   ADD PRIMARY KEY (`id_komputer`);
 
 --
--- Indeks untuk tabel `aset_tanah`
+-- Indexes for table `aset_tanah`
 --
 ALTER TABLE `aset_tanah`
   ADD PRIMARY KEY (`id_tanah`);
 
 --
--- Indeks untuk tabel `ruangan`
---
-ALTER TABLE `ruangan`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indeks untuk tabel `failed_jobs`
---
-ALTER TABLE `failed_jobs`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
-
---
--- Indeks untuk tabel `inventaris_kendaraan`
+-- Indexes for table `inventaris_kendaraan`
 --
 ALTER TABLE `inventaris_kendaraan`
   ADD PRIMARY KEY (`id_kendaraan`);
 
 --
--- Indeks untuk tabel `inventaris_peralatanac`
+-- Indexes for table `inventaris_peralatanac`
 --
 ALTER TABLE `inventaris_peralatanac`
   ADD PRIMARY KEY (`id_peralatanac`);
 
 --
--- Indeks untuk tabel `inventaris_peralatankantor`
+-- Indexes for table `inventaris_peralatankantor`
 --
 ALTER TABLE `inventaris_peralatankantor`
   ADD PRIMARY KEY (`id_peralatankantor`);
 
 --
--- Indeks untuk tabel `inventaris_peralatanlift`
+-- Indexes for table `inventaris_peralatanlift`
 --
 ALTER TABLE `inventaris_peralatanlift`
   ADD PRIMARY KEY (`id_peralatanlift`);
 
 --
--- Indeks untuk tabel `inventaris_peralatanmedis`
+-- Indexes for table `inventaris_peralatanmedis`
 --
 ALTER TABLE `inventaris_peralatanmedis`
   ADD PRIMARY KEY (`id_peralatanmedis`);
 
 --
--- Indeks untuk tabel `inventaris_peralatanteknikinformatika`
+-- Indexes for table `inventaris_peralatanteknikinformatika`
 --
 ALTER TABLE `inventaris_peralatanteknikinformatika`
   ADD PRIMARY KEY (`id_peralatanteknikinformatika`);
 
 --
--- Indeks untuk tabel `inventaris_peralatantekniklistrikdanmekanik`
+-- Indexes for table `inventaris_peralatantekniklistrikdanmekanik`
 --
 ALTER TABLE `inventaris_peralatantekniklistrikdanmekanik`
   ADD PRIMARY KEY (`id_peralatantekniklistrikdanmekanik`);
 
 --
--- Indeks untuk tabel `inventaris_peralatantelekomunikasi`
+-- Indexes for table `inventaris_peralatantelekomunikasi`
 --
 ALTER TABLE `inventaris_peralatantelekomunikasi`
   ADD PRIMARY KEY (`id_peralatantelekomunikasi`);
 
 --
--- Indeks untuk tabel `migrations`
---
-ALTER TABLE `migrations`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indeks untuk tabel `password_resets`
---
-ALTER TABLE `password_resets`
-  ADD KEY `password_resets_email_index` (`email`);
-
---
--- Indeks untuk tabel `personal_access_tokens`
---
-ALTER TABLE `personal_access_tokens`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
-  ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
-
---
--- Indeks untuk tabel `petugas`
+-- Indexes for table `petugas`
 --
 ALTER TABLE `petugas`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `unit_kerja`
+-- Indexes for table `ruangan`
+--
+ALTER TABLE `ruangan`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `unit_kerja`
 --
 ALTER TABLE `unit_kerja`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `aset_alatac`
+-- AUTO_INCREMENT for table `aset_alatac`
 --
 ALTER TABLE `aset_alatac`
   MODIFY `id_alatac` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `aset_alatkantor`
+-- AUTO_INCREMENT for table `aset_alatkantor`
 --
 ALTER TABLE `aset_alatkantor`
   MODIFY `id_alatkantor` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `aset_alatlift`
+-- AUTO_INCREMENT for table `aset_alatlift`
 --
 ALTER TABLE `aset_alatlift`
   MODIFY `id_alatlift` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `aset_alatlistrik`
+-- AUTO_INCREMENT for table `aset_alatlistrik`
 --
 ALTER TABLE `aset_alatlistrik`
   MODIFY `id_alatlistrik` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `aset_alatmedis`
+-- AUTO_INCREMENT for table `aset_alatmedis`
 --
 ALTER TABLE `aset_alatmedis`
   MODIFY `id_alatmedis` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `aset_alatmekanik`
+-- AUTO_INCREMENT for table `aset_alatmekanik`
 --
 ALTER TABLE `aset_alatmekanik`
   MODIFY `id_alatmekanik` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT untuk tabel `aset_alattelekomunikasi`
+-- AUTO_INCREMENT for table `aset_alattelekomunikasi`
 --
 ALTER TABLE `aset_alattelekomunikasi`
   MODIFY `id_alattelekomunikasi` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `aset_gedungdanbangunan`
+-- AUTO_INCREMENT for table `aset_gedungdanbangunan`
 --
 ALTER TABLE `aset_gedungdanbangunan`
   MODIFY `id_gedungdanbangunan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `aset_kendaraandanambulance`
+-- AUTO_INCREMENT for table `aset_kendaraandanambulance`
 --
 ALTER TABLE `aset_kendaraandanambulance`
   MODIFY `id_kendaraandanambulance` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `aset_komputer`
+-- AUTO_INCREMENT for table `aset_komputer`
 --
 ALTER TABLE `aset_komputer`
   MODIFY `id_komputer` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `aset_tanah`
+-- AUTO_INCREMENT for table `aset_tanah`
 --
 ALTER TABLE `aset_tanah`
   MODIFY `id_tanah` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT untuk tabel `ruangan`
---
-ALTER TABLE `ruangan`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=247;
-
---
--- AUTO_INCREMENT untuk tabel `failed_jobs`
---
-ALTER TABLE `failed_jobs`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT untuk tabel `inventaris_kendaraan`
+-- AUTO_INCREMENT for table `inventaris_kendaraan`
 --
 ALTER TABLE `inventaris_kendaraan`
   MODIFY `id_kendaraan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
--- AUTO_INCREMENT untuk tabel `inventaris_peralatanac`
+-- AUTO_INCREMENT for table `inventaris_peralatanac`
 --
 ALTER TABLE `inventaris_peralatanac`
   MODIFY `id_peralatanac` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `inventaris_peralatankantor`
+-- AUTO_INCREMENT for table `inventaris_peralatankantor`
 --
 ALTER TABLE `inventaris_peralatankantor`
   MODIFY `id_peralatankantor` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `inventaris_peralatanlift`
+-- AUTO_INCREMENT for table `inventaris_peralatanlift`
 --
 ALTER TABLE `inventaris_peralatanlift`
   MODIFY `id_peralatanlift` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `inventaris_peralatanmedis`
+-- AUTO_INCREMENT for table `inventaris_peralatanmedis`
 --
 ALTER TABLE `inventaris_peralatanmedis`
   MODIFY `id_peralatanmedis` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `inventaris_peralatanteknikinformatika`
+-- AUTO_INCREMENT for table `inventaris_peralatanteknikinformatika`
 --
 ALTER TABLE `inventaris_peralatanteknikinformatika`
   MODIFY `id_peralatanteknikinformatika` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `inventaris_peralatantekniklistrikdanmekanik`
+-- AUTO_INCREMENT for table `inventaris_peralatantekniklistrikdanmekanik`
 --
 ALTER TABLE `inventaris_peralatantekniklistrikdanmekanik`
   MODIFY `id_peralatantekniklistrikdanmekanik` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `inventaris_peralatantelekomunikasi`
+-- AUTO_INCREMENT for table `inventaris_peralatantelekomunikasi`
 --
 ALTER TABLE `inventaris_peralatantelekomunikasi`
   MODIFY `id_peralatantelekomunikasi` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `migrations`
---
-ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT untuk tabel `personal_access_tokens`
---
-ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT untuk tabel `petugas`
+-- AUTO_INCREMENT for table `petugas`
 --
 ALTER TABLE `petugas`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
 --
--- AUTO_INCREMENT untuk tabel `unit_kerja`
+-- AUTO_INCREMENT for table `ruangan`
+--
+ALTER TABLE `ruangan`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=247;
+
+--
+-- AUTO_INCREMENT for table `unit_kerja`
 --
 ALTER TABLE `unit_kerja`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
