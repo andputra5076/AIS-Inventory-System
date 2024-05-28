@@ -550,7 +550,7 @@ please do not upload images larger than 2 mb</p>
 </div>
                     <div class="mb-3">
                     <label for="text" class="form-label" >Penanggung Jawab</label>
-                        <select name="id_petugas2" class="form-select" aria-label="Default select example"  >
+                        <select name="id_petugas2" class="form-select" aria-label="Default select example"  required="">
                            <option value="">-- Pilih --</option>
                             <?php
                                                         foreach($petugas as $petugasd) {                                              

@@ -20,11 +20,14 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use Maatwebsite\Excel\Events\BeforeSheet;
 use Maatwebsite\Excel\Concerns\WithTitle;
+use GuzzleHttp\Client;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
 class aset_alatkantor implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles, WithEvents, WithTitle
 {
     use Exportable;
 
+    private $drawingCollection = [];
     public function collection()
     {
         if (session('data')->id == '1') {
@@ -87,12 +90,19 @@ class aset_alatkantor implements FromCollection, WithHeadings, ShouldAutoSize, W
             $m = $tanggal_aset->format("m");
             $t = $user->kode_alatkantor;
             $id = $user->id_user;
+            $ms = $user->masa_manfaat;
             $gabung = $y . $m . $t . $id . '.' . $no;
             $merek = $user->merek_alatkantor;
             $jenis = $user->jenis_alatkantor;
             $tipe = $user->tipe_alatkantor;
             $spesifikasi = $user->spesifikasi_alatkantor;
             $petugas2 = explode(',', $user->id_petugas2);
+            // Create Drawing instance for image
+            $drawing = new Drawing();
+            $drawing->setPath($this->downloadImage($user->image)); // Download and set image path
+            $drawing->setHeight(50);
+            $drawing->setCoordinates('O' . ($nourut + 1));
+            $this->drawingCollection[] = $drawing;
             $data->push([
                 $nourut,
                 $gabung,
@@ -105,9 +115,12 @@ class aset_alatkantor implements FromCollection, WithHeadings, ShouldAutoSize, W
                 $user->kondisi,
                 $user->jumlah,
                 $user->satuan,
+                'Rp. ' . number_format($user->penyusutan, 2, ",", "."),
                 'Rp. ' . number_format($user->nilaiperolehan, 2, ",", "."),
+                'Rp. ' . number_format($user->nilai_residu, 2, ",", "."),
                 $tanggal_aset->format("d-m-Y"),
-                url("../assets/images/aset/" . $user->image), // Display URL of the photo
+                $ms,
+                '', // Placeholder for image
                 $user->alamat,
                 $user->pengelola_barang,
                 $user->usernamanya,
@@ -121,6 +134,17 @@ class aset_alatkantor implements FromCollection, WithHeadings, ShouldAutoSize, W
         }
 
         return $data;
+    }
+
+    private function downloadImage($url)
+    {
+        $client = new Client();
+        $response = $client->get($url);
+        $imageName = basename($url);
+        $imagePath = storage_path('app/public/' . $imageName);
+        file_put_contents($imagePath, $response->getBody()->getContents());
+
+        return $imagePath;
     }
 
     public function headings(): array
@@ -137,8 +161,11 @@ class aset_alatkantor implements FromCollection, WithHeadings, ShouldAutoSize, W
             'Kondisi',
             'Jumlah',
             'Satuan',
+            'Penyusutan',
             'Nilai Perolehan',
+            'Nilai Residu',
             'Tanggal Aset',
+            'Masa Manfaat',
             'Foto Aset',
             'Alamat',
             'Pengelola Barang',
@@ -154,7 +181,7 @@ class aset_alatkantor implements FromCollection, WithHeadings, ShouldAutoSize, W
 
     public function styles(Worksheet $sheet)
     {
-        $sheet->getStyle('A1:W1')->applyFromArray([
+        $sheet->getStyle('A1:Z1')->applyFromArray([
             'font' => [
                 'bold' => true,
                 'color' => ['argb' => 'FFFFFF'], // Set the color to white
@@ -189,7 +216,7 @@ class aset_alatkantor implements FromCollection, WithHeadings, ShouldAutoSize, W
     {
         return [
             AfterSheet::class => function (AfterSheet $event) {
-                $event->sheet->getStyle('A1:W1')->applyFromArray([
+                $event->sheet->getStyle('A1:Z1')->applyFromArray([
                     'font' => [
                         'bold' => true,
                         'color' => ['argb' => 'FFFFFF'], // Set the color to white
@@ -202,6 +229,10 @@ class aset_alatkantor implements FromCollection, WithHeadings, ShouldAutoSize, W
                         'horizontal' => Alignment::HORIZONTAL_CENTER,
                     ],
                 ]);
+                // Add drawings to the sheet
+                foreach ($this->drawingCollection as $drawing) {
+                    $drawing->setWorksheet($event->sheet->getDelegate());
+                }
             },
         ];
     }

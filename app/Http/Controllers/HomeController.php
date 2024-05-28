@@ -56,6 +56,7 @@ class HomeController extends Controller
 
     public function laporan()
     {
+        $userId = session('data')->id;
         if (!session()->has('username')) {
             return redirect("/");
         }
@@ -188,9 +189,13 @@ class HomeController extends Controller
             $users = DB::table('users')
                 ->join('petugas', 'users.id', '=', 'petugas.id_unit_usaha')
                 ->join('unit_kerja', 'unit_kerja.id', '=', 'petugas.id_unit_kerja')
-                ->join('ruangan', 'ruangan.id', '=', 'petugas.id_ruangan')
-                ->select('*', 'petugas.id as petugasid', 'petugas.id_unit_usaha as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'ruangan.id as idruangan', 'ruangan.name as ruangannama', 'petugas.name as petugasnama')
+                ->join('ruangan', function ($join) {
+                    $join->on('ruangan.id_unit_kerja', '=', 'unit_kerja.id')
+                        ->on('ruangan.id', '=', 'petugas.id_ruangan');
+                })
+                ->select('petugas.id as petugasid', 'ruangan.id_unit_kerja as id_ruangan', 'petugas.id_unit_usaha as idusaha', 'unit_kerja.id as idkerja', 'unit_kerja.name as namakerja', 'users.name as usernamanya', 'ruangan.id as idruangan', 'ruangan.name as ruangannama', 'petugas.name as petugasnama')
                 ->get();
+
             $unit_kerja = DB::table('users')
                 ->join('unit_kerja', 'unit_kerja.id_unit_usaha', '=', 'users.id')
                 ->get();
@@ -1188,6 +1193,8 @@ setTimeout(window.close, 5000);
             'jenis_peralatantelekomunikasi' => $request->input('jenis_peralatantelekomunikasi'),
             'merek_peralatantelekomunikasi' => $request->input('merek_peralatantelekomunikasi'),
             'tipe_peralatantelekomunikasi' => $request->input('tipe_peralatantelekomunikasi'),
+            'imei1_peralatantelekomunikasi' => $request->input('imei1_peralatantelekomunikasi'),
+            'imei2_peralatantelekomunikasi' => $request->input('imei2_peralatantelekomunikasi'),
             'spesifikasi_peralatantelekomunikasi' => $request->input('spesifikasi_peralatantelekomunikasi'),
             'kondisi' => $request->input('kondisi'),
             'jumlah' => $request->input('jumlah'),
@@ -1233,6 +1240,8 @@ setTimeout(window.close, 5000);
                         'jenis_peralatantelekomunikasi' => $request->input('jenis_peralatantelekomunikasi'),
                         'merek_peralatantelekomunikasi' => $request->input('merek_peralatantelekomunikasi'),
                         'tipe_peralatantelekomunikasi' => $request->input('tipe_peralatantelekomunikasi'),
+                        'imei1_peralatantelekomunikasi' => $request->input('imei1_peralatantelekomunikasi'),
+                        'imei2_peralatantelekomunikasi' => $request->input('imei2_peralatantelekomunikasi'),
                         'spesifikasi_peralatantelekomunikasi' => $request->input('spesifikasi_peralatantelekomunikasi'),
                         'kondisi' => $request->input('kondisi'),
                         'jumlah' => $request->input('jumlah'),
@@ -1270,6 +1279,8 @@ setTimeout(window.close, 5000);
                     'jenis_peralatantelekomunikasi' => $request->input('jenis_peralatantelekomunikasi'),
                     'merek_peralatantelekomunikasi' => $request->input('merek_peralatantelekomunikasi'),
                     'tipe_peralatantelekomunikasi' => $request->input('tipe_peralatantelekomunikasi'),
+                    'imei1_peralatantelekomunikasi' => $request->input('imei1_peralatantelekomunikasi'),
+                    'imei2_peralatantelekomunikasi' => $request->input('imei2_peralatantelekomunikasi'),
                     'spesifikasi_peralatantelekomunikasi' => $request->input('spesifikasi_peralatantelekomunikasi'),
                     'kondisi' => $request->input('kondisi'),
                     'jumlah' => $request->input('jumlah'),

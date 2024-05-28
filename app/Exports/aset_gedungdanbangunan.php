@@ -86,6 +86,7 @@ class aset_gedungdanbangunan implements FromCollection, WithHeadings, ShouldAuto
             $y = $tanggal_aset->format("Y");
             $m = $tanggal_aset->format("m");
             $t = $user->kode_aset_gedungdanbangunan;
+            $ms = $user->masa_manfaat;
             $id = $user->id_user;
             $gabung = $y . $m . $t . $id . '.' . $no;
             $jenis = $user->jenis_gedungdanbangunan;
@@ -108,8 +109,11 @@ class aset_gedungdanbangunan implements FromCollection, WithHeadings, ShouldAuto
                 $longitude,
                 $sertifikat,
                 $user->satuan,
+                'Rp. ' . number_format($user->penyusutan, 2, ",", "."),
                 'Rp. ' . number_format($user->nilaiperolehan, 2, ",", "."),
+                'Rp. ' . number_format($user->nilai_residu, 2, ",", "."),
                 $tanggal_aset->format("d-m-Y"),
+                $ms,
                 url("../assets/images/aset/" . $user->image), // Display URL of the photo
                 $user->alamat,
                 $user->pengelola_barang,
@@ -141,8 +145,11 @@ class aset_gedungdanbangunan implements FromCollection, WithHeadings, ShouldAuto
             'Longitude',
             'Sertifikat Kepemilikan',
             'Satuan',
+            'Penyusutan',
             'Nilai Perolehan',
+            'Nilai Residu',
             'Tanggal Aset',
+            'Masa Manfaat',
             'Foto Gedung/Bangunan',
             'Alamat',
             'Pengelola Barang',
@@ -158,7 +165,7 @@ class aset_gedungdanbangunan implements FromCollection, WithHeadings, ShouldAuto
 
     public function styles(Worksheet $sheet)
     {
-        $sheet->getStyle('A1:X1')->applyFromArray([
+        $sheet->getStyle('A1:AA1')->applyFromArray([
             'font' => [
                 'bold' => true,
                 'color' => ['argb' => 'FFFFFF'], // Set the color to white
@@ -193,7 +200,7 @@ class aset_gedungdanbangunan implements FromCollection, WithHeadings, ShouldAuto
     {
         return [
             AfterSheet::class => function (AfterSheet $event) {
-                $event->sheet->getStyle('A1:X1')->applyFromArray([
+                $event->sheet->getStyle('A1:AA1')->applyFromArray([
                     'font' => [
                         'bold' => true,
                         'color' => ['argb' => 'FFFFFF'], // Set the color to white

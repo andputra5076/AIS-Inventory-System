@@ -88,6 +88,8 @@ class inventaris_peralatantelekomunikasi implements FromCollection, WithHeadings
             $t = $user->kode_peralatantelekomunikasi;
             $id = $user->id_user;
             $gabung = $y . $m . $t . $id . '.' . $no;
+            $imei1 = $user->imei1_peralatantelekomunikasi;
+            $imei2 = $user->imei2_peralatantelekomunikasi;
             $merek = $user->merek_peralatantelekomunikasi;
             $jenis = $user->jenis_peralatantelekomunikasi;
             $tipe = $user->tipe_peralatantelekomunikasi;
@@ -101,6 +103,8 @@ class inventaris_peralatantelekomunikasi implements FromCollection, WithHeadings
                 $merek,
                 $jenis,
                 $tipe,
+                $imei1,
+                $imei2,
                 $spesifikasi,
                 $user->kondisi,
                 $user->jumlah,
@@ -133,6 +137,8 @@ class inventaris_peralatantelekomunikasi implements FromCollection, WithHeadings
             'Jenis Barang',
             'Merek',
             'Tipe',
+            'IMEI1',
+            'IMEI2',
             'Spesifikasi',
             'Kondisi',
             'Jumlah',
@@ -154,7 +160,7 @@ class inventaris_peralatantelekomunikasi implements FromCollection, WithHeadings
 
     public function styles(Worksheet $sheet)
     {
-        $sheet->getStyle('A1:W1')->applyFromArray([
+        $sheet->getStyle('A1:Y1')->applyFromArray([
             'font' => [
                 'bold' => true,
                 'color' => ['argb' => 'FFFFFF'], // Set the color to white
@@ -189,7 +195,7 @@ class inventaris_peralatantelekomunikasi implements FromCollection, WithHeadings
     {
         return [
             AfterSheet::class => function (AfterSheet $event) {
-                $event->sheet->getStyle('A1:W1')->applyFromArray([
+                $event->sheet->getStyle('A1:Y1')->applyFromArray([
                     'font' => [
                         'bold' => true,
                         'color' => ['argb' => 'FFFFFF'], // Set the color to white

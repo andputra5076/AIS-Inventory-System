@@ -23,6 +23,11 @@
     <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css">
     <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css" id="light-style">
     <link href="../assets/css/app-dark.min.css" rel="stylesheet" type="text/css" id="dark-style">
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
 
 </head>
 
@@ -347,6 +352,8 @@
                                                                         data-jenis='<?= $jenis ?>'
                                                                         data-merek='<?= $user->merek_peralatantelekomunikasi ?>'
                                                                         data-tipe='<?= $user->tipe_peralatantelekomunikasi ?>'
+                                                                        data-imei1='<?= $user->imei1_peralatantelekomunikasi ?>'
+                                                                        data-imei2='<?= $user->imei2_peralatantelekomunikasi ?>'
                                                                         data-spesifikasi='<?= $user->spesifikasi_peralatantelekomunikasi ?>'
                                                                         data-kondisi='<?= $user->kondisi ?>'
                                                                         data-jumlah='<?= $user->jumlah ?>'
@@ -421,6 +428,21 @@
                                                                                                 :</strong><span
                                                                                                 class="ms-1"><?= $user->tipe_peralatantelekomunikasi ?></span>
                                                                                         </p>
+                                                                                        <?php if (!empty($user->imei1_peralatantelekomunikasi) || !empty($user->imei2_peralatantelekomunikasi)): ?>
+                                                                                        <?php if (!empty($user->imei1_peralatantelekomunikasi)): ?>
+                                                                                        <p class="text"><strong>IMEI1
+                                                                                                :</strong><span
+                                                                                                class="ms-1"><?= $user->imei1_peralatantelekomunikasi ?></span>
+                                                                                        </p>
+                                                                                        <?php endif; ?>
+
+                                                                                        <?php if (!empty($user->imei2_peralatantelekomunikasi)): ?>
+                                                                                        <p class="text"><strong>IMEI2
+                                                                                                :</strong><span
+                                                                                                class="ms-1"><?= $user->imei2_peralatantelekomunikasi ?></span>
+                                                                                        </p>
+                                                                                        <?php endif; ?>
+                                                                                        <?php endif; ?>
                                                                                         <p class="text">
                                                                                             <strong>Spesifikasi
                                                                                                 :</strong><span
@@ -462,7 +484,8 @@
                                                                                                 :</strong><span
                                                                                                 class="ms-1">
                                                                                                 <?= $tanggalbarang->format('d-m-Y') ?>
-                                                                                            </span></p>
+                                                                                            </span>
+                                                                                        </p>
                                                                                         <p class="text"><strong>Foto
                                                                                                 Barang :</strong><span
                                                                                                 class="ms-1"><a
@@ -479,13 +502,15 @@
                                                                                                 :</strong><span
                                                                                                 class="ms-1">
                                                                                                 <?= $user->alamat ?>
-                                                                                            </span></p>
+                                                                                            </span>
+                                                                                        </p>
                                                                                         <p class="text">
                                                                                             <strong>Pengelola Barang
                                                                                                 :</strong><span
                                                                                                 class="ms-1">
                                                                                                 <?= $user->pengelola_barang ?>
-                                                                                            </span></p>
+                                                                                            </span>
+                                                                                        </p>
 
                                                                                     </div> <!-- end col-->
                                                                                     <div class="col-sm-4">
@@ -494,7 +519,8 @@
                                                                                                 :</strong><span
                                                                                                 class="ms-1">
                                                                                                 <?= $user->usernamanya ?>
-                                                                                            </span></p>
+                                                                                            </span>
+                                                                                        </p>
                                                                                         <p class="text"><strong>Kuasa
                                                                                                 Pengguna Barang
                                                                                                 :</strong><span
@@ -511,7 +537,8 @@
                                                                                                 :</strong><span
                                                                                                 class="ms-1">
                                                                                                 <?= $user->ruangannama ?>
-                                                                                            </span></p>
+                                                                                            </span>
+                                                                                        </p>
                                                                                         <p class="text"><strong>P.
                                                                                                 Pencatat :</strong><span
                                                                                                 class="ms-1">
@@ -522,13 +549,15 @@
                                                                                                 :</strong><span
                                                                                                 class="ms-1">
                                                                                                 <?= isset($petugas2[1]) ? $petugas2[1] : '-' ?>
-                                                                                            </span></p>
+                                                                                            </span>
+                                                                                        </p>
                                                                                         <p class="text2">
                                                                                             <strong>Keterangan
                                                                                                 :</strong><span
                                                                                                 class="ms-1">
                                                                                                 <?= isset($user->keterangan) ? $user->keterangan : '-' ?>
-                                                                                            </span></p>
+                                                                                            </span>
+                                                                                        </p>
                                                                                     </div> <!-- end col-->
                                                                                 </div>
                                                                                 <!-- end row -->
@@ -627,6 +656,24 @@
                                     <label for="text" class="form-label">Tipe</label>
                                     <input class="form-control" name="tipe_peralatantelekomunikasi" type="text"
                                         id="tipe_peralatantelekomunikasi" required="" placeholder="">
+                                </div>
+                                <div class="mb-3">
+                                    <input type="checkbox" id="toggleImei" onclick="toggleImeiFields()">
+                                    <label for="toggleImei">Tampilkan IMEI</label>
+                                </div>
+
+                                <div class="mb-3 hidden" id="imei1Field">
+                                    <label for="imei1" class="form-label">IMEI1</label>
+                                    <input class="form-control" style="text-transform:uppercase;"
+                                        name="imei1_peralatantelekomunikasi" type="number" id="imei1"
+                                        placeholder="">
+                                </div>
+
+                                <div class="mb-3 hidden" id="imei2Field">
+                                    <label for="imei2" class="form-label">IMEI2</label>
+                                    <input class="form-control" style="text-transform:uppercase;"
+                                        name="imei2_peralatantelekomunikasi" type="number" id="imei2"
+                                        placeholder="">
                                 </div>
                                 <div class="mb-3">
                                     <label for="text" class="form-label">Spesifikasi</label>
@@ -748,7 +795,7 @@
                                 <div class="mb-3">
                                     <label for="text" class="form-label">Penanggung Jawab</label>
                                     <select name="id_petugas2" class="form-select"
-                                        aria-label="Default select example">
+                                        aria-label="Default select example" required="">
                                         <option value="">-- Pilih --</option>
                                         <?php
                                                         foreach($petugas as $petugasd) {                                              
@@ -817,6 +864,22 @@
                                         id="nameedit4" required="" placeholder="">
                                     <input class="form-control" name="id" type="hidden" id="idedit4"
                                         required="" placeholder="">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="text" class="form-label">IMEI1</label>
+                                    <input class="form-control" style="text-transform:uppercase;"
+                                        name="imei1_peralatantelekomunikasi" type="number" id="nameedit21"
+                                        placeholder="">
+                                    <input class="form-control" name="id" type="hidden" id="idedit21"
+                                        placeholder="">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="text" class="form-label">IMEI2</label>
+                                    <input class="form-control" style="text-transform:uppercase;"
+                                        name="imei2_peralatantelekomunikasi" type="number" id="nameedit22"
+                                        placeholder="">
+                                    <input class="form-control" name="id" type="hidden" id="idedit22"
+                                       placeholder="">
                                 </div>
                                 <div class="mb-3">
                                     <label for="text" class="form-label">Spesifikasi</label>
@@ -1263,6 +1326,8 @@
                     $('#nameedit7').val($('#editbutton-' + urut).data('jumlah'));
                     $('#nameedit8').val($('#editbutton-' + urut).data('satuan'));
                     $('#nameedit9').val($('#editbutton-' + urut).data('nilaiperolehan'));
+                    $('#nameedit21').val($('#editbutton-' + urut).data('imei1'));
+                    $('#nameedit22').val($('#editbutton-' + urut).data('imei2'));
 
                     const formattedDate = convertDate($('#editbutton-' + urut).data('tanggal'));
                     if (formattedDate) {
@@ -1299,6 +1364,8 @@
                     $('#idedit10').val($('#editbutton-' + urut).data('id'));
                     $('#idedit11').val($('#editbutton-' + urut).data('id'));
                     $('#idedit12').val($('#editbutton-' + urut).data('id'));
+                    $('#idedit21').val($('#editbutton-' + urut).data('id'));
+                    $('#idedit22').val($('#editbutton-' + urut).data('id'));
                     console.log($('#editbutton-' + urut).data('nama'));
                     console.log($('#editbutton-' + urut).data('jenis'));
                     console.log($('#editbutton-' + urut).data('merek'));
@@ -1310,6 +1377,8 @@
                     console.log($('#editbutton-' + urut).data('tanggal'));
                     console.log($('#editbutton-' + urut).data('alamat'));
                     console.log($('#editbutton-' + urut).data('keterangan'));
+                    console.log($('#editbutton-' + urut).data('imei1'));
+                    console.log($('#editbutton-' + urut).data('imei2'));
 
 
                     // Data lainnya untuk mengatur seleksi opsi dalam elemen select
@@ -1351,6 +1420,21 @@
                         } else {
                             $(select4.options[i]).removeAttr('disabled').show();
                         }
+                    }
+                }
+            </script>
+            <script>
+                function toggleImeiFields() {
+                    const imei1Field = document.getElementById('imei1Field');
+                    const imei2Field = document.getElementById('imei2Field');
+                    const isChecked = document.getElementById('toggleImei').checked;
+
+                    if (isChecked) {
+                        imei1Field.classList.remove('hidden');
+                        imei2Field.classList.remove('hidden');
+                    } else {
+                        imei1Field.classList.add('hidden');
+                        imei2Field.classList.add('hidden');
                     }
                 }
             </script>

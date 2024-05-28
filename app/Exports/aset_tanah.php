@@ -87,7 +87,6 @@ class aset_tanah implements FromCollection, WithHeadings, ShouldAutoSize, WithSt
             $m = $tanggal_aset->format("m");
             $t = $user->kode_aset_tanah;
             $id = $user->id_user;
-            $gabung = $y . $m . $t . $id . '.' . $no;
             $jenis = $user->jenis_tanah;
             $objek = $user->nama_objek;
             $luas = $user->luas_tanah;
@@ -95,6 +94,7 @@ class aset_tanah implements FromCollection, WithHeadings, ShouldAutoSize, WithSt
             $latitude = $user->lat;
             $longitude = $user->long;
             $petugas2 = explode(',', $user->id_petugas2);
+            $gabung = $y . $m . $t . $id . '.' . $no;
             $data->push([
                 $nourut,
                 $gabung,

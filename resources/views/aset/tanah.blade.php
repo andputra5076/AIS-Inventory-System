@@ -352,12 +352,9 @@
                                                                         data-lat='<?= $latitude ?>'
                                                                         data-long='<?= $longitude ?>'
                                                                         data-nilaiperolehan='<?= $user->nilaiperolehan ?>'
-                                                                        data-nilairesidu='<?= $user->nilai_residu ?>'
                                                                         data-image='../assets/images/aset/<?= $user->image ?> '
                                                                         data-tanggal='<?= $tanggalbarang->format('d-m-Y')
                                                                         ?>'
-                                                                        data-masamanfaat='<?= $user->masa_manfaat ?>'
-                                                                        data-penyusutan='<?= $user->penyusutan ?>'
                                                                         data-alamat='<?= $user->alamat ?>'
                                                                         data-keterangan='<?= isset($user->keterangan) ? $user->keterangan : '-'
                                                                         ?>'
@@ -465,28 +462,11 @@
                                                                                                 class="ms-1"> Rp.
                                                                                                 <?= number_format($user->nilaiperolehan, 2, ',', '.') ?>
                                                                                             </span></p>
-                                                                                        <p class="text"><strong>Nilai
-                                                                                                Residu :</strong><span
-                                                                                                class="ms-1"> Rp.
-                                                                                                <?= number_format($user->nilai_residu, 2, ',', '.') ?>
-                                                                                            </span></p>
                                                                                         <p class="text">
                                                                                             <strong>Tanggal Aset
                                                                                                 :</strong><span
                                                                                                 class="ms-1">
                                                                                                 <?= $tanggalbarang->format('d-m-Y') ?>
-                                                                                            </span>
-                                                                                        </p>
-                                                                                        <p class="text"><strong>Masa
-                                                                                                Manfaat :</strong><span
-                                                                                                class="ms-1">
-                                                                                                <?= $user->masa_manfaat ?>
-                                                                                            </span>Tahun</p>
-                                                                                        <p class="text">
-                                                                                            <strong>Penyusutan
-                                                                                                :</strong><span
-                                                                                                class="ms-1"> Rp.
-                                                                                                <?= number_format($user->penyusutan, 2, ',', '.') ?>
                                                                                             </span>
                                                                                         </p>
                                                                                         <p class="text"><strong>Foto
@@ -882,13 +862,6 @@
                                         required="" placeholder="">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="text" class="form-label">Nilai Residu</label>
-                                    <input class="form-control" name="nilai_residu" type="number" id="nameedit13"
-                                        required="" placeholder="">
-                                    <input class="form-control" name="id" type="hidden" id="idedit13"
-                                        required="" placeholder="">
-                                </div>
-                                <div class="mb-3">
                                     <label for="text" class="form-label">Sertifikat Kepemilikan</label>
                                     <input class="form-control" name="sertifikat_kepemilikan" type="text"
                                         id="nameedit6" required="" placeholder="">
@@ -901,15 +874,6 @@
                                         required="" placeholder="">
                                     <input class="form-control" name="id" type="hidden" id="idedit7"
                                         required="" placeholder="">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="text" class="form-label">Masa Manfaat</label>
-                                    <div class="input-group">
-                                        <input class="form-control" name="masa_manfaat" type="number" id="nameedit14" required="" placeholder="">
-                                        <span class="input-group-text">tahun</span>
-                                        <input class="form-control" name="id" type="hidden" id="idedit14"
-                                        required="" placeholder="">
-                                    </div>
                                 </div>                                
                                 <div class="fallback">
                                     <label for="image" class="form-label">Foto Lokasi</label>
@@ -1330,9 +1294,6 @@
                 $('#nameedit10').val($('#editbutton-' + urut).data('lat'));
                 $('#nameedit11').val($('#editbutton-' + urut).data('long'));
                 $('#nameedit12').val($('#editbutton-' + urut).data('keterangan'));
-                $('#nameedit13').val($('#editbutton-' + urut).data('nilairesidu'));
-                $('#nameedit14').val($('#editbutton-' + urut).data('masamanfaat'));
-                $('#nameedit15').val($('#editbutton-' + urut).data('penyusutan'));
                 document.getElementById('hidid').value = $('#editbutton-' + urut).data('usaha');
                 document.getElementById('hidid2').value = $('#editbutton-' + urut).data('usaha');
                 document.getElementById('id_unit_usahaedit').value = $('#editbutton-' + urut).data('user');
@@ -1374,9 +1335,6 @@
                 console.log($('#editbutton-' + urut).data('tanggal'));
                 console.log($('#editbutton-' + urut).data('alamat'));
                 console.log($('#editbutton-' + urut).data('keterangan'));
-                console.log($('#editbutton-' + urut).data('nilairesidu'));
-                console.log($('#editbutton-' + urut).data('masamanfaat'));
-                console.log($('#editbutton-' + urut).data('penyusutan'));
 
 
                 // Data lainnya untuk mengatur seleksi opsi dalam elemen select

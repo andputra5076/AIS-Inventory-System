@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Inventaris Peralatan Lift | AIS</title>
+        <title>Inventaris Peralatan Medis | AIS</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description">
         <meta content="Coderthemes" name="author">
@@ -548,7 +548,7 @@ please do not upload images larger than 2 mb</p>
 </div>
                     <div class="mb-3">
                     <label for="text" class="form-label" >Penanggung Jawab</label>
-                        <select name="id_petugas2" class="form-select" aria-label="Default select example"  >
+                        <select name="id_petugas2" class="form-select" aria-label="Default select example"  required="">
                            <option value="">-- Pilih --</option>
                             <?php
                                                         foreach($petugas as $petugasd) {                                              

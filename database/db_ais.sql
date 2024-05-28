@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 20, 2024 at 07:44 AM
+-- Generation Time: May 21, 2024 at 09:03 AM
 -- Server version: 8.0.36
 -- PHP Version: 8.0.30
 
@@ -63,7 +63,7 @@ CREATE TABLE `aset_alatac` (
 -- Triggers `aset_alatac`
 --
 DELIMITER $$
-CREATE TRIGGER `tambah_penyusutan11` BEFORE INSERT ON `aset_alatac` FOR EACH ROW BEGIN
+CREATE TRIGGER `tambah_penyusutan11` BEFORE UPDATE ON `aset_alatac` FOR EACH ROW BEGIN
     SET NEW.penyusutan = (NEW.nilaiperolehan - NEW.nilai_residu) / NEW.masa_manfaat;
 END
 $$
@@ -108,10 +108,17 @@ CREATE TABLE `aset_alatkantor` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
+-- Dumping data for table `aset_alatkantor`
+--
+
+INSERT INTO `aset_alatkantor` (`id_alatkantor`, `no_aset`, `nama_alatkantor`, `merek_alatkantor`, `tipe_alatkantor`, `spesifikasi_alatkantor`, `jenis_alatkantor`, `kode_alatkantor`, `kondisi`, `jumlah`, `satuan`, `nilaiperolehan`, `nilai_residu`, `tanggal_aset`, `masa_manfaat`, `penyusutan`, `image`, `alamat`, `pengelola_barang`, `pengguna_barang`, `kuasa_pengguna_barang`, `id_unit_kerja`, `id_ruangan`, `id_petugas1`, `id_petugas2`, `keterangan`, `date_created`, `date_updated`, `deleted_at`) VALUES
+(3, 4000001, 'Komputer', 'zmxcnioas', 'jkhzxcpp', '9081476czx', 'jaskdjh', '05', 'sadsadasd', 1241, 'zxczx', '500000', 5000, '2024-05-21', 2, 247500, 'dispenduk.jpg', 'Jl. Merdeka No. 10', 'PT. Rolas Nusantara Medika', 4, 4, 83, 239, 93, ',undefined', '-', '2024-05-21 15:22:39', '2024-05-21 15:44:10', NULL);
+
+--
 -- Triggers `aset_alatkantor`
 --
 DELIMITER $$
-CREATE TRIGGER `tambah_penyusutan10` BEFORE INSERT ON `aset_alatkantor` FOR EACH ROW BEGIN
+CREATE TRIGGER `tambah_penyusutan10` BEFORE UPDATE ON `aset_alatkantor` FOR EACH ROW BEGIN
     SET NEW.penyusutan = (NEW.nilaiperolehan - NEW.nilai_residu) / NEW.masa_manfaat;
 END
 $$
@@ -159,7 +166,7 @@ CREATE TABLE `aset_alatlift` (
 -- Triggers `aset_alatlift`
 --
 DELIMITER $$
-CREATE TRIGGER `tambah_penyusutan9` BEFORE INSERT ON `aset_alatlift` FOR EACH ROW BEGIN
+CREATE TRIGGER `tambah_penyusutan9` BEFORE UPDATE ON `aset_alatlift` FOR EACH ROW BEGIN
     SET NEW.penyusutan = (NEW.nilaiperolehan - NEW.nilai_residu) / NEW.masa_manfaat;
 END
 $$
@@ -204,10 +211,17 @@ CREATE TABLE `aset_alatlistrik` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
+-- Dumping data for table `aset_alatlistrik`
+--
+
+INSERT INTO `aset_alatlistrik` (`id_alatlistrik`, `no_aset`, `nama_alatlistrik`, `merek_alatlistrik`, `tipe_alatlistrik`, `spesifikasi_alatlistrik`, `jenis_alatlistrik`, `kode_alatlistrik`, `kondisi`, `jumlah`, `satuan`, `nilaiperolehan`, `nilai_residu`, `tanggal_aset`, `masa_manfaat`, `penyusutan`, `image`, `alamat`, `pengelola_barang`, `pengguna_barang`, `kuasa_pengguna_barang`, `id_unit_kerja`, `id_ruangan`, `id_petugas1`, `id_petugas2`, `keterangan`, `date_created`, `date_updated`, `deleted_at`) VALUES
+(3, 4000001, 'asdas', 'oimm', 'poieu', 'zxcsda', 'nm,zbxc', '07', 'Baik', 2, 'unit', '5000', 300, '2024-05-21', 5, 940, 'FOTO20230131154543pm.jpeg', 'Jln pepaya no 12 Bali', 'PT. Rolas Nusantara Medika', 4, 4, 83, 237, 93, ',undefined', '-', '2024-05-21 15:50:26', '2024-05-21 15:51:28', NULL);
+
+--
 -- Triggers `aset_alatlistrik`
 --
 DELIMITER $$
-CREATE TRIGGER `tambah_penyusutan8` BEFORE INSERT ON `aset_alatlistrik` FOR EACH ROW BEGIN
+CREATE TRIGGER `tambah_penyusutan8` BEFORE UPDATE ON `aset_alatlistrik` FOR EACH ROW BEGIN
     SET NEW.penyusutan = (NEW.nilaiperolehan - NEW.nilai_residu) / NEW.masa_manfaat;
 END
 $$
@@ -255,7 +269,7 @@ CREATE TABLE `aset_alatmedis` (
 -- Triggers `aset_alatmedis`
 --
 DELIMITER $$
-CREATE TRIGGER `tambah_penyusutan7` BEFORE INSERT ON `aset_alatmedis` FOR EACH ROW BEGIN
+CREATE TRIGGER `tambah_penyusutan7` BEFORE UPDATE ON `aset_alatmedis` FOR EACH ROW BEGIN
     SET NEW.penyusutan = (NEW.nilaiperolehan - NEW.nilai_residu) / NEW.masa_manfaat;
 END
 $$
@@ -300,10 +314,17 @@ CREATE TABLE `aset_alatmekanik` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
+-- Dumping data for table `aset_alatmekanik`
+--
+
+INSERT INTO `aset_alatmekanik` (`id_alatmekanik`, `no_aset`, `nama_alatmekanik`, `merek_alatmekanik`, `tipe_alatmekanik`, `spesifikasi_alatmekanik`, `jenis_alatmekanik`, `kode_alatmekanik`, `kondisi`, `jumlah`, `satuan`, `nilaiperolehan`, `nilai_residu`, `tanggal_aset`, `masa_manfaat`, `penyusutan`, `image`, `alamat`, `pengelola_barang`, `pengguna_barang`, `kuasa_pengguna_barang`, `id_unit_kerja`, `id_ruangan`, `id_petugas1`, `id_petugas2`, `keterangan`, `date_created`, `date_updated`, `deleted_at`) VALUES
+(10, 4000001, 'asd', 'asd', 'sad1', 'zxczx', 'asdasd', '08', '123', 1, 'Unit', '14000', 4000, '2024-05-21', 8, 1250, 'Logo_unej.png', 'Jln pepaya no 12 Bali', 'PT. Rolas Nusantara Medika', 4, 4, 83, 237, 93, '93,Subandi Jayaputra', '-', '2024-05-21 15:58:05', '2024-05-21 15:59:00', NULL);
+
+--
 -- Triggers `aset_alatmekanik`
 --
 DELIMITER $$
-CREATE TRIGGER `tambah_penyusutan6` BEFORE INSERT ON `aset_alatmekanik` FOR EACH ROW BEGIN
+CREATE TRIGGER `tambah_penyusutan6` BEFORE UPDATE ON `aset_alatmekanik` FOR EACH ROW BEGIN
     SET NEW.penyusutan = (NEW.nilaiperolehan - NEW.nilai_residu) / NEW.masa_manfaat;
 END
 $$
@@ -321,6 +342,8 @@ CREATE TABLE `aset_alattelekomunikasi` (
   `nama_alattelekomunikasi` varchar(255) NOT NULL,
   `merek_alattelekomunikasi` varchar(255) NOT NULL,
   `tipe_alattelekomunikasi` varchar(255) NOT NULL,
+  `imei1_alattelekomunikasi` int DEFAULT NULL,
+  `imei2_alattelekomunikasi` int DEFAULT NULL,
   `spesifikasi_alattelekomunikasi` text NOT NULL,
   `jenis_alattelekomunikasi` varchar(255) NOT NULL,
   `kode_alattelekomunikasi` varchar(255) DEFAULT '04',
@@ -348,10 +371,20 @@ CREATE TABLE `aset_alattelekomunikasi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
+-- Dumping data for table `aset_alattelekomunikasi`
+--
+
+INSERT INTO `aset_alattelekomunikasi` (`id_alattelekomunikasi`, `no_aset`, `nama_alattelekomunikasi`, `merek_alattelekomunikasi`, `tipe_alattelekomunikasi`, `imei1_alattelekomunikasi`, `imei2_alattelekomunikasi`, `spesifikasi_alattelekomunikasi`, `jenis_alattelekomunikasi`, `kode_alattelekomunikasi`, `kondisi`, `jumlah`, `satuan`, `nilaiperolehan`, `nilai_residu`, `tanggal_aset`, `masa_manfaat`, `penyusutan`, `image`, `alamat`, `pengelola_barang`, `pengguna_barang`, `kuasa_pengguna_barang`, `id_unit_kerja`, `id_ruangan`, `id_petugas1`, `id_petugas2`, `keterangan`, `date_created`, `date_updated`, `deleted_at`) VALUES
+(3, 4000001, 'Hp', 'Samsung', 'S412', 2131238, 87183213, 'preosad', 'Smartphone', '04', 'asd', 1, 'Unit', '50000', 60000, '2024-05-21', 3, -3333, 'Picture1.png', 'Jalan kelapa muda no 21', 'PT. Rolas Nusantara Medika', 4, 4, 83, 237, 93, '93,Subandi Jayaputra', 'Baik', '2024-05-21 14:07:57', '2024-05-21 14:40:34', NULL),
+(4, 4000002, 'Hp', 'Samsung', 'S412', 554345, 12312, 'adsa', 'Smartphone', '04', 'zxc', 1, 'Unit', '50000', NULL, '2024-05-21', NULL, NULL, 'Class Diagram.drawio (1).png', 'Jalan kelapa muda no 21', 'PT. Rolas Nusantara Medika', 4, 4, 83, 239, 93, '93,Subandi Jayaputra', 'asdas', '2024-05-21 14:41:12', NULL, NULL),
+(5, 4000003, 'Hp', 'Samsung', 'S412', NULL, NULL, 'hkasdh', 'Smartphone', '04', 'asd', 1, 'Unit', '50000', 10000000, '2024-05-21', 5, -1990000, 'rolas.png', '123 Main Street', 'PT. Rolas Nusantara Medika', 4, 4, 83, 238, 93, '93,Subandi Jayaputra', '-', '2024-05-21 14:52:21', '2024-05-21 15:15:39', NULL),
+(6, 4000004, 'Hp', 'Samsung', 'S412', 123123, 123123, 'zxcasd', 'Smartphone', '04', 'Biak', 1, 'Unit', '50000', 450000, '2024-05-21', 3, -133333, 'dinas sosial.jpeg', 'Jalan kelapa muda no 21', 'PT. Rolas Nusantara Medika', 4, 4, 83, 238, 93, '93,Subandi Jayaputra', 'Diasnzxc', '2024-05-21 14:58:31', '2024-05-21 14:59:05', NULL);
+
+--
 -- Triggers `aset_alattelekomunikasi`
 --
 DELIMITER $$
-CREATE TRIGGER `tambah_penyusutan5` BEFORE INSERT ON `aset_alattelekomunikasi` FOR EACH ROW BEGIN
+CREATE TRIGGER `tambah_penyusutan5` BEFORE UPDATE ON `aset_alattelekomunikasi` FOR EACH ROW BEGIN
     SET NEW.penyusutan = (NEW.nilaiperolehan - NEW.nilai_residu) / NEW.masa_manfaat;
 END
 $$
@@ -397,10 +430,18 @@ CREATE TABLE `aset_gedungdanbangunan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
+-- Dumping data for table `aset_gedungdanbangunan`
+--
+
+INSERT INTO `aset_gedungdanbangunan` (`id_gedungdanbangunan`, `no_aset`, `nama_gedungdanbangunan`, `nama_objek`, `jenis_gedungdanbangunan`, `kode_aset_gedungdanbangunan`, `kondisi`, `luas_gedungdanbangunan`, `satuan`, `nilaiperolehan`, `nilai_residu`, `sertifikat_kepemilikan`, `tanggal_aset`, `masa_manfaat`, `penyusutan`, `image`, `alamat`, `lat`, `long`, `pengelola_barang`, `pengguna_barang`, `kuasa_pengguna_barang`, `id_unit_kerja`, `id_ruangan`, `id_petugas1`, `id_petugas2`, `keterangan`, `date_created`, `date_updated`, `deleted_at`) VALUES
+(7, 3000001, 'Aset Tetap Gedung dan Bangunan', 'Tanah Lap Tennis', 'Bata Merah', '02', 'Baik', '123', 'm²', '500000', 35000, '123', '2024-05-07', 5, 93000, 'dinas pemadam.jpeg', 'Jl. Merdeka No. 10', '-3123', '-12038974', 'PT. Rolas Nusantara Medika', 3, 3, 157, 248, 95, '95,Saifullah', '-', '2024-05-07 14:17:05', '2024-05-07 14:25:59', NULL),
+(8, 4000001, 'Aset Tetap Gedung dan Bangunan', 'Tanah Lap Tennis', 'Bata Merah', '02', 'Baik', '123', 'm²', '123', NULL, '123', '2024-05-21', NULL, NULL, 'f534f_pipiet-wibawanto.jpg', 'Jalan kelapa muda no 21', '-3123', '-12038974', 'PT. Rolas Nusantara Medika', 4, 4, 83, 239, 93, '93,Subandi Jayaputra', 'okey', '2024-05-21 13:54:23', NULL, NULL);
+
+--
 -- Triggers `aset_gedungdanbangunan`
 --
 DELIMITER $$
-CREATE TRIGGER `tambah_penyusutan4` BEFORE INSERT ON `aset_gedungdanbangunan` FOR EACH ROW BEGIN
+CREATE TRIGGER `tambah_penyusutan4` BEFORE UPDATE ON `aset_gedungdanbangunan` FOR EACH ROW BEGIN
     SET NEW.penyusutan = (NEW.nilaiperolehan - NEW.nilai_residu) / NEW.masa_manfaat;
 END
 $$
@@ -448,10 +489,17 @@ CREATE TABLE `aset_kendaraandanambulance` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
+-- Dumping data for table `aset_kendaraandanambulance`
+--
+
+INSERT INTO `aset_kendaraandanambulance` (`id_kendaraandanambulance`, `no_aset`, `nama_kendaraandanambulance`, `jenis_kendaraan`, `merek_kendaraan`, `kode_aset_kendaraandanambulance`, `nopol`, `norangka`, `nomesin`, `nobpkb`, `kepemilikan_stnk`, `kondisi`, `jumlah`, `satuan`, `nilaiperolehan`, `nilai_residu`, `tanggal_aset`, `masa_manfaat`, `penyusutan`, `image`, `alamat`, `pengelola_barang`, `pengguna_barang`, `kuasa_pengguna_barang`, `id_unit_kerja`, `id_ruangan`, `id_petugas1`, `id_petugas2`, `keterangan`, `date_created`, `date_updated`, `deleted_at`) VALUES
+(4, 4000001, 'Ambulance', 'Mobil', 'Hyundai', '03', 'asd213', 'asd123', 'dsad123', 'zxc213', 'asdzxc', 'baik', 1, 'Unit', '1000', 500000, '2024-05-21', 3, -166333, 'satpol pp.jpeg', 'Jalan kelapa muda no 21', 'PT. Rolas Nusantara Medika', 4, 4, 83, 239, 93, '93,Subandi Jayaputra', '-', '2024-05-21 13:44:34', '2024-05-21 13:53:29', NULL);
+
+--
 -- Triggers `aset_kendaraandanambulance`
 --
 DELIMITER $$
-CREATE TRIGGER `tambah_penyusutan3` BEFORE INSERT ON `aset_kendaraandanambulance` FOR EACH ROW BEGIN
+CREATE TRIGGER `tambah_penyusutan3` BEFORE UPDATE ON `aset_kendaraandanambulance` FOR EACH ROW BEGIN
     SET NEW.penyusutan = (NEW.nilaiperolehan - NEW.nilai_residu) / NEW.masa_manfaat;
 END
 $$
@@ -496,10 +544,17 @@ CREATE TABLE `aset_komputer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
+-- Dumping data for table `aset_komputer`
+--
+
+INSERT INTO `aset_komputer` (`id_komputer`, `no_aset`, `nama_komputer`, `merek_komputer`, `tipe_komputer`, `spesifikasi_komputer`, `jenis_komputer`, `kode_komputer`, `kondisi`, `jumlah`, `satuan`, `nilaiperolehan`, `nilai_residu`, `tanggal_aset`, `masa_manfaat`, `penyusutan`, `image`, `alamat`, `pengelola_barang`, `pengguna_barang`, `kuasa_pengguna_barang`, `id_unit_kerja`, `id_ruangan`, `id_petugas1`, `id_petugas2`, `keterangan`, `date_created`, `date_updated`, `deleted_at`) VALUES
+(3, 4000001, 'jalsdk', 'm,sdo', '09p;zxc', 'Baik', 'ozxcn', '06', 'kokmxcz', 4, 'Unit', '50000', 20000, '2024-05-21', 3, 10000, 'zaitaku-iyada-5_11.png', 'Jln pepaya no 12 Bali', 'PT. Rolas Nusantara Medika', 4, 4, 83, 239, 93, '93,Subandi Jayaputra', '-', '2024-05-21 15:28:47', '2024-05-21 15:44:40', NULL);
+
+--
 -- Triggers `aset_komputer`
 --
 DELIMITER $$
-CREATE TRIGGER `tambah_penyusutan2` BEFORE INSERT ON `aset_komputer` FOR EACH ROW BEGIN
+CREATE TRIGGER `tambah_penyusutan2` BEFORE UPDATE ON `aset_komputer` FOR EACH ROW BEGIN
     SET NEW.penyusutan = (NEW.nilaiperolehan - NEW.nilai_residu) / NEW.masa_manfaat;
 END
 $$
@@ -543,16 +598,6 @@ CREATE TABLE `aset_tanah` (
   `date_updated` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Triggers `aset_tanah`
---
-DELIMITER $$
-CREATE TRIGGER `tambah_penyusutan` BEFORE INSERT ON `aset_tanah` FOR EACH ROW BEGIN
-    SET NEW.penyusutan = (NEW.nilaiperolehan - NEW.nilai_residu) / NEW.masa_manfaat;
-END
-$$
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -814,6 +859,8 @@ CREATE TABLE `inventaris_peralatantelekomunikasi` (
   `nama_peralatantelekomunikasi` varchar(255) NOT NULL,
   `merek_peralatantelekomunikasi` varchar(255) NOT NULL,
   `tipe_peralatantelekomunikasi` varchar(255) NOT NULL,
+  `imei1_peralatantelekomunikasi` int DEFAULT NULL,
+  `imei2_peralatantelekomunikasi` int DEFAULT NULL,
   `spesifikasi_peralatantelekomunikasi` text NOT NULL,
   `jenis_peralatantelekomunikasi` varchar(255) NOT NULL,
   `kode_peralatantelekomunikasi` varchar(255) DEFAULT 'TE',
@@ -837,6 +884,13 @@ CREATE TABLE `inventaris_peralatantelekomunikasi` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `inventaris_peralatantelekomunikasi`
+--
+
+INSERT INTO `inventaris_peralatantelekomunikasi` (`id_peralatantelekomunikasi`, `no_inventaris`, `nama_peralatantelekomunikasi`, `merek_peralatantelekomunikasi`, `tipe_peralatantelekomunikasi`, `imei1_peralatantelekomunikasi`, `imei2_peralatantelekomunikasi`, `spesifikasi_peralatantelekomunikasi`, `jenis_peralatantelekomunikasi`, `kode_peralatantelekomunikasi`, `kondisi`, `jumlah`, `satuan`, `nilaiperolehan`, `tanggal_barang`, `image`, `alamat`, `pengelola_barang`, `pengguna_barang`, `kuasa_pengguna_barang`, `id_unit_kerja`, `id_ruangan`, `id_petugas1`, `id_petugas2`, `keterangan`, `date_created`, `date_updated`, `deleted_at`) VALUES
+(7, 4000001, 'baisdk', 'mnasdio', '1231', 141231, 2087, 'asdasd', 'm,asnd', 'TE', 'Baik', 2, 'unit', '200000', '2024-05-21', 'dinas pemadam.jpeg', '123 Main Street', 'PT. Rolas Nusantara Medika', 4, 4, 83, 239, 93, ',undefined', '-', '2024-05-21 15:38:33', '2024-05-21 15:42:15', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -857,9 +911,10 @@ CREATE TABLE `petugas` (
 
 INSERT INTO `petugas` (`id`, `name`, `id_unit_usaha`, `id_ruangan`, `id_unit_kerja`) VALUES
 (92, 'Erwin Wahyu S', 2, 228, 62),
-(93, 'Subandi', 4, 239, 83),
-(94, 'Erwin Wahyu S', 5, 232, 129),
-(95, 'Saifullah', 3, 244, 158);
+(93, 'Subandi Jayaputra', 4, 238, 83),
+(94, 'Erwin Wahyu S', 5, 246, 129),
+(95, 'Saifullah', 3, 245, 158),
+(96, 'Ani Susanti', 2, 230, 62);
 
 -- --------------------------------------------------------
 
@@ -882,13 +937,15 @@ INSERT INTO `ruangan` (`id`, `id_unit_usaha`, `id_unit_kerja`, `name`) VALUES
 (228, 2, 62, 'Ruang Medis'),
 (229, 2, 60, 'Ruang Rapat'),
 (230, 2, 62, 'Ruang Operasi'),
-(232, 5, 129, 'Ruang ruangan'),
+(232, 5, 129, 'Ruang Operasi'),
 (237, 4, 83, 'Ruang Rapat'),
 (238, 4, 83, 'Ruang Kerja'),
 (239, 4, 83, 'Ruang Operational'),
-(244, 3, 158, 'Ruang Medis'),
+(244, 3, 157, 'Ruang Medis'),
 (245, 3, 158, 'Ruang Asuransi Kesehatan'),
-(246, 5, 129, 'Ruang Kesehatan');
+(246, 5, 129, 'Ruang Kesehatan'),
+(247, 5, 128, 'Poli Gigi'),
+(248, 3, 157, 'Ruang Administrasi');
 
 -- --------------------------------------------------------
 
@@ -976,11 +1033,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `kode`, `image`, `username`, `password`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Corporation', '', '6539682a2e2c3.jpg', 'corporation', 'cc06b7dbf9844f5066f9e1689586ea4d', 'Corporation', '', '2023-03-20 17:00:00', '2023-03-20 17:00:00'),
-(2, 'Head Office', 'HO', '655441c195bd3.png', 'headoffice', 'ba67c848e591f04e0ac1a53fc10971bb', 'Head Office', NULL, '2023-03-20 17:00:00', '2023-03-20 17:00:00'),
+(1, 'Corporation', '', '6539682a2e2c3.jpg', 'corporation', '086c740eb282cdf4b4c9a94d5982277f', 'Corporation', '', '2023-03-20 17:00:00', '2023-03-20 17:00:00'),
+(2, 'Head Office', 'HO', '660fc144e67b1.png', 'headoffice', 'ba67c848e591f04e0ac1a53fc10971bb', 'Head Office', NULL, '2023-03-20 17:00:00', '2023-03-20 17:00:00'),
 (3, 'RSU Kaliwates', 'RSUK', '653beac9c618a.jpg', 'rsukaliwates', 'bf48b4d3cfcde01f76e5fe1a20bb8d8b', 'RSU Kaliwates', NULL, '2023-03-20 17:00:00', '2023-03-27 17:00:00'),
 (4, 'RSU Bhakti Husada', 'RSUBH', 'avatar-10.jpg', 'rsubhaktihusada', '066c8aa96a8eb6848ee9106be2b38491', 'RSU Bhakti Husada', NULL, '2023-03-20 17:00:00', '2023-04-15 17:00:00'),
-(5, 'Grup Klinik', 'GK', '6555ddd82dee8.png', 'grupklinik', 'e1a2cb1a89b1dd37e057ae8eae56d0ed', 'Grup Klinik', NULL, '2023-03-20 17:00:00', '2023-04-15 17:00:00');
+(5, 'Grup Klinik', 'GK', '6628400436c7f.png', 'grupklinik', 'e1a2cb1a89b1dd37e057ae8eae56d0ed', 'Grup Klinik', NULL, '2023-03-20 17:00:00', '2023-04-15 17:00:00');
 
 --
 -- Indexes for dumped tables
@@ -1138,7 +1195,7 @@ ALTER TABLE `aset_alatac`
 -- AUTO_INCREMENT for table `aset_alatkantor`
 --
 ALTER TABLE `aset_alatkantor`
-  MODIFY `id_alatkantor` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_alatkantor` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `aset_alatlift`
@@ -1150,7 +1207,7 @@ ALTER TABLE `aset_alatlift`
 -- AUTO_INCREMENT for table `aset_alatlistrik`
 --
 ALTER TABLE `aset_alatlistrik`
-  MODIFY `id_alatlistrik` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_alatlistrik` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `aset_alatmedis`
@@ -1162,43 +1219,43 @@ ALTER TABLE `aset_alatmedis`
 -- AUTO_INCREMENT for table `aset_alatmekanik`
 --
 ALTER TABLE `aset_alatmekanik`
-  MODIFY `id_alatmekanik` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_alatmekanik` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `aset_alattelekomunikasi`
 --
 ALTER TABLE `aset_alattelekomunikasi`
-  MODIFY `id_alattelekomunikasi` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_alattelekomunikasi` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `aset_gedungdanbangunan`
 --
 ALTER TABLE `aset_gedungdanbangunan`
-  MODIFY `id_gedungdanbangunan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_gedungdanbangunan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `aset_kendaraandanambulance`
 --
 ALTER TABLE `aset_kendaraandanambulance`
-  MODIFY `id_kendaraandanambulance` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_kendaraandanambulance` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `aset_komputer`
 --
 ALTER TABLE `aset_komputer`
-  MODIFY `id_komputer` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_komputer` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `aset_tanah`
 --
 ALTER TABLE `aset_tanah`
-  MODIFY `id_tanah` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_tanah` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `inventaris_kendaraan`
 --
 ALTER TABLE `inventaris_kendaraan`
-  MODIFY `id_kendaraan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id_kendaraan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `inventaris_peralatanac`
@@ -1240,19 +1297,19 @@ ALTER TABLE `inventaris_peralatantekniklistrikdanmekanik`
 -- AUTO_INCREMENT for table `inventaris_peralatantelekomunikasi`
 --
 ALTER TABLE `inventaris_peralatantelekomunikasi`
-  MODIFY `id_peralatantelekomunikasi` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_peralatantelekomunikasi` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `petugas`
 --
 ALTER TABLE `petugas`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- AUTO_INCREMENT for table `ruangan`
 --
 ALTER TABLE `ruangan`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=247;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=249;
 
 --
 -- AUTO_INCREMENT for table `unit_kerja`
